@@ -60,10 +60,10 @@ names(routes)[names(routes) == "Terminal"] <- "Planterminal"
 # Dit onderscheid is niet per se ontleed aan de werkelijke praktijk
 # Vluchtnummers boven de 5000 zijn bedoeld voor vluchten die worden gedeeld tussen airlines (komen niet in deze dataset voor)
 
-# Vluchten vanaf een "hub" van een airline krijgen vaak een oneven vluchtnummer, en vluchten naar een hub een oneven
+# Vluchten vanaf een "hub" van een airline krijgen vaak een oneven vluchtnummer, en vluchten naar een hub een even
 # VisionAirPort is een hub van 4 airlines: KLM, Transavia, TuiFly, en Corendon
 # Omdat (meestal) begonnen wordt met de arriverende vlucht, is dat voor deze 4 airlines een vlucht náár de hub
-# Deze 4 airlines beginnen dus op een oneven vluchtnummer, de rest op een even vluchtnummer
+# Deze 4 airlines beginnen dus op een even vluchtnummer, de rest op een even vluchtnummer
 
 # Kolom toevoegen aan df
 routes$Vluchtnr <- 0
@@ -74,8 +74,8 @@ for(i in levels(routes[,1])) {
   sub <- routes[routes$Airlinecode == i,]
   # als deze airline maar 1 vlucht heeft: geef random vluchtnummer
   if(nrow(sub) == 1) {
-    sub$Vluchtnr[sub$Continent=="Eur"] <- floor(runif(1,min=10,max=495)) * 2
-    sub$Vluchtnr[sub$Continent!="Eur"] <- floor(runif(1,min=495,max=2995)) * 2
+    sub$Vluchtnr[sub$Continent=="Eur"] <- floor(runif(1,min=10,max=495)) * 2 + 1
+    sub$Vluchtnr[sub$Continent!="Eur"] <- floor(runif(1,min=495,max=2995)) * 2 + 1
   # meer vluchten? voeg dan controle toe dat gegenereerde vluchtnummers niet te dicht opeen zitten
   # sorteer van klein naar groot en check dat opeenvolgende vluchtnummers minstens 8 verschillen
   # door de while-functie wordt geprobeerd tot een willekeurige set is gegenereerd die voldoet
