@@ -6,6 +6,7 @@ setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus V
 # Packages
 require(chron)
 require(sn)
+require(ggplot2)
 
 
 
@@ -101,7 +102,7 @@ str.simtabel <- structure(list(Datum = as.Date(character()),
 # Vluchten vanaf een "hub" van een airline krijgen vaak een oneven vluchtnummer, en vluchten naar een hub een even
 # VisionAirPort is een hub van 4 airlines: KLM, Transavia, TuiFly, en Corendon
 # Omdat (meestal) begonnen wordt met de arriverende vlucht, is dat voor deze 4 airlines een vlucht náár de hub
-# Deze 4 airlines beginnen dus op een even vluchtnummer, de rest op een even vluchtnummer
+# Deze 4 airlines beginnen dus op een even vluchtnummer, de rest op een oneven vluchtnummer
 
 # Kolom toevoegen aan df
 routes$Vluchtnr <- 0
@@ -541,3 +542,11 @@ for(i in simdagen) {
 rm(sub.planning,sub.weer,sub.vlucht,dag,h,i,j,slechtzicht,windstoot,winduren,zichturen)
 
 plot(density(sim$Vertraging, adjust=2))
+
+
+plottabel <- sim
+plottabel$Datum <- as.factor(plottabel$Datum)
+
+ggplot(plottabel, aes(x=Vertraging, fill = Terminal)) + geom_density(position="stack", size=0) + facet_wrap(~Datum,nrow=5)
+
+aes(fill=as.factor(Datum))
