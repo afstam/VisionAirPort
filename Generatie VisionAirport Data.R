@@ -7,6 +7,8 @@ setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus V
 require(chron)
 require(sn)
 require(ggplot2)
+require(dplyr)
+require(reshape2)
 
 
 
@@ -48,48 +50,12 @@ weer$RH[weer$RH < 0] <- 0
 weer$nat <- weer$RH > 100
 weer$vorst <- weer$TG < -10 & weer$RH > 0
 
-names(routes)[names(routes) == "Gate"] <- "Plangate"
-names(routes)[names(routes) == "Terminal"] <- "Planterminal"
+routes <- rename(routes, Plangate = Gate, Planterminal = Terminal)
 
 # Enkele levels in een vector opslaan
 gatelvls <- c(levels(routes$Plangate),"C8")
 terminallvls <- c(levels(routes$Planterminal))
 richtinglvls <- c("A","D","S")
-
-# Tabelstructuren
-vars.plantabel <- c("Airlinecode", "Destcode", "Planterminal", "Plangate", "Vluchtnr", "Basisnr", "start", "eind","Richting","Plantijd","Dag")
-str.plantabel <- structure(list(Airlinecode = factor(levels=levels(routes$Airlinecode)),
-                                Destcode = factor(levels=levels(routes$Destcode)),
-                                Planterminal = factor(levels=terminallvls),
-                                Plangate = factor(levels=gatelvls),
-                                Vluchtnr = integer(),
-                                Basisnr = integer(),
-                                start = integer(),
-                                eind = integer(),
-                                Richting = factor(levels=richtinglvls),
-                                Plantijd = integer(),
-                                Dag = integer()), 
-                           class = "data.frame")
-
-vars.vlucht.sim <- c("Richting","Airlinecode","Destcode","Vluchtnr","Basisnr","Planterminal","Plangate","Plantijd")
-vars.simtabel <- c("Datum",vars.vlucht.sim,"Terminal","Gate","Tijd","Vertraging")
-str.simtabel <- structure(list(Datum = as.Date(character()),
-                               Richting = factor(levels=richtinglvls),
-                               Airlinecode = factor(levels=levels(routes$Airlinecode)),
-                               Destcode = factor(levels=levels(routes$Destcode)),
-                               Vluchtnr = integer(),
-                               Basisnr = integer(),
-                               Planterminal = factor(levels=terminallvls),
-                               Plangate = factor(levels=gatelvls),
-                               Plantijd = integer(),
-                               Terminal = factor(levels=terminallvls),
-                               Gate = factor(levels=gatelvls),
-                               Tijd = integer(),
-                               Vertraging = integer()),
-                          class = "data.frame")
-
-
-
 
 # Genereren vluchtnummers ######################################################################################
 
@@ -105,23 +71,23 @@ str.simtabel <- structure(list(Datum = as.Date(character()),
 # Deze 4 airlines beginnen dus op een even vluchtnummer, de rest op een oneven vluchtnummer
 
 # Kolom toevoegen aan df
-routes$Vluchtnr <- 0
+routes <- mutate(routes, Vluchtnr = 0)
 
 # For-loop per airline (i = Airlinecode)
 for(i in levels(routes[,1])) {
   # tijdelijk df met vluchten van deze ene airline
-  sub <- routes[routes$Airlinecode == i,]
+  sub <- filter(routes, Airlinecode == i)
   # als deze airline maar 1 vlucht heeft: geef random vluchtnummer
   if(nrow(sub) == 1) {
-    sub$Vluchtnr[sub$Continent=="Eur"] <- floor(runif(1,min=10,max=495)) * 2 + 1
-    sub$Vluchtnr[sub$Continent!="Eur"] <- floor(runif(1,min=495,max=2995)) * 2 + 1
+    sub[sub$Continent=="Eur","Vluchtnr"] <- floor(runif(1,min=10,max=495)) * 2 + 1
+    sub[sub$Continent!="Eur","Vluchtnr"] <- floor(runif(1,min=495,max=2995)) * 2 + 1
   # meer vluchten? voeg dan controle toe dat gegenereerde vluchtnummers niet te dicht opeen zitten
   # sorteer van klein naar groot en check dat opeenvolgende vluchtnummers minstens 8 verschillen
   # door de while-functie wordt geprobeerd tot een willekeurige set is gegenereerd die voldoet
   } else {
     while(min(diff(sub[order(sub$Vluchtnr),"Vluchtnr"])) <= 7) {
-      sub$Vluchtnr[sub$Continent=="Eur"] <- floor(runif(nrow(sub[sub$Continent=="Eur",]),min=10,max=495)) * 2 + 1
-      sub$Vluchtnr[sub$Continent!="Eur"] <- floor(runif(nrow(sub[sub$Continent!="Eur",]),min=495,max=2995)) * 2 + 1
+      sub[sub$Continent=="Eur","Vluchtnr"] <- floor(runif(nrow(sub[sub$Continent=="Eur",]),min=10,max=495)) * 2 + 1
+      sub[sub$Continent!="Eur","Vluchtnr"] <- floor(runif(nrow(sub[sub$Continent!="Eur",]),min=495,max=2995)) * 2 + 1
     }
   }
   # de gegenereerde vluchtnummers worden teruggezet in het bron-dataframe
@@ -129,12 +95,20 @@ for(i in levels(routes[,1])) {
 }
 rm(sub)
 
+# Basisnr is het onbewerkte vluchtnummer
+# Vliegtuig combineert de airlinecode daarmee als identificatie voor later
+routes <- mutate(routes,
+                 Basisnr = Vluchtnr,
+                 Vliegtuig = paste0(Airlinecode, Basisnr))
+
+# Sla alle vliegtuigen op
+vliegtuiglvls <- unique(routes$Vliegtuig)
+
 # Aanpassing voor de 4 airlines voor wie VisionAirport een hub is
 home <- c("KL","HV","TFL","CAI")
 routes$Vluchtnr[!(routes$Airlinecode %in% home)] <- routes$Vluchtnr[!(routes$Airlinecode %in% home)] - 1
 
-# Sla basis-vluchtnummer op als identificatie voor later
-routes$Basisnr <- routes$Vluchtnr
+
 
 
 # Bepalen vluchtperiode ######################################################################################
@@ -146,14 +120,29 @@ routes$Basisnr <- routes$Vluchtnr
 # De startmaand en eindmaand wordt per route willekeurig gekozen
 # Eerst wordt overal jan - dec ingevoerd, daarna wordt dit voor de zomervluchten overschreven
 
-routes$start <- 1
-routes$eind <- 12
-routes$start[routes$Periode == "z"] <- sample(c(4,5,6),1)
-routes$eind[routes$Periode == "z"] <- sample(c(8,9,10),1)
+aantalzomer <- nrow(filter(routes, Periode == "z"))
+routes <- mutate(routes, start = 1, eind = 12)
+routes[routes$Periode == "z", c("start","eind")] <- c(sample(c(4,5,6),aantalzomer,replace=T),sample(c(8,9,10),aantalzomer,replace=T))
 
 
 
 # Opstellen planning ######################################################################################
+
+# Tabelstructuren
+vars.plantabel <- c("Airlinecode", "Destcode", "Planterminal", "Plangate", "Vluchtnr", "Basisnr", "Vliegtuig", "start", "eind","Richting","Plantijd","Dag")
+str.plantabel <- structure(list(Airlinecode = factor(levels=levels(routes$Airlinecode)),
+                                Destcode = factor(levels=levels(routes$Destcode)),
+                                Planterminal = factor(levels=terminallvls),
+                                Plangate = factor(levels=gatelvls),
+                                Vluchtnr = integer(),
+                                Basisnr = integer(),
+                                Vliegtuig = factor(levels=vliegtuiglvls),
+                                start = integer(),
+                                eind = integer(),
+                                Richting = factor(levels=richtinglvls),
+                                Plantijd = integer(),
+                                Dag = integer()), 
+                           class = "data.frame")
 
 # Dit stuk van de code genereert de plantijden voor elke routevlucht
 # Dit proces gebeurt per gate afzonderlijk
@@ -214,13 +203,14 @@ gates[1,] <- list("C8",0L,0L,0L,0L)
 
 for (i in levels(routes$Plangate)) {
   # sub.gate is een selectie van routes met de huidige gate
-  sub.gate <- routes[routes$Plangate == i,]
-  sub.gate$Mintijd <- 0
-  sub.gate$Klaar <- 0
-  # Een aantal tijden staan in uren in de brondata, en worden omgeschreven naar stappen van 5 mins
-  sub.gate$Duur <- ceiling(sub.gate$Duur * 60 / 5)
-  sub.gate$Turnaround <- ceiling(sub.gate$Turnaround * 60 / 5)
-  sub.gate$Turnaroundtotaal <- ceiling(sub.gate$Turnaroundtotaal * 60 / 5)
+  sub.gate <- filter(routes,Plangate == i)
+  sub.gate <- transform(sub.gate,
+                        Mintijd = 0,
+                        Klaar = 0,
+                        Duur = ceiling(Duur * 60 / 5),
+                        Turnaround = ceiling(Turnaround * 60 / 5),
+                        Turnaroundtotaal = ceiling(Turnaroundtotaal * 60 / 5),
+                        Indeling = ave(Vluchten, Delay, FUN = function(x) rank(x, ties.method = "first")))
   
   # Het aantal dubbele, enkele, en halve vluchten
   aantdubbel <- nrow(subset(sub.gate,Vluchten == 2))
@@ -228,11 +218,10 @@ for (i in levels(routes$Plangate)) {
   aanthalf <- max(nrow(subset(sub.gate,Vluchten == 0.5 & Delay == 1)),nrow(subset(sub.gate,Vluchten == 0.5 & Delay == 0)))
   
   # Hier combineren we de halve vluchten met elkaar
-  sub.gate <- transform(sub.gate,Indeling = ave(Vluchten, Delay, FUN = function(x) rank(x, ties.method = "first")))
   sub.gate$Indeling[sub.gate$Vluchten > 0.5] <- 0
   sub.gate$Indeling[sub.gate$Vluchten > 0.5] <- (max(sub.gate$Indeling)+1):(max(sub.gate$Indeling)+aantdubbel+aantenkel)
   # Sorteer de tabel zodat de dubbele vluchten bovenaan staan, aflopend gesorteerd op vluchtduur (dus langste vluchten eerst inplannen)
-  sub.gate <- sub.gate[order(sub.gate$Vluchten,sub.gate$Duur,decreasing=TRUE),]
+  sub.gate <- arrange(sub.gate,desc(Vluchten),desc(Duur))
   
   # Plansub is de tabel waarin ingeplande vluchten tijdelijk worden opgeslagen
   plansub <- str.plantabel
@@ -259,9 +248,10 @@ for (i in levels(routes$Plangate)) {
       # Als dit niet de eerste vlucht is:
       if (c > 0) {
         # Plan arriverende vlucht in
-        sub.vlucht$Richting <- "A"
-        sub.vlucht$Plantijd <- tijd
-        sub.vlucht$Dag <- 0
+        sub.vlucht <- mutate(sub.vlucht,
+                             Richting = "A",
+                             Plantijd = tijd,
+                             Dag = 0)
         plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
         sub.vlucht$Dag <- 1
         plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
@@ -282,9 +272,10 @@ for (i in levels(routes$Plangate)) {
       sub.vlucht$Vluchtnr <- sub.vlucht$Vluchtnr + 1
       
       # Plan vertrekkende vlucht in
-      sub.vlucht$Richting <- "D"
-      sub.vlucht$Plantijd <- tijd
-      sub.vlucht$Dag <- 0
+      sub.vlucht <- mutate(sub.vlucht,
+                           Richting = "D",
+                           Plantijd = tijd,
+                           Dag = 0)
       plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
       sub.vlucht$Dag <- 1
       plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
@@ -295,6 +286,7 @@ for (i in levels(routes$Plangate)) {
       sub.gate$Mintijd[select] <- tijd + (sub.vlucht$Duur * 2) + 12
       # Verhoog vluchtnummer in sub.gate
       sub.gate$Vluchtnr[select] <- sub.gate$Vluchtnr[select] + 2
+      sub.gate$Basisnr[select] <- sub.gate$Basisnr[select] + 2
       
       # Buffertijd verstrijkt
       buffer <- abs(c-0.5*d)/(0.5*d)*(max-min) + min
@@ -329,8 +321,9 @@ for (i in levels(routes$Plangate)) {
     # Als dit niet de eerste vlucht is:
     if (c > 0) {
       # Plan arriverende vlucht in
-      sub.vlucht$Richting <- "A"
-      sub.vlucht$Plantijd <- tijd
+      sub.vlucht <- mutate(sub.vlucht,
+                           Richting = "A",
+                           Plantijd = tijd)
       if (nrow(sub.vlucht) == 1) {
         sub.vlucht$Dag <- 0
         plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
@@ -360,8 +353,9 @@ for (i in levels(routes$Plangate)) {
     sub.vlucht$Vluchtnr <- sub.vlucht$Vluchtnr + 1
     
     # Plan vertrekkende vlucht in
-    sub.vlucht$Richting <- "D"
-    sub.vlucht$Plantijd <- tijd
+    sub.vlucht <- mutate(sub.vlucht,
+                         Richting = "D",
+                         Plantijd = tijd)
     if (nrow(sub.vlucht) == 1) {
       sub.vlucht$Dag <- 0
       plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
@@ -393,15 +387,16 @@ for (i in levels(routes$Plangate)) {
   if (exists("afsluiter")) {
     # Plan laatste arriverende vlucht in
     sub.vlucht <- afsluiter
-    sub.vlucht$Richting <- "A"
-    sub.vlucht$Plantijd <- tijd
+    sub.vlucht <- mutate(sub.vlucht,
+                         Richting = "A",
+                         Plantijd = tijd)
     if (nrow(sub.vlucht) == 1) {
       sub.vlucht$Dag <- 0
       plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
       sub.vlucht$Dag <- 1
       plansub[nrow(plansub)+1,] <- sub.vlucht[,vars.plantabel]
     } else if (nrow(sub.vlucht) == 2) {
-      sub.vlucht$Dag <- sub.vlucht$Delay
+      sub.vlucht$Dag <- 1 - sub.vlucht$Delay
       plansub[(nrow(plansub)+1):(nrow(plansub)+2),] <- sub.vlucht[,vars.plantabel]
     } else {
       print("Fout bij het inplannen van vlucht. Printout relevante informatie:")
@@ -424,6 +419,10 @@ rm(sub.gate,plansub,sub.vlucht,aantdubbel,aantenkel,aanthalf,beschikbaar,buffer,
 }
 
 rm(a)
+
+planning <- mutate(planning,
+                   Basisnr = paste0(Airlinecode,Basisnr),
+                   Vluchtnr = paste0(Airlinecode,Vluchtnr))
 
 # Verschuif de planning zo, dat de laatste vlucht om 23:55 vertrekt
 planning$Plantijd <- planning$Plantijd + 287 - max(planning$Plantijd)
@@ -451,8 +450,30 @@ h <- 0
 #inactief <- routes$Vluchtnr[sample(1:nrow(routes),36)]
 #planning$Actief <- !(planning$Basisnr %in% inactief)
 
+# Tabelstructuren
+vars.vlucht.sim <- c("Richting","Airlinecode","Destcode","Vluchtnr","Vliegtuig","Planterminal","Plangate","Plantijd")
+vars.simtabel <- c("Datum",vars.vlucht.sim,"Terminal","Gate","Tijd","Vertraging")
+str.simtabel <- structure(list(Datum = as.Date(character()),
+                               Richting = factor(levels=richtinglvls),
+                               Airlinecode = factor(levels=levels(routes$Airlinecode)),
+                               Destcode = factor(levels=levels(routes$Destcode)),
+                               Vluchtnr = integer(),
+                               Vliegtuig = factor(levels=vliegtuiglvls),
+                               Planterminal = factor(levels=terminallvls),
+                               Plangate = factor(levels=gatelvls),
+                               Plantijd = integer(),
+                               Terminal = factor(levels=terminallvls),
+                               Gate = factor(levels=gatelvls),
+                               Tijd = integer(),
+                               Vertraging = integer()),
+                          class = "data.frame")
+
 # Een tabel voor de gesimuleerde vluchten
 sim <- str.simtabel
+# Alle vliegtuigen
+vliegtuig <- summarize(arrange(group_by(planning,Dag,Basisnr),Plantijd),
+                       freq = n(),
+                       ri = first(Richting))
 
 for(i in simdagen) {
   # Lees informatie in over deze dag
@@ -472,7 +493,7 @@ for(i in simdagen) {
     if(sub.weer$FG > (65 - 40 * sub.weer$nat)) {
       winduren <- 0:23
     } else {
-      winduren <- max(0,sub.weer$FXXH-3):min(23,sub.weer$FXXH+2)
+      winduren <- max(0,sub.weer$FXXH-5):min(23,sub.weer$FXXH+4)
     }
   } else {
     winduren <- NA
@@ -486,60 +507,64 @@ for(i in simdagen) {
     zichturen <- NA
   }
   
-  # We slaan de planning voor vandaag op in sub.planning
-  sub.planning <- data.frame(planning[planning$Dag == dag,])
-  sub.planning <- sub.planning[order(sub.planning$Plantijd),]
+  sub.vliegtuig <- filter(vliegtuig, Dag == dag)
   
-  for(j in 1:nrow(sub.planning)) {
-    
-    # Check: wordt de vlucht gevlogen?
-    if(sub.weer$Maand %in% sub.planning$start[j]:sub.planning$eind[j] ) { #& sub.planning$Actief[j] == T
-      
-      # Voeg toe aan counter 'h'
-      h <- h+1
+  # We slaan de planning voor vandaag op in sub.planning
+  sub.planning <- arrange(filter(planning, Dag == dag), Plantijd, Basisnr)
+  
+  # Filter de vluchten die in deze maand niet worden gevlogen er uit
+  sub.planning <- filter(sub.planning, sub.weer$Maand >= start & sub.weer$Maand <= eind)
+  
+  # Voeg kolommen toe
+  sub.planning <- mutate(sub.planning,
+                         Datum = sub.weer$Datum,
+                         Vertraging = NA,
+                         Tijd = NA,
+                         Gate = NA,
+                         Terminal = NA,
+                         Cancelled = 0)
+  rownames(sub.planning) <- NULL
+  
+  # Bepaal de vertraging door weer
+  slechtzicht <- sub.planning$Planuur %in% zichturen
+  windstoot <- sub.planning$Planuur %in% winduren
+  v.weer <- sub.weer$vorst * 90 + slechtzicht * 30 + windstoot * 15 + sub.weer$nat * 10
+  v.weer <- rsn(n=nrow(sub.planning),omega=0.35*v.weer,alpha=-10) + v.weer
+  v.weer[v.weer < 0] <- 0
+  
+  # Bepaal de extra vertraging voor intercontinentale vluchten
+  continentaal <- sub.planning$Planterminal %in% c("D","E")
+  v.continent <- rnorm(n=nrow(sub.planning),mean = 15, sd = 5) * continentaal
+  
+  # Bepaal de ruis in de vertraging
+  v.random <- rsn(n=nrow(sub.planning),omega=5,alpha=4)
 
-      # Haal informatie op
-      sub.vlucht <- data.frame(Datum = sub.weer$Datum, droplevels(sub.planning[j,vars.vlucht.sim]))
-      rownames(sub.vlucht) <- NULL
-      
-      # Bepaal de vertraging
-      sub.vlucht$Planuur <- sub.vlucht$Plantijd %/% 60
-      slechtzicht <- sub.vlucht$Planuur %in% zichturen
-      windstoot <- sub.vlucht$Planuur %in% winduren
-      sub.vlucht$Vertraging <- sub.weer$vorst * 90 + slechtzicht * 30 + windstoot * 15 + sub.weer$nat * 10
-      sub.vlucht$Vertraging <- rsn(n=1,omega=0.35*sub.vlucht$Vertraging,alpha=-10) + sub.vlucht$Vertraging
-      if (sub.vlucht$Vertraging < 0) { sub.vlucht$Vertraging <- 0 }
-      sub.vlucht$Vertraging <- as.integer(sub.vlucht$Vertraging + rsn(n=1,omega=2,alpha=1000))
-      
-      sub.vlucht$Tijd <- sub.vlucht$Plantijd + sub.vlucht$Vertraging
-      
-      # Is er een gatewissel nodig?
-      #if(nrow(sub.planning[sub.planning$Gate == sub.planning$Plangate[j] &
-      #                (sub.planning$Tijd[j] - sub.planning$Tijd) < 60 &
-      #                sub.planning$Vluchtnr != sub.planning$Vluchtnr[j] &
-      #                sub.planning$Tijd > 0, ]) > 0) {
-      #  # Overzicht van gates
-      #  gates <- aggregate(abs(sub.planning$Plantijd - sub.planning$Tijd[j]), by=list(gate=sub.planning$Plangate), FUN=min)
-      #  if (nrow(gates[gates$gate == "C8",]) == 0) {
-      #    levels(gates$gate) <- c(levels(gates$gate), "C8")
-      #    gates <- rbind(gates,c("C8",999))
-      #  }
-      #  
-      #} else {
-      #  sub.planning$Gate[j] <- sub.planning$Plangate[j]
-      #}
-      
-      sub.vlucht$Gate <- sub.vlucht$Plangate
-      sub.vlucht$Terminal <- sub.vlucht$Planterminal
-      
-      sim[h,] <- sub.vlucht[,vars.simtabel]
-    }
-  }
+  # Bereken de totale vertraging
+  sub.planning$Vertraging <- as.integer(v.weer + v.continent + v.random)
+  
+  # Filter arriverende vluchten
+  arr <- sub.planning$Richting == "A"
+  # Filter vluchten waarbij de arriverende vlucht invloed heeft op de vertraging van de vertrekkende vlucht
+  dub <- sub.planning$Basisnr %in% filter(vliegtuig, freq > 1 & ri == "A")$Basisnr
+  
+  # Voeg de vertraging van een eventuele eerdere, arriverende vlucht toe aan het df
+  sub.planning <- arrange(merge(sub.planning, sub.planning[arr,c("Basisnr","Vertraging")], by = "Basisnr", all.x = T),Plantijd,Basisnr)
+  sub.planning <- rename(sub.planning, Vertraging = Vertraging.x)
+  sub.planning[dub&!arr,"Vertraging"] <- sub.planning[dub&!arr,"Vertraging.y"]
+  sub.planning$Vertraging.y <- NULL
+  
+  sub.planning$Gate <- sub.planning$Plangate
+  sub.planning$Terminal <- sub.planning$Planterminal
+  
+  # De daadwerkelijke tijd
+  sub.planning$Tijd <- sub.planning$Plantijd + sub.planning$Vertraging
+  
+  sim <- rbind(sim, sub.planning)
   
   print(paste0("Simulatie afgerond van ",sub.weer$Dag," ",funmaand(sub.weer$Maand)," ",sub.weer$Jaar))
 }
 
-rm(sub.planning,sub.weer,sub.vlucht,dag,h,i,j,slechtzicht,windstoot,winduren,zichturen)
+rm(sub.planning,sub.weer,dag,h,i,slechtzicht,windstoot,winduren,zichturen)
 
 plot(density(sim$Vertraging, adjust=2))
 
@@ -548,5 +573,3 @@ plottabel <- sim
 plottabel$Datum <- as.factor(plottabel$Datum)
 
 ggplot(plottabel, aes(x=Vertraging, fill = Terminal)) + geom_density(position="stack", size=0) + facet_wrap(~Datum,nrow=5)
-
-aes(fill=as.factor(Datum))
