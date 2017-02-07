@@ -511,17 +511,15 @@ for(i in simdagen) {
   
   # We slaan de planning voor vandaag op in sub.planning
   sub.planning <- arrange(filter(planning, Dag == dag), Plantijd, Basisnr)
-  
   # Filter de vluchten die in deze maand niet worden gevlogen er uit
   sub.planning <- filter(sub.planning, sub.weer$Maand >= start & sub.weer$Maand <= eind)
-  
   # Voeg kolommen toe
-  sub.planning <- mutate(sub.planning,
+  sub.planning <- data.frame(sub.planning,
                          Datum = sub.weer$Datum,
-                         Vertraging = NA,
-                         Tijd = NA,
-                         Gate = NA,
-                         Terminal = NA,
+                         Vertraging = as.integer(NA),
+                         Tijd = as.integer(NA),
+                         Gate = factor(NA,levels=gatelvls),
+                         Terminal = factor(NA,levels=terminallvls),
                          Cancelled = 0)
   rownames(sub.planning) <- NULL
   
@@ -537,7 +535,7 @@ for(i in simdagen) {
   v.continent <- rnorm(n=nrow(sub.planning),mean = 15, sd = 5) * continentaal
   
   # Bepaal de ruis in de vertraging
-  v.random <- rsn(n=nrow(sub.planning),omega=5,alpha=4)
+  v.random <- rsn(n=nrow(sub.planning),omega=5,alpha=4) #+ sample(c(rep(0,19),1),nrow(sub.planning), replace = T) * 30
 
   # Bereken de totale vertraging
   sub.planning$Vertraging <- as.integer(v.weer + v.continent + v.random)
@@ -553,15 +551,47 @@ for(i in simdagen) {
   sub.planning[dub&!arr,"Vertraging"] <- sub.planning[dub&!arr,"Vertraging.y"]
   sub.planning$Vertraging.y <- NULL
   
-  sub.planning$Gate <- sub.planning$Plangate
-  sub.planning$Terminal <- sub.planning$Planterminal
-  
   # De daadwerkelijke tijd
   sub.planning$Tijd <- sub.planning$Plantijd + sub.planning$Vertraging
   
+  sub.planning$Gate <- sub.planning$Plangate
+  
+  # Gatewissels
+  gate <- dcast(data = sub.planning,formula = Gate + Basisnr~Richting,fun.aggregate = mean,value.var = "Tijd")
+  wissels <- 0
+  
+  for (j in gatelvls) {
+    sel <- gate$Gate == j
+    bezet <- sapply(sub.planning$Plantijd, function(x) any(x > gate$A[sel] & x < gate$D[sel] + 10)) & sub.planning$Plangate == j & sub.planning$Richting == "A"
+    
+    for (k in which(bezet)) {
+      a <- gate[gate$Basisnr == sub.planning$Basisnr[k],"A"]
+      d <- gate[gate$Basisnr == sub.planning$Basisnr[k],"D"]
+      rows <- which(sub.planning$Basisnr == sub.planning$Basisnr[k])
+      d_row <- which(rownames(sub.planning) %in% rows & sub.planning$Richting == "D")
+      
+      gate$vrij <- a > gate$D | d < gate$A
+      beschikbaar <- summarize(group_by(gate,Gate), a = all(vrij))
+      if (nrow(filter(beschikbaar, Gate == "C8")) == 0) { beschikbaar <- rbind(beschikbaar, list("C8",T)) }
+      if (nrow(filter(beschikbaar, a == TRUE)) > 0) {
+        sub.planning$Gate[rows] <- sample(as.character(filter(beschikbaar, a == TRUE)$Gate),1)
+        sub.planning$Vertraging[d_row] <- sub.planning$Vertraging[d_row] + sample(11:17,1)
+        sub.planning$Tijd[d_row] <- sub.planning$Plantijd[d_row] + sub.planning$Vertraging[d_row]
+        wissels <- wissels + 1
+        gate <- dcast(data = sub.planning,formula = Gate + Basisnr~Richting,fun.aggregate = mean,value.var = "Tijd")
+      } else {
+        sub.planning$Cancelled[k] <- 1
+        sub.planning$Tijd <- NA
+      }
+    }
+  }
+  
+  # De daadwerkelijke tijd
+  sub.planning$Terminal <- substr(as.character(sub.planning$Gate),1,1)
+  
   sim <- rbind(sim, sub.planning)
   
-  print(paste0("Simulatie afgerond van ",sub.weer$Dag," ",funmaand(sub.weer$Maand)," ",sub.weer$Jaar))
+  print(paste0("Simulatie afgerond van ",sub.weer$Dag," ",funmaand(sub.weer$Maand)," ",sub.weer$Jaar,". Aantal gatewissels: ",wissels))
 }
 
 rm(sub.planning,sub.weer,dag,h,i,slechtzicht,windstoot,winduren,zichturen)
@@ -571,5 +601,6 @@ plot(density(sim$Vertraging, adjust=2))
 
 plottabel <- sim
 plottabel$Datum <- as.factor(plottabel$Datum)
+plottabel$continentaal <- plottabel$Planterminal %in% c("D","E")
 
-ggplot(plottabel, aes(x=Vertraging, fill = Terminal)) + geom_density(position="stack", size=0) + facet_wrap(~Datum,nrow=5)
+ggplot(plottabel, aes(x=Vertraging, fill = continentaal)) + geom_density(alpha = .5, size=0) + facet_wrap(~Datum,nrow=5)
