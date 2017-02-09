@@ -48,7 +48,8 @@ weer <- read.csv2("data_weer.csv")
 weer$Datum <- as.Date(weer$Datum,"%d-%m-%Y")
 weer$RH[weer$RH < 0] <- 0
 weer$nat <- weer$RH > 100
-weer$vorst <- weer$TG < -10 & weer$RH > 0
+weer$vorst <- weer$TG < 0
+weer$sneeuw <- weer$TG < -10 & weer$RH > 15
 
 routes <- rename(routes, Plangate = Gate, Planterminal = Terminal)
 
@@ -105,7 +106,7 @@ routes <- mutate(routes,
 vliegtuiglvls <- unique(routes$Vliegtuig)
 
 # Aanpassing voor de 4 airlines voor wie VisionAirport een hub is
-home <- c("KL","HV","TFL","CAI")
+home <- c("KL","HV","OR","CAI")
 routes$Vluchtnr[!(routes$Airlinecode %in% home)] <- routes$Vluchtnr[!(routes$Airlinecode %in% home)] - 1
 
 
@@ -452,7 +453,7 @@ h <- 0
 
 # Tabelstructuren
 vars.vlucht.sim <- c("Richting","Airlinecode","Destcode","Vluchtnr","Vliegtuig","Planterminal","Plangate","Plantijd")
-vars.simtabel <- c("Datum",vars.vlucht.sim,"Terminal","Gate","Tijd","Vertraging")
+vars.simtabel <- c("Datum",vars.vlucht.sim,"Terminal","Gate","Tijd","Vertraging","Baan")
 str.simtabel <- structure(list(Datum = as.Date(character()),
                                Richting = factor(levels=richtinglvls),
                                Airlinecode = factor(levels=levels(routes$Airlinecode)),
@@ -465,7 +466,8 @@ str.simtabel <- structure(list(Datum = as.Date(character()),
                                Terminal = factor(levels=terminallvls),
                                Gate = factor(levels=gatelvls),
                                Tijd = integer(),
-                               Vertraging = integer()),
+                               Vertraging = integer(),
+                               Baan = integer()),
                           class = "data.frame")
 
 # Een tabel voor de gesimuleerde vluchten
@@ -520,13 +522,14 @@ for(i in simdagen) {
                          Tijd = as.integer(NA),
                          Gate = factor(NA,levels=gatelvls),
                          Terminal = factor(NA,levels=terminallvls),
+                         Baan = as.integer(NA),
                          Cancelled = 0)
   rownames(sub.planning) <- NULL
   
   # Bepaal de vertraging door weer
   slechtzicht <- sub.planning$Planuur %in% zichturen
   windstoot <- sub.planning$Planuur %in% winduren
-  v.weer <- sub.weer$vorst * 90 + slechtzicht * 30 + windstoot * 15 + sub.weer$nat * 10
+  v.weer <- sub.weer$sneeuw * 30 + sub.weer$vorst * 10 + slechtzicht * 30 + windstoot * 15 + sub.weer$nat * 10
   v.weer <- rsn(n=nrow(sub.planning),omega=0.35*v.weer,alpha=-10) + v.weer
   v.weer[v.weer < 0] <- 0
   
@@ -562,9 +565,11 @@ for(i in simdagen) {
   
   for (j in gatelvls) {
     sel <- gate$Gate == j
-    bezet <- sapply(sub.planning$Plantijd, function(x) any(x > gate$A[sel] & x < gate$D[sel] + 10)) & sub.planning$Plangate == j & sub.planning$Richting == "A"
+    bezet <- which(sapply(sub.planning$Tijd, function(x) any(x > gate$A[sel] & x < gate$D[sel] + 10)) & sub.planning$Gate == j & sub.planning$Richting == "A")
     
-    for (k in which(bezet)) {
+    while(length(bezet) > 0) {
+      k <- bezet[1]
+      
       a <- gate[gate$Basisnr == sub.planning$Basisnr[k],"A"]
       d <- gate[gate$Basisnr == sub.planning$Basisnr[k],"D"]
       rows <- which(sub.planning$Basisnr == sub.planning$Basisnr[k])
@@ -580,27 +585,66 @@ for(i in simdagen) {
         wissels <- wissels + 1
         gate <- dcast(data = sub.planning,formula = Gate + Basisnr~Richting,fun.aggregate = mean,value.var = "Tijd")
       } else {
-        sub.planning$Cancelled[k] <- 1
-        sub.planning$Tijd <- NA
+        sub.planning$Cancelled[rows] <- 1
+        sub.planning$Tijd[rows] <- NA
+        sub.planning$Gate[rows] <- NA
       }
+      
+      bezet <- which(sapply(sub.planning$Tijd, function(x) any(x > gate$A[sel] & x < gate$D[sel] + 10)) & sub.planning$Gate == j & sub.planning$Richting == "A")
     }
   }
   
-  # De daadwerkelijke tijd
+  # Pas terminal aan een eventuele gatewissel aan
   sub.planning$Terminal <- substr(as.character(sub.planning$Gate),1,1)
   
-  sim <- rbind(sim, sub.planning)
+  # Baankeuze
+  if(sub.weer$FXX < 100) {
+    # Wind geen invloed op baankeuze
+    sub.planning[sub.planning$Richting == "A","Baan"] <- 4
+    sub.planning[sub.planning$Richting == "D","Baan"] <- 3
+  } else {
+    banen$A_score <- 180 - abs((sub.weer$DDVEC - banen$Landen + 180) %% 360 - 180)
+    banen$D_score <- 180 - abs((sub.weer$DDVEC - banen$Opstijgen + 180) %% 360 - 180)
+    a.baan <- head(arrange(filter(banen, Baannummer != 6),A_score),1)$Baannummer
+    d.baan <- (1:5)[-a.baan]
+    d.baan <- head(arrange(filter(banen, Baannummer %in% d.baan),D_score),1)$Baannummer
+    sub.planning[sub.planning$Richting == "A","Baan"] <- a.baan
+    sub.planning[sub.planning$Richting == "D","Baan"] <- d.baan
+  }
   
+  
+  # Opslaan en verwerken
+  sim <- rbind(sim, sub.planning[,vars.simtabel])
   print(paste0("Simulatie afgerond van ",sub.weer$Dag," ",funmaand(sub.weer$Maand)," ",sub.weer$Jaar,". Aantal gatewissels: ",wissels))
 }
+
+sim$Datum[sim$Cancelled == 0 & sim$Tijd >= 1440] <- sim$Datum[sim$Cancelled == 0 & sim$Tijd >= 1440] + 1
+sim$Tijd <- sim$Tijd %% 1440
+
+sim$Gatewissel <- sim$Plangate != sim$Gate & !is.na(sim$Gate)
+sim$Cancelled <- is.na(sim$Tijd)
 
 rm(sub.planning,sub.weer,dag,h,i,slechtzicht,windstoot,winduren,zichturen)
 
 plot(density(sim$Vertraging, adjust=2))
+
+summ <- summarise(group_by(sim,Datum),vertraging = mean(Vertraging,na.rm=T), gatewissels = sum(as.integer(Gatewissel)), gatewisselperc = sum(as.integer(Gatewissel))/n(), vluchten = n(), cancels = sum(Cancelled))
+summ <- merge(summ, weer, by = "Datum")
+maand <- summarise(group_by(summ, Maand), vorst = sum(vorst), vertraging = mean(vertraging,na.rm=T), gatewissels = sum(gatewissels), vluchten = sum(vluchten), cancels = sum(cancels))
+plot(summ$FG, summ$vertraging)
+plot(summ$FXX, summ$vertraging)
+plot(summ$vorst, summ$vertraging)
+plot(summ$sneeuw, summ$vertraging)
+plot(summ$RH, summ$vertraging)
+plot(summ$TG, summ$vertraging)
+
+model <- lm(vertraging ~ vluchten + gatewissels + FXX + FG + VVN + nat + vorst + sneeuw + RH, data = summ)
+summary(model)
 
 
 plottabel <- sim
 plottabel$Datum <- as.factor(plottabel$Datum)
 plottabel$continentaal <- plottabel$Planterminal %in% c("D","E")
 
-ggplot(plottabel, aes(x=Vertraging, fill = continentaal)) + geom_density(alpha = .5, size=0) + facet_wrap(~Datum,nrow=5)
+ggplot(plottabel, aes(x=Vertraging, fill = Gatewissel)) + geom_density(alpha = .5, size=0) + facet_wrap(~continentaal,nrow=5)
+

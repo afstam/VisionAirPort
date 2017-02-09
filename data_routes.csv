@@ -1,184 +1,184 @@
 Airlinecode;Airlinenaam;Destcode;Destnaam;Periode;Vluchten;Delay;Turnaround;Turnaroundtotaal;Continent;Afstand;Duur;Totaal;Terminal;Gate
-FR;Ryanair;DUB;Dublin;z;1;0;0,75;0,75;Eur;780,2098915;1,751634178;5;A;A1
-FR;Ryanair;LPA;Gran Canaria;z;1;0;0,75;0,75;Eur;3176,423225;5,186206622;3;A;A1
-FR;Ryanair;MAN;Manchester;j;2;0;0,75;1,5;Eur;517,8542641;1,375591112;4;A;A1
-FR;Ryanair;DUB;Dublin;j;2;0;0,75;1,5;Eur;780,2098915;1,751634178;5;A;A1
-FR;Ryanair;ALC;Alicante;z;2;0;0,75;1,5;Eur;1593,556648;2,917431196;4;A;A1
-FR;Ryanair;SOF;Sofia;j;2;0;0,75;1,5;Eur;1718,537818;3,096570873;6;A;A5
-FR;Ryanair;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;A;A1
-FR;Ryanair;MLA;Malta;z;2;0;0,75;1,5;Eur;1947,213634;3,424339542;4;A;A1
-FR;Ryanair;AYT;Antalya;j;2;0;0,75;1,5;Eur;2620,306246;4,389105619;6;A;A1
-FR;Ryanair;ACE;Lanzarote;z;2;0;0,75;1,5;Eur;2998,23535;4,930804001;6;A;A1
-HV;Transavia Holland;LPA;Gran Canaria;z;1;0;0,75;0,75;Eur;3176,423225;5,186206622;3;A;A2
-HV;Transavia Holland;TFS;Tenerife;j;1;0;0,75;0,75;Eur;3218,86065;5,247033599;4;A;A2
-HV;Transavia Holland;ALC;Alicante;j;2;0;0,75;1,5;Eur;1593,556648;2,917431196;4;A;A2
-HV;Transavia Holland;SOF;Sofia;j;2;0;0,75;1,5;Eur;1718,537818;3,096570873;6;A;A2
-HV;Transavia Holland;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;A;A2
-HV;Transavia Holland;ATH;Athens;j;2;0;0,75;1,5;Eur;2145,631648;3,708738695;6;A;A2
-HV;Transavia Holland;AYT;Antalya;z;2;0;0,75;1,5;Eur;2620,306246;4,389105619;6;A;A2
-HV;Transavia Holland;PRG;Prague;j;2;0;0,75;1,5;Eur;674,5505257;1,600189087;6;A;A2
-HV;Transavia Holland;VCE;Venice;z;2;0;0,75;1,5;Eur;900,2117443;1,923636833;2;A;A3
-HV;Transavia Holland;LJU;Ljubljana;j;2;0;0,75;1,5;Eur;938,2534769;1,978163317;4;A;A3
-HV;Transavia Holland;BCN;Barcelona;j;2;0;0,75;1,5;Eur;1218,250152;2,379491884;6;A;A3
-HV;Transavia Holland;BCN;Barcelona;j;2;0;0,75;1,5;Eur;1218,250152;2,379491884;6;A;A3
-HV;Transavia Holland;PMI;Palma de Mallorca;z;2;0;0,75;1,5;Eur;1402,251727;2,643227475;4;A;A3
-HV;Transavia Holland;SKG;Thessaloniki;z;2;0;0,75;1,5;Eur;1869,125694;3,312413495;2;A;A3
-HV;Transavia Holland;KGS;Kos;z;2;0;0,75;1,5;Eur;2416,322383;4,096728748;6;A;A3
-HV;Transavia Holland;ACE;Lanzarote;z;2;0;0,75;1,5;Eur;2998,23535;4,930804001;6;A;A3
-ADR;Adria Airways;LJU;Ljubljana;j;2;0;0,75;1,5;Eur;938,2534769;1,978163317;4;A;A4
-AEA;Air Europa;MAD;Madrid;z;2;0;0,75;1,5;Eur;1446,023309;2,705966743;4;A;A4
-AMC;Air Malta;MLA;Malta;j;2;0;0,75;1,5;Eur;1947,213634;3,424339542;4;A;A4
-HV;Transavia Holland;FAO;Faro;j;2;0;0,75;1,5;Eur;1960,962401;3,444046109;4;A;A4
-PS;Ukraine International Airlines;KBP;Kiev;j;2;0;0,75;1,5;Eur;1796,914193;3,208910343;2;A;A4
-OU;Croatia Airlines;ZAG;Zagreb;j;2;0;0,75;1,5;Eur;1063,045991;2,157032587;2;A;A5
-EW;Eurowings;TXL;Berlin;j;2;0;0,75;1,5;Eur;558,4051799;1,433714091;6;A;A5
-FIN;Finnair;HEL;Helsinki;j;2;0;0,75;1,5;Eur;1523,923141;2,817623168;6;A;A5
-TAP;TAP Portugal;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;A;A5
-AEE;Aegean Airlines;ATH;Athens;j;2;0;0,75;1,5;Eur;2145,631648;3,708738695;6;A;A6
-AEE;Aegean Airlines;ATH;Athens;z;2;0;0,75;1,5;Eur;2145,631648;3,708738695;6;A;A6
-SN;Brussels Airlines;BRU;Brussels;j;2;0;0,75;1,5;Eur;135,5515829;0,827623936;2;A;A6
-FB;Bulgaria Air;SOF;Sofia;j;2;0;0,75;1,5;Eur;1718,537818;3,096570873;6;A;A6
-CAI;Corendon Airlines;AYT;Antalya;z;2;0;0,75;1,5;Eur;2620,306246;4,389105619;6;A;A6
-TCX;Thomas Cook Airlines;LPA;Gran Canaria;z;1;0;0,75;0,75;Eur;3176,423225;5,186206622;3;B;B1
-TCX;Thomas Cook Airlines;TFS;Tenerife;z;1;0;0,75;0,75;Eur;3218,86065;5,247033599;4;B;B1
-TCX;Thomas Cook Airlines;IOM;Isle Of Man;z;2;0;0,75;1,5;Eur;687,6736266;1,618998865;2;B;B1
-TCX;Thomas Cook Airlines;PMI;Palma de Mallorca;z;2;0;0,75;1,5;Eur;1402,251727;2,643227475;4;B;B1
-TFL;TUI Airlines;TFS;Tenerife;z;1;0;0,75;0,75;Eur;3218,86065;5,247033599;4;B;B2
-TFL;TUI Airlines;KGS;Kos;z;2;0;0,75;1,5;Eur;2416,322383;4,096728748;6;B;B2
-TFL;TUI Airlines;FAO;Faro;z;2;0;0,75;1,5;Eur;1960,962401;3,444046109;4;B;B2
-TFL;TUI Airlines;KGS;Kos;z;2;0;0,75;1,5;Eur;2416,322383;4,096728748;6;B;B2
-AZ;Alitalia;MXP;Milan;j;2;0;0,75;1,5;Eur;761,7087436;1,725115866;4;B;B3
-AZ;Alitalia;FCO;Rome;j;2;0;0,75;1,5;Eur;1260,83941;2,440536488;6;B;B3
-AZ;Alitalia;FCO;Rome;z;2;0;0,75;1,5;Eur;1260,83941;2,440536488;6;B;B3
-CSA;Czech Airlines;PRG;Prague;j;2;0;0,75;1,5;Eur;674,5505257;1,600189087;6;B;B3
-LOT;LOT Polish Airlines;WAW;Warsaw;j;2;0;0,75;1,5;Eur;1080,695117;2,182329668;2;B;B3
-SWR;Swiss International Air Lines;ZRH;Zurich;j;2;0;0,75;1,5;Eur;566,9898079;1,446018725;2;B;B3
-BT;Air Baltic;VNO;Vilnius;j;2;0;0,75;1,5;Eur;1364,499924;2,589116558;2;B;B4
-AUA;Austrian Airlines;VIE;Vienna;j;2;0;0,75;1,5;Eur;926,4218364;1,961204632;4;B;B4
-SAS;Scandinavian Airlines System;CPH;Copenhagen;j;2;0;0,75;1,5;Eur;633,3774688;1,541174372;6;B;B4
-SAS;Scandinavian Airlines System;OSL;Oslo;j;2;0;0,75;1,5;Eur;934,5583908;1,972867027;4;B;B4
-EI;Aer Lingus;ORK;Cork;j;2;0;0,75;1,5;Eur;931,1949784;1,968046136;2;B;B5
-SAS;Scandinavian Airlines System;ARN;Stockholm;j;2;0;0,75;1,5;Eur;1159,083974;2,29468703;4;B;B5
-THY;Turkish Airlines;IST;Istanbul;j;2;0;0,75;1,5;Eur;2176,728618;3,753311019;4;B;B5
-THY;Turkish Airlines;ESB;Ankara;j;2;0;0,75;1,5;Eur;2502,848327;4,220749269;2;B;B5
-KL;KLM Royal Dutch Airlines;FRA;Frankfurt;j;2;0;0,75;1,5;Eur;329,3583771;1,105413674;6;C;C1
-KL;KLM Royal Dutch Airlines;HAM;Hamburg;j;2;0;0,75;1,5;Eur;371,2752263;1,165494491;2;C;C1
-KL;KLM Royal Dutch Airlines;DUS;Dusseldorf;j;2;0;0,75;1,5;Eur;142,4921567;0,837572091;2;C;C1
-KL;KLM Royal Dutch Airlines;BCN;Barcelona;j;2;0;0,75;1,5;Eur;1218,250152;2,379491884;6;C;C1
-KL;KLM Royal Dutch Airlines;VLC;Valencia;j;2;0;0,75;1,5;Eur;1462,054616;2,72894495;2;C;C1
-KL;KLM Royal Dutch Airlines;HEL;Helsinki;j;2;0;0,75;1,5;Eur;1523,923141;2,817623168;6;C;C1
-KL;KLM Royal Dutch Airlines;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;C;C1
-KL;KLM Royal Dutch Airlines;IST;Istanbul;j;2;0;0,75;1,5;Eur;2176,728618;3,753311019;4;C;C1
-KL;KLM Royal Dutch Airlines;LHR;London;j;2;0;0,75;1,5;Eur;388,7288496;1,190511351;12;C;C2
-KL;KLM Royal Dutch Airlines;LHR;London;j;2;0;0,75;1,5;Eur;388,7288496;1,190511351;12;C;C2
-KL;KLM Royal Dutch Airlines;TXL;Berlin;j;2;0;0,75;1,5;Eur;558,4051799;1,433714091;6;C;C2
-KL;KLM Royal Dutch Airlines;MUC;Munich;j;2;0;0,75;1,5;Eur;628,1758629;1,533718737;4;C;C2
-KL;KLM Royal Dutch Airlines;CPH;Copenhagen;j;2;0;0,75;1,5;Eur;633,3774688;1,541174372;6;C;C2
-KL;KLM Royal Dutch Airlines;GVA;Geneva;j;2;0;0,75;1,5;Eur;650,9972947;1,566429456;4;C;C2
-KL;KLM Royal Dutch Airlines;VIE;Vienna;j;2;0;0,75;1,5;Eur;926,4218364;1,961204632;4;C;C2
-KL;KLM Royal Dutch Airlines;CDG;Paris;j;2;0;0,75;1,5;Eur;383,7308404;1,183347538;8;C;C2
-BA;British Airways;LGW;London;j;2;0;0,75;1,5;Eur;379,7142578;1,177590436;12;C;C3
-BA;British Airways;LHR;London;j;2;0;0,75;1,5;Eur;388,7288496;1,190511351;12;C;C3
-BA;British Airways;LHR;London;j;2;0;0,75;1,5;Eur;388,7288496;1,190511351;12;C;C3
-LH;Lufthansa;FRA;Frankfurt;j;2;0;0,75;1,5;Eur;329,3583771;1,105413674;6;C;C3
-LH;Lufthansa;FRA;Frankfurt;j;2;0;0,75;1,5;Eur;329,3583771;1,105413674;6;C;C3
-LH;Lufthansa;MUC;Munich;j;2;0;0,75;1,5;Eur;628,1758629;1,533718737;4;C;C3
-EZY;easyJet;TXL;Berlin;j;2;0;0,75;1,5;Eur;558,4051799;1,433714091;6;C;C4
-EZY;easyJet;FCO;Rome;j;2;0;0,75;1,5;Eur;1260,83941;2,440536488;6;C;C4
-EZY;easyJet;ACE;Lanzarote;j;2;0;0,75;1,5;Eur;2998,23535;4,930804001;6;C;C4
-EZY;easyJet;LGW;London;j;2;0;0,75;1,5;Eur;379,7142578;1,177590436;12;C;C4
-EZY;easyJet;LIS;Lisbon;z;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;C;C4
-EZY;easyJet;SZG;Salzburg;j;2;0;0,75;1,5;Eur;736,8238255;1,689447483;2;C;C4
-EZY;easyJet;TFS;Tenerife;z;1;0;0,75;0,75;Eur;3218,86065;5,247033599;4;C;C5
-EZY;easyJet;MAN;Manchester;j;2;0;0,75;1,5;Eur;517,8542641;1,375591112;4;C;C5
-EZY;easyJet;GVA;Geneva;j;2;0;0,75;1,5;Eur;650,9972947;1,566429456;4;C;C5
-EZY;easyJet;PRG;Prague;j;2;0;0,75;1,5;Eur;674,5505257;1,600189087;6;C;C5
-EZY;easyJet;GLA;Glasgow;j;2;0;0,75;1,5;Eur;753,8271523;1,713818918;2;C;C5
-EZY;easyJet;MXP;Milan;z;2;0;0,75;1,5;Eur;761,7087436;1,725115866;4;C;C5
-EZY;easyJet;LPL;Liverpool;j;2;0;0,75;1,5;Eur;554,6372867;1,428313444;2;C;C5
-EI;Aer Lingus;DUB;Dublin;j;2;0;0,75;1,5;Eur;780,2098915;1,751634178;5;C;C6
-AF;Air France;CDG;Paris;z;2;0;0,75;1,5;Eur;383,7308404;1,183347538;8;C;C6
-AF;Air France;CDG;Paris;j;2;0;0,75;1,5;Eur;383,7308404;1,183347538;8;C;C6
-AF;Air France;CDG;Paris;j;2;0;0,75;1,5;Eur;383,7308404;1,183347538;8;C;C6
-AF;Air France;SXB;Strasbourg;j;2;0;0,75;1,5;Eur;430,0383767;1,249721673;2;C;C6
-IB;Iberia Airlines;MAD;Madrid;j;2;0;0,75;1,5;Eur;1446,023309;2,705966743;4;C;C7
-NAX;Norwegian Air Shuttle;CPH;Copenhagen;j;2;0;0,75;1,5;Eur;633,3774688;1,541174372;6;C;C7
-NAX;Norwegian Air Shuttle;OSL;Oslo;j;2;0;0,75;1,5;Eur;934,5583908;1,972867027;4;C;C7
-NAX;Norwegian Air Shuttle;ARN;Stockholm;j;2;0;0,75;1,5;Eur;1159,083974;2,29468703;4;C;C7
-NAX;Norwegian Air Shuttle;HEL;Helsinki;j;2;0;0,75;1,5;Eur;1523,923141;2,817623168;6;C;C7
-HV;Transavia Holland;TLV;Tel Aviv Yafo;j;1;0;1,25;1,25;Az;3277,228709;5,330694482;3;D;D1
-BW;Caribbean Airlines;KIN;Kingston;j;1;0;1,25;1,25;NAm;7896,677927;11,95190503;1;D;D1
-BW;Caribbean Airlines;AUA;Aruba;z;1;0;1,25;1,25;NAm;7900,023373;11,95670017;2;D;D1
-TFL;TUI Airlines;YYZ;Toronto;z;1;0;1,25;1,25;NAm;6023,525404;9,267053078;3;D;D1
-TFL;TUI Airlines;MIA;Miami;z;1;0;1,25;1,25;NAm;7472,196234;11,34348127;2;D;D1
-LY;El Al Israel Airlines;TLV;Tel Aviv Yafo;j;1;0;1,25;1,25;Az;3277,228709;5,330694482;3;D;D2
-UAE;Emirates;DXB;Dubai;j;1;0;1,25;1,25;Az;5138,325886;7,998267103;1;D;D2
-EY;Etihad Airways;AUH;Abu Dhabi;j;1;0;1,25;1,25;Az;5160,751613;8,030410646;2;D;D2
-GA;Garuda Indonesia;CGK;Jakarta;j;0,5;1;1,25;0,625;Az;11332,74509;16,87693463;1;D;D2
-IR;Iran Air;THR;Tehran;j;1;0;1,25;1,25;Az;4038,667676;6,422090335;1;D;D2
-JAI;Jet Airways;DEL;Delhi;z;1;0;1,25;1,25;Az;6342,586351;9,724373769;2;D;D2
-QTR;Qatar Airways;DOH;Doha;j;1;0;1,25;1,25;Az;4889,767747;7,642000437;2;D;D2
-QTR;Qatar Airways;DOH;Doha;j;1;0;1,25;1,25;Az;4889,767747;7,642000437;2;D;D2
-AFL;Aeroflot Russian Airlines;SVO;Moscow;j;2;0;1,25;2,5;Az;2134,277283;3,692464106;4;D;D3
-AMX;AeroMéxico;MEX;Mexico City;j;0,5;1;1,25;0,625;NAm;9238,975694;13,87586516;0,5;D;D3
-SO;Salsa d'Haiti;PAP;Port Au Prince;z;1;0;1,25;1,25;NAm;7535,290784;11,43391679;1;D;D3
-PY;Surinam Airways;PBM;Paramaribo;j;1;0;1,25;1,25;ZAm;7536,392259;11,43549557;3;D;D3
-PY;Surinam Airways;PBM;Paramaribo;z;1;0;1,25;1,25;ZAm;7536,392259;11,43549557;3;D;D3
-CX;Cathay Pacific;HKG;Hong Kong;z;0,5;1;1,25;0,625;Az;9266,837198;13,91579998;1;D;D4
-CAL;China Airlines;TPE;Taipei;j;0,5;0;1,25;0,625;Az;9439,451744;14,16321417;1,5;D;D4
-CES;China Eastern Airlines;SHA;Shanghai;j;0,5;0;1,25;0,625;Az;8879,89145;13,36117774;0,5;D;D4
-CSN;China Southern Airlines;CAN;Guangzhou;j;0,5;1;1,25;0,625;Az;9132,277862;13,7229316;0,5;D;D4
-CSN;China Southern Airlines;PEK;Beijing;j;1;0;1,25;1,25;Az;7827,603578;11,85289846;3;D;D4
-CSN;China Southern Airlines;PEK;Beijing;z;1;0;1,25;1,25;Az;7827,603578;11,85289846;3;D;D4
-EVA;EVA Air;BKK;Bangkok;j;0,5;0;1,25;0,625;Az;9190,801364;13,80681529;0,5;D;D4
-EVA;EVA Air;TPE;Taipei;j;0,5;1;1,25;0,625;Az;9439,451744;14,16321417;1,5;D;D4
-JL;Japan Airlines;NRT;Tokyo;j;0,5;1;1,25;0,625;Az;9328,243103;14,00381511;1;D;D4
-KAL;Korean Air;ICN;Seoul;j;0,5;0;1,25;0,625;Az;8555,700969;12,89650472;1;D;D4
-SIA;Singapore Airlines;SIN;Singapore;j;0,5;0;1,25;0,625;Az;10494,40586;15,67531506;1;D;D4
-DL;Delta Air Lines;BOS;Boston;j;1;0;1,25;1,25;NAm;5579,42171;8,630504451;1;D;D5
-DL;Delta Air Lines;JFK;New York;j;1;0;1,25;1,25;NAm;5879,607481;9,060770723;3;D;D5
-DL;Delta Air Lines;JFK;New York;z;1;0;1,25;1,25;NAm;5879,607481;9,060770723;3;D;D5
-DL;Delta Air Lines;DTW;Detroit;j;1;0;1,25;1,25;NAm;6357,685878;9,746016425;1;D;D5
-DL;Delta Air Lines;SEA;Seattle;j;1;0;1,25;1,25;NAm;7876,558259;11,92306684;1;D;D5
-AC;Air Canada;YYZ;Toronto;j;1;0;1,25;1,25;NAm;6023,525404;9,267053078;3;D;D6
-TS;Air Transat;YYZ;Toronto;j;1;0;1,25;1,25;NAm;6023,525404;9,267053078;3;D;D6
-TS;Air Transat;YYC;Calgary;j;1;0;1,25;1,25;NAm;7204,305396;10,9595044;1;D;D6
-TS;Air Transat;YVR;Vancouver;j;1;0;1,25;1,25;NAm;7743,722025;11,73266824;1;D;D6
-AA;American Airlines;LAS;Las Vegas;j;0,5;0;1,25;0,625;NAm;8633,668942;13,00825882;0,5;D;D6
-KL;KLM Royal Dutch Airlines;JNB;Johannesburg;j;0,5;1;1,25;0,625;Afr;8982,600783;13,50839446;0,5;E;E1
-KL;KLM Royal Dutch Airlines;CPT;Cape Town;j;0,5;0;1,25;0,625;Afr;9654,931054;14,47206784;0,5;E;E1
-KL;KLM Royal Dutch Airlines;DAR;Dar Es Salaam;j;1;0;1,25;1,25;Afr;7308,352375;11,1086384;1;E;E1
-KL;KLM Royal Dutch Airlines;LAX;Los Angeles;j;0,5;1;1,25;0,625;NAm;8992,549207;13,52265386;0,5;E;E1
-KL;KLM Royal Dutch Airlines;YUL;Montreal;j;1;0;1,25;1,25;NAm;5536,591645;8,569114692;1;E;E1
-KL;KLM Royal Dutch Airlines;CUR;Willemstad / Curacao Island;j;1;0;1,25;1,25;NAm;7855,137192;11,89236331;1;E;E1
-KL;KLM Royal Dutch Airlines;AUA;Aruba;j;1;0;1,25;1,25;NAm;7900,023373;11,95670017;2;E;E1
-KL;KLM Royal Dutch Airlines;JFK;New York;j;1;0;1,25;1,25;NAm;5879,607481;9,060770723;3;E;E1
-KL;KLM Royal Dutch Airlines;MIA;Miami;z;1;0;1,25;1,25;NAm;7472,196234;11,34348127;2;E;E1
-KL;KLM Royal Dutch Airlines;ICN;Seoul;j;0,5;1;1,25;0,625;Az;8555,700969;12,89650472;1;E;E2
-KL;KLM Royal Dutch Airlines;HKG;Hong Kong;j;0,5;0;1,25;0,625;Az;9266,837198;13,91579998;1;E;E2
-KL;KLM Royal Dutch Airlines;NRT;Tokyo;j;0,5;1;1,25;0,625;Az;9328,243103;14,00381511;1;E;E2
-KL;KLM Royal Dutch Airlines;TPE;Taipei;j;0,5;0;1,25;0,625;Az;9439,451744;14,16321417;1,5;E;E2
-KL;KLM Royal Dutch Airlines;SIN;Singapore;j;0,5;1;1,25;0,625;Az;10494,40586;15,67531506;1;E;E2
-KL;KLM Royal Dutch Airlines;CGK;Jakarta;j;0,5;0;1,25;0,625;Az;11332,74509;16,87693463;1;E;E2
-KL;KLM Royal Dutch Airlines;KUL;Kuala Lumpur;j;0,5;0;1,25;0,625;Az;10216,57636;15,27709279;0,5;E;E2
-KL;KLM Royal Dutch Airlines;MNL;Manila;j;0,5;1;1,25;0,625;Az;10406,17697;15,54885366;0,5;E;E2
-KL;KLM Royal Dutch Airlines;PEK;Beijing;j;1;0;1,25;1,25;Az;7827,603578;11,85289846;3;E;E2
-KL;KLM Royal Dutch Airlines;IAD;Washington;j;1;0;1,25;1,25;NAm;6239,409721;9,576487267;2;E;E2
-KL;KLM Royal Dutch Airlines;HAV;Havana;j;1;0;1,25;1,25;NAm;7848,135753;11,88232791;1;E;E2
-KL;KLM Royal Dutch Airlines;SXM;St Maarten;j;1;0;1,25;1,25;NAm;6953,876792;10,60055674;1;E;E2
-KL;KLM Royal Dutch Airlines;TLV;Tel Aviv Yafo;j;1;0;1,25;1,25;Az;3277,228709;5,330694482;3;E;E3
-KL;KLM Royal Dutch Airlines;AUH;Abu Dhabi;j;1;0;1,25;1,25;Az;5160,751613;8,030410646;2;E;E3
-KL;KLM Royal Dutch Airlines;DEL;Delhi;j;1;0;1,25;1,25;Az;6342,586351;9,724373769;2;E;E3
-KL;KLM Royal Dutch Airlines;LED;St Petersburg;j;2;0;1,25;2,5;Az;1772,331375;3,17367497;2;E;E3
-KL;KLM Royal Dutch Airlines;SVO;Moscow;j;2;0;1,25;2,5;Az;2134,277283;3,692464106;4;E;E3
-UA;United Airlines;IAH;Houston;j;0,5;0;1,25;0,625;NAm;8083,044547;12,21903052;0,5;E;E4
-UA;United Airlines;IAD;Washington;j;1;0;1,25;1,25;NAm;6239,409721;9,576487267;2;E;E4
-UA;United Airlines;CGX;Chicago;j;1;0;1,25;1,25;NAm;6638,414881;10,14839466;1;E;E4
-KL;KLM Royal Dutch Airlines;GIG;Rio De Janeiro;j;0,5;0;1,25;0,625;ZAm;9555,220333;14,32914914;0,5;E;E4
-KL;KLM Royal Dutch Airlines;EZE;Buenos Aires;j;0,5;1;1,25;0,625;ZAm;11461,59094;17,06161368;0,5;E;E4
-KL;KLM Royal Dutch Airlines;PBM;Paramaribo;j;1;0;1,25;1,25;ZAm;7536,392259;11,43549557;3;E;E4
-MS;Egyptair;CAI;Cairo;j;1;0;1,25;1,25;Afr;3251,337948;5,293584393;2;E;E5
-MS;Egyptair;CAI;Cairo;z;1;0;1,25;1,25;Afr;3251,337948;5,293584393;2;E;E5
-KQ;Kenya Airways;NBO;Nairobi;j;1;0;1,25;1,25;Afr;6640,74353;10,15173239;1;E;E5
-RAM;Royal Air Maroc;CMN;Casablanca;j;2;0;1,25;2,5;Afr;2314,982431;3,951474818;2;E;E5
-TU;Tunisair;TUN;Tunis;j;2;0;1,25;2,5;Afr;1737,726177;3,124074187;2;E;E5
+FR;Ryanair;DUB;Dublin;z;1;0;1,25;1,25;-6,270075;Eur;13,00349819;2;A;A1
+FR;Ryanair;LPA;Gran Canaria;z;0,5;0;1,25;0,625;-15,386586;Eur;52,94038708;1,5;A;A1
+FR;Ryanair;MAN;Manchester;j;1;0;1,25;1,25;-2,27495;Eur;8,630904402;2;A;A1
+FR;Ryanair;DUB;Dublin;j;0,5;0;1,25;0,625;-6,270075;Eur;13,00349819;2;A;A1
+FR;Ryanair;ALC;Alicante;z;0,5;0;1,25;0,625;-0,558156;Eur;26,55927747;1;A;A1
+FR;Ryanair;LIS;Lisbon;j;0,5;0;1,25;0,625;-9,135919;Eur;30,68418853;2,5;A;A1
+FR;Ryanair;MLA;Malta;z;0,5;0;1,25;0,625;14,4775;Eur;32,45356057;1;A;A1
+FR;Ryanair;AYT;Antalya;j;0,5;0;1,25;0,625;30,800461;Eur;43,67177076;1,5;A;A1
+FR;Ryanair;ACE;Lanzarote;z;0,5;0;1,25;0,625;-13,605225;Eur;49,97058916;1,5;A;A1
+HV;Transavia Holland;LPA;Gran Canaria;z;0,5;0;1,25;0,625;-15,386586;Eur;52,94038708;1,5;A;A2
+HV;Transavia Holland;TFS;Tenerife;j;0,5;0;1,25;0,625;-16,572489;Eur;53,6476775;2;A;A2
+HV;Transavia Holland;ALC;Alicante;j;0,5;0;1,25;0,625;-0,558156;Eur;26,55927747;1;A;A2
+HV;Transavia Holland;SOF;Sofia;j;0,5;0;1,25;0,625;23,406167;Eur;28,64229697;1,5;A;A2
+HV;Transavia Holland;LIS;Lisbon;j;0,5;0;1,25;0,625;-9,135919;Eur;30,68418853;2,5;A;A2
+HV;Transavia Holland;ATH;Athens;j;0,5;0;1,25;0,625;23,944467;Eur;35,76052746;1,5;A;A2
+HV;Transavia Holland;AYT;Antalya;z;0,5;0;1,25;0,625;30,800461;Eur;43,67177076;1,5;A;A2
+HV;Transavia Holland;PRG;Prague;j;1;0;1,25;1,25;14,26;Eur;11,24250876;3;A;A2
+HV;Transavia Holland;VCE;Venice;z;0,5;0;1,25;0,625;12,351944;Eur;15,00352907;0,5;A;A3
+HV;Transavia Holland;LJU;Ljubljana;j;0,5;0;1,25;0,625;14,457611;Eur;15,63755795;1;A;A3
+HV;Transavia Holland;BCN;Barcelona;j;0,5;0;1,25;0,625;2,078464;Eur;20,3041692;1,5;A;A3
+HV;Transavia Holland;BCN;Barcelona;j;0,5;0;1,25;0,625;2,078464;Eur;20,3041692;1,5;A;A3
+HV;Transavia Holland;PMI;Mallorca;z;0,5;0;1,25;0,625;2,727778;Eur;23,37086211;1;A;A3
+HV;Transavia Holland;SKG;Thessaloniki;z;0,5;0;1,25;0,625;22,97095;Eur;31,15209491;0,5;A;A3
+HV;Transavia Holland;KGS;Kos;z;0,5;0;1,25;0,625;27,091667;Eur;40,27203971;1,5;A;A3
+HV;Transavia Holland;ACE;Lanzarote;z;0,5;0;1,25;0,625;-13,605225;Eur;49,97058916;1,5;A;A3
+HV;Transavia Holland;FAO;Faro;j;0,5;0;1,25;0,625;-7,965911;Eur;32,68270669;1;A;A4
+JP;Adria Airways;LJU;Ljubljana;j;0,5;0;1,25;0,625;14,457611;Eur;15,63755795;1;A;A4
+KM;Air Malta;MLA;Malta;j;0,5;0;1,25;0,625;14,4775;Eur;32,45356057;1;A;A4
+PS;Ukraine International Airlines;KBP;Kiev;j;0,5;0;1,25;0,625;30,894722;Eur;29,94856989;0,5;A;A4
+UX;Air Europa;MAD;Madrid;z;0,5;0;1,25;0,625;-3,566764;Eur;24,10038849;1;A;A4
+AY;Finnair;HEL;Helsinki;j;0,5;0;1,25;0,625;24,963333;Eur;25,39871901;1,5;A;A5
+EW;Eurowings;TXL;Berlin;j;1;0;1,25;1,25;13,287711;Eur;9,306752998;3;A;A5
+FR;Ryanair;SOF;Sofia;j;0,5;0;1,25;0,625;23,406167;Eur;28,64229697;1,5;A;A5
+OU;Croatia Airlines;ZAG;Zagreb;j;0,5;0;1,25;0,625;16,068778;Eur;17,71743319;0,5;A;A5
+TP;TAP Portugal;LIS;Lisbon;j;0,5;0;1,25;0,625;-9,135919;Eur;30,68418853;2,5;A;A5
+A3;Aegean Airlines;ATH;Athens;j;0,5;0;1,25;0,625;23,944467;Eur;35,76052746;1,5;A;A6
+A3;Aegean Airlines;ATH;Athens;z;0,5;0;1,25;0,625;23,944467;Eur;35,76052746;1,5;A;A6
+CAI;Corendon Airlines;AYT;Antalya;z;0,5;0;1,25;0,625;30,800461;Eur;43,67177076;1,5;A;A6
+FB;Bulgaria Air;SOF;Sofia;j;0,5;0;1,25;0,625;23,406167;Eur;28,64229697;1,5;A;A6
+SN;Brussels Airlines;BRU;Brussels;j;2;0;1,25;2,5;4,484444;Eur;2,259193049;2;A;A6
+MT;Thomas Cook Airlines;LPA;Gran Canaria;z;0,5;0;1,25;0,625;-15,386586;Eur;52,94038708;1,5;B;B1
+MT;Thomas Cook Airlines;TFS;Tenerife;z;0,5;0;1,25;0,625;-16,572489;Eur;53,6476775;2;B;B1
+MT;Thomas Cook Airlines;IOM;Isle Of Man;z;1;0;1,25;1,25;-4,623889;Eur;11,46122711;1;B;B1
+MT;Thomas Cook Airlines;PMI;Mallorca;z;0,5;0;1,25;0,625;2,727778;Eur;23,37086211;1;B;B1
+OR;TUI Airlines;TFS;Tenerife;z;0,5;0;1,25;0,625;-16,572489;Eur;53,6476775;2;B;B2
+OR;TUI Airlines;KGS;Kos;z;0,5;0;1,25;0,625;27,091667;Eur;40,27203971;1,5;B;B2
+OR;TUI Airlines;FAO;Faro;z;0,5;0;1,25;0,625;-7,965911;Eur;32,68270669;1;B;B2
+OR;TUI Airlines;KGS;Kos;z;0,5;0;1,25;0,625;27,091667;Eur;40,27203971;1,5;B;B2
+AZ;Alitalia;MXP;Milan;j;0,5;0;1,25;0,625;8,728111;Eur;12,69514573;1;B;B3
+AZ;Alitalia;FCO;Rome;j;0,5;0;1,25;0,625;12,250797;Eur;21,01399017;1,5;B;B3
+AZ;Alitalia;FCO;Rome;z;0,5;0;1,25;0,625;12,250797;Eur;21,01399017;1,5;B;B3
+LO;LOT Polish Airlines;WAW;Warsaw;j;0,5;0;1,25;0,625;20,967122;Eur;18,01158529;0,5;B;B3
+OK;Czech Airlines;PRG;Prague;j;1;0;1,25;1,25;14,26;Eur;11,24250876;3;B;B3
+SR;Swissair;ZRH;Zurich;j;1;0;1,25;1,25;8,549167;Eur;9,449830132;1;B;B3
+BT;Air Baltic;VNO;Vilnius;j;0,5;0;1,25;0,625;25,285767;Eur;22,7416654;0,5;B;B4
+OS;Austrian Airlines;VIE;Vienna;j;0,5;0;1,25;0,625;16,569722;Eur;15,44036394;1;B;B4
+SK;Scandinavian Airlines System;CPH;Copenhagen;j;1;0;1,25;1,25;12,655972;Eur;10,55629115;3;B;B4
+SK;Scandinavian Airlines System;OSL;Oslo;j;0,5;0;1,25;0,625;10,616667;Eur;15,57597318;1;B;B4
+EI;Aer Lingus;ORK;Cork;j;0,5;0;1,25;0,625;-8,491111;Eur;15,51991631;0,5;B;B5
+SK;Scandinavian Airlines System;ARN;Stockholm;j;0,5;0;1,25;0,625;17,918611;Eur;19,31806624;1;B;B5
+TK;Turkish Airlines;IST;Istanbul;j;0,5;0;1,25;0,625;28,814606;Eur;36,27881029;1;B;B5
+TK;Turkish Airlines;ESB;Ankara;j;0,5;0;1,25;0,625;32,995083;Eur;41,71413879;0,5;B;B5
+KL;KLM Royal Dutch Airlines;FRA;Frankfurt;j;1;0;1,25;1,25;8,543125;Eur;5,489306286;3;C;C1
+KL;KLM Royal Dutch Airlines;HAM;Hamburg;j;1;0;1,25;1,25;9,988228;Eur;6,187920438;1;C;C1
+KL;KLM Royal Dutch Airlines;DUS;Dusseldorf;j;2;0;1,25;2,5;6,766775;Eur;2,374869278;2;C;C1
+KL;KLM Royal Dutch Airlines;BCN;Barcelona;j;0,5;0;1,25;0,625;2,078464;Eur;20,3041692;1,5;C;C1
+KL;KLM Royal Dutch Airlines;VLC;Valencia;j;0,5;0;1,25;0,625;-0,481625;Eur;24,36757694;0,5;C;C1
+KL;KLM Royal Dutch Airlines;HEL;Helsinki;j;0,5;0;1,25;0,625;24,963333;Eur;25,39871901;1,5;C;C1
+KL;KLM Royal Dutch Airlines;LIS;Lisbon;j;0,5;0;1,25;0,625;-9,135919;Eur;30,68418853;2,5;C;C1
+KL;KLM Royal Dutch Airlines;IST;Istanbul;j;0,5;0;1,25;0,625;28,814606;Eur;36,27881029;1;C;C1
+KL;KLM Royal Dutch Airlines;LHR;London;j;1;0;1,25;1,25;-0,461389;Eur;6,47881416;4;C;C2
+KL;KLM Royal Dutch Airlines;LHR;London;j;1;0;1,25;1,25;-0,461389;Eur;6,47881416;4;C;C2
+KL;KLM Royal Dutch Airlines;TXL;Berlin;j;1;0;1,25;1,25;13,287711;Eur;9,306752998;3;C;C2
+KL;KLM Royal Dutch Airlines;MUC;Munich;j;1;0;1,25;1,25;11,786086;Eur;10,46959771;2;C;C2
+KL;KLM Royal Dutch Airlines;CPH;Copenhagen;j;1;0;1,25;1,25;12,655972;Eur;10,55629115;3;C;C2
+KL;KLM Royal Dutch Airlines;GVA;Geneva;j;1;0;1,25;1,25;6,10895;Eur;10,84995491;2;C;C2
+KL;KLM Royal Dutch Airlines;VIE;Vienna;j;0,5;0;1,25;0,625;16,569722;Eur;15,44036394;1;C;C2
+KL;KLM Royal Dutch Airlines;CDG;Paris;j;1;0;1,25;1,25;2,55;Eur;6,395514006;4;C;C2
+BA;British Airways;LGW;London Gatwick;j;1;0;1,25;1,25;-0,190278;Eur;6,328570963;2;C;C3
+BA;British Airways;LHR;London;j;1;0;1,25;1,25;-0,461389;Eur;6,47881416;4;C;C3
+BA;British Airways;LHR;London;j;1;0;1,25;1,25;-0,461389;Eur;6,47881416;4;C;C3
+LH;Lufthansa;FRA;Frankfurt;j;1;0;1,25;1,25;8,543125;Eur;5,489306286;3;C;C3
+LH;Lufthansa;FRA;Frankfurt;j;1;0;1,25;1,25;8,543125;Eur;5,489306286;3;C;C3
+LH;Lufthansa;MUC;Munich;j;1;0;1,25;1,25;11,786086;Eur;10,46959771;2;C;C3
+EZY;easyJet;TXL;Berlin;j;1;0;1,25;1,25;13,287711;Eur;9,306752998;3;C;C4
+EZY;easyJet;FCO;Rome;j;0,5;0;1,25;0,625;12,250797;Eur;21,01399017;1,5;C;C4
+EZY;easyJet;ACE;Lanzarote;j;0,5;0;1,25;0,625;-13,605225;Eur;49,97058916;1,5;C;C4
+EZY;easyJet;LGW;London Gatwick;j;1;0;1,25;1,25;-0,190278;Eur;6,328570963;2;C;C4
+EZY;easyJet;LIS;Lisbon;z;0,5;0;1,25;0,625;-9,135919;Eur;30,68418853;2,5;C;C4
+EZY;easyJet;SZG;Salzburg;j;0,5;0;1,25;0,625;13,004333;Eur;12,28039709;0,5;C;C4
+EZY;easyJet;TFS;Tenerife;z;0,5;0;1,25;0,625;-16,572489;Eur;53,6476775;2;C;C5
+EZY;easyJet;MAN;Manchester;j;1;0;1,25;1,25;-2,27495;Eur;8,630904402;2;C;C5
+EZY;easyJet;GVA;Geneva;j;1;0;1,25;1,25;6,10895;Eur;10,84995491;2;C;C5
+EZY;easyJet;PRG;Prague;j;1;0;1,25;1,25;14,26;Eur;11,24250876;3;C;C5
+EZY;easyJet;GLA;Glasgow;j;0,5;0;1,25;0,625;-4,433056;Eur;12,56378587;0,5;C;C5
+EZY;easyJet;MXP;Milan;z;0,5;0;1,25;0,625;8,728111;Eur;12,69514573;1;C;C5
+EZY;easyJet;LPL;Liverpool;j;1;0;1,25;1,25;-2,849722;Eur;9,243954778;1;C;C5
+AF;Air France;CDG;Paris;z;1;0;1,25;1,25;2,55;Eur;6,395514006;4;C;C6
+AF;Air France;CDG;Paris;j;1;0;1,25;1,25;2,55;Eur;6,395514006;4;C;C6
+AF;Air France;CDG;Paris;j;1;0;1,25;1,25;2,55;Eur;6,395514006;4;C;C6
+AF;Air France;SXB;Strasbourg;j;1;0;1,25;1,25;7,628233;Eur;7,167306278;1;C;C6
+EI;Aer Lingus;DUB;Dublin;j;0,5;0;1,25;0,625;-6,270075;Eur;13,00349819;2;C;C6
+DY;Norwegian Air Shuttle;CPH;Copenhagen;j;1;0;1,25;1,25;12,655972;Eur;10,55629115;3;C;C7
+DY;Norwegian Air Shuttle;OSL;Oslo;j;0,5;0;1,25;0,625;10,616667;Eur;15,57597318;1;C;C7
+DY;Norwegian Air Shuttle;ARN;Stockholm;j;0,5;0;1,25;0,625;17,918611;Eur;19,31806624;1;C;C7
+DY;Norwegian Air Shuttle;HEL;Helsinki;j;0,5;0;1,25;0,625;24,963333;Eur;25,39871901;1,5;C;C7
+IB;Iberia Airlines;MAD;Madrid;j;0,5;0;1,25;0,625;-3,566764;Eur;24,10038849;1;C;C7
+HV;Transavia Holland;TLV;Tel Aviv Yafo;j;0,5;0;1,25;0,625;34,886667;Az;54,62047848;1,5;D;D1
+BW;Caribbean Airlines;KIN;Kingston;j;0,5;0;1,25;0,625;-76,7875;NAm;131,6112988;0,5;D;D1
+BW;Caribbean Airlines;AUA;Aruba;z;0,5;0;1,25;0,625;-70,015221;NAm;131,6670562;1;D;D1
+OR;TUI Airlines;YYZ;Toronto;z;0,5;0;1,25;0,625;-79,630556;NAm;100,3920901;1,5;D;D1
+OR;TUI Airlines;MIA;Miami;z;0,5;0;1,25;0,625;-80,290556;NAm;124,5366039;1;D;D1
+9W;Jet Airways;DEL;Delhi;z;0,5;0;1,25;0,625;77,103088;Az;105,7097725;1;D;D2
+EK;Emirates;DXB;Dubai;j;0,5;0;1,25;0,625;55,364444;Az;85,63876477;0,5;D;D2
+EY;Etihad Airways;AUH;Abu Dhabi;j;0,5;0;1,25;0,625;54,651138;Az;86,01252689;1;D;D2
+GA;Garuda Indonesia;CGK;Jakarta;j;0,5;1;1,25;0,625;106,655897;Az;188,8790848;1;D;D2
+IR;Iran Air;THR;Tehran;j;0,5;0;1,25;0,625;51,313416;Az;67,31112793;0,5;D;D2
+LY;El Al Israel Airlines;TLV;Tel Aviv Yafo;j;0,5;0;1,25;0,625;34,886667;Az;54,62047848;1,5;D;D2
+QR;Qatar Airways;DOH;Doha;j;0,5;0;1,25;0,625;51,565056;Az;81,49612912;1;D;D2
+QR;Qatar Airways;DOH;Doha;j;0,5;0;1,25;0,625;51,565056;Az;81,49612912;1;D;D2
+SU;Aeroflot Russian Airlines;SVO;Moscow;j;0,5;0;1,25;0,625;37,414589;Az;35,57128806;1;D;D3
+AM;AeroMéxico;MEX;Mexico City;j;0,5;1;1,25;0,625;-99,072097;NAm;153,9829282;0,5;D;D3
+SO;Salsa d'Haiti;PAP;Port Au Prince;z;0,5;0;1,25;0,625;-72,292542;NAm;125,5881797;0,5;D;D3
+PY;Surinam Airways;PBM;Paramaribo;j;0,5;0;1,25;0,625;-55,187783;ZAm;125,6065377;1,5;D;D3
+PY;Surinam Airways;PBM;Paramaribo;z;0,5;0;1,25;0,625;-55,187783;ZAm;125,6065377;1,5;D;D3
+BR;EVA Air;BKK;Bangkok;j;0,5;0;1,25;0,625;100,747283;Az;153,1800227;0,5;D;D4
+BR;EVA Air;TPE;Taipei;j;0,5;1;1,25;0,625;121,232822;Az;157,3241957;1,5;D;D4
+CI;China Airlines;TPE;Taipei;j;0,5;0;1,25;0,625;121,232822;Az;157,3241957;1,5;D;D4
+CX;Cathay Pacific;HKG;Hong Kong;z;0,5;1;1,25;0,625;113,914603;Az;154,4472866;1;D;D4
+CZ;China Southern Airlines;CAN;Guangzhou;j;0,5;1;1,25;0,625;113,298786;Az;152,204631;0,5;D;D4
+CZ;China Southern Airlines;PEK;Beijing;j;0,5;0;1,25;0,625;116,584556;Az;130,4600596;1,5;D;D4
+CZ;China Southern Airlines;PEK;Beijing;z;0,5;0;1,25;0,625;116,584556;Az;130,4600596;1,5;D;D4
+JL;Japan Airlines;NRT;Tokyo;j;0,5;1;1,25;0,625;140,386389;Az;155,4707184;1;D;D4
+KE;Korean Air;ICN;Seoul;j;0,5;0;1,25;0,625;126,450517;Az;142,5950161;1;D;D4
+MU;China Eastern Airlines;SHA;Shanghai;j;0,5;0;1,25;0,625;121,336319;Az;147,9981908;0,5;D;D4
+SQ;Singapore Airlines;SIN;Singapore;j;0,5;0;1,25;0,625;103,994433;Az;174,9067643;1;D;D4
+DL;Delta Air Lines;BOS;Boston;j;0,5;0;1,25;0,625;-71,005181;NAm;92,99036183;0,5;D;D5
+DL;Delta Air Lines;JFK;New York;j;0,5;0;1,25;0,625;-73,778925;NAm;97,99345802;1,5;D;D5
+DL;Delta Air Lines;JFK;New York;z;0,5;0;1,25;0,625;-73,778925;NAm;97,99345802;1,5;D;D5
+DL;Delta Air Lines;DTW;Detroit;j;0,5;0;1,25;0,625;-83,353389;NAm;105,9614313;0,5;D;D5
+DL;Delta Air Lines;SEA;Seattle;j;0,5;0;1,25;0,625;-122,309306;NAm;131,275971;0,5;D;D5
+AA;American Airlines;LAS;Las Vegas;j;0,5;0;1,25;0,625;-115,15225;NAm;143,8944824;0,5;D;D6
+AC;Air Canada;YYZ;Toronto;j;0,5;0;1,25;0,625;-79,630556;NAm;100,3920901;1,5;D;D6
+TS;Air Transat;YYZ;Toronto;j;0,5;0;1,25;0,625;-79,630556;NAm;100,3920901;1,5;D;D6
+TS;Air Transat;YYC;Calgary;j;0,5;0;1,25;0,625;-114,020278;NAm;120,0717566;0,5;D;D6
+TS;Air Transat;YVR;Vancouver;j;0,5;0;1,25;0,625;-123,184444;NAm;129,0620338;0,5;D;D6
+KL;KLM Royal Dutch Airlines;JNB;Johannesburg;j;0,5;1;1,25;0,625;28,246;Afr;149,7100131;0,5;E;E1
+KL;KLM Royal Dutch Airlines;CPT;Cape Town;j;0,5;0;1,25;0,625;18,601667;Afr;160,9155176;0,5;E;E1
+KL;KLM Royal Dutch Airlines;DAR;Dar Es Salaam;j;0,5;0;1,25;0,625;39,202625;Afr;121,8058729;0,5;E;E1
+KL;KLM Royal Dutch Airlines;LAX;Los Angeles;j;0,5;1;1,25;0,625;-118,408075;NAm;149,8758201;0,5;E;E1
+KL;KLM Royal Dutch Airlines;YUL;Montreal;j;0,5;0;1,25;0,625;-73,740833;NAm;92,27652742;0,5;E;E1
+KL;KLM Royal Dutch Airlines;CUR;Curacao;j;0,5;0;1,25;0,625;-68,959803;NAm;130,9189532;0,5;E;E1
+KL;KLM Royal Dutch Airlines;AUA;Aruba;j;0,5;0;1,25;0,625;-70,015221;NAm;131,6670562;1;E;E1
+KL;KLM Royal Dutch Airlines;JFK;New York;j;0,5;0;1,25;0,625;-73,778925;NAm;97,99345802;1,5;E;E1
+KL;KLM Royal Dutch Airlines;MIA;Miami;z;0,5;0;1,25;0,625;-80,290556;NAm;124,5366039;1;E;E1
+KL;KLM Royal Dutch Airlines;ICN;Seoul;j;0,5;1;1,25;0,625;126,450517;Az;142,5950161;1;E;E2
+KL;KLM Royal Dutch Airlines;HKG;Hong Kong;j;0,5;0;1,25;0,625;113,914603;Az;154,4472866;1;E;E2
+KL;KLM Royal Dutch Airlines;NRT;Tokyo;j;0,5;1;1,25;0,625;140,386389;Az;155,4707184;1;E;E2
+KL;KLM Royal Dutch Airlines;TPE;Taipei;j;0,5;0;1,25;0,625;121,232822;Az;157,3241957;1,5;E;E2
+KL;KLM Royal Dutch Airlines;SIN;Singapore;j;0,5;1;1,25;0,625;103,994433;Az;174,9067643;1;E;E2
+KL;KLM Royal Dutch Airlines;CGK;Jakarta;j;0,5;0;1,25;0,625;106,655897;Az;188,8790848;1;E;E2
+KL;KLM Royal Dutch Airlines;KUL;Kuala Lumpur;j;0,5;0;1,25;0,625;101,709917;Az;170,2762727;0,5;E;E2
+KL;KLM Royal Dutch Airlines;MNL;Manila;j;0,5;1;1,25;0,625;121,019581;Az;173,4362828;0,5;E;E2
+KL;KLM Royal Dutch Airlines;PEK;Beijing;j;0,5;0;1,25;0,625;116,584556;Az;130,4600596;1,5;E;E2
+KL;KLM Royal Dutch Airlines;IAD;Washington;j;0,5;0;1,25;0,625;-77,455811;NAm;103,990162;1;E;E2
+KL;KLM Royal Dutch Airlines;HAV;Havana;j;0,5;0;1,25;0,625;-82,409086;NAm;130,8022625;0,5;E;E2
+KL;KLM Royal Dutch Airlines;SXM;St Maarten;j;0,5;0;1,25;0,625;-63,1089;NAm;115,8979465;0,5;E;E2
+KL;KLM Royal Dutch Airlines;TLV;Tel Aviv Yafo;j;0,5;0;1,25;0,625;34,886667;Az;54,62047848;1,5;E;E3
+KL;KLM Royal Dutch Airlines;AUH;Abu Dhabi;j;0,5;0;1,25;0,625;54,651138;Az;86,01252689;1;E;E3
+KL;KLM Royal Dutch Airlines;DEL;Delhi;j;0,5;0;1,25;0,625;77,103088;Az;105,7097725;1;E;E3
+KL;KLM Royal Dutch Airlines;LED;St Petersburg;j;0,5;0;1,25;0,625;30,262503;Az;29,53885624;0,5;E;E3
+KL;KLM Royal Dutch Airlines;SVO;Moscow;j;0,5;0;1,25;0,625;37,414589;Az;35,57128806;1;E;E3
+UA;United Airlines;IAH;Houston;j;0,5;0;1,25;0,625;-95,341442;NAm;134,7174091;0,5;E;E4
+UA;United Airlines;IAD;Washington;j;0,5;0;1,25;0,625;-77,455811;NAm;103,990162;1;E;E4
+UA;United Airlines;CGX;Chicago;j;0,5;0;1,25;0,625;-87,609722;NAm;110,640248;0,5;E;E4
+KL;KLM Royal Dutch Airlines;GIG;Rio De Janeiro;j;0,5;0;1,25;0,625;-43,243647;ZAm;159,2536722;0,5;E;E4
+KL;KLM Royal Dutch Airlines;EZE;Buenos Aires;j;0,5;1;1,25;0,625;-58,535833;ZAm;191,0265157;0,5;E;E4
+KL;KLM Royal Dutch Airlines;PBM;Paramaribo;j;0,5;0;1,25;0,625;-55,187783;ZAm;125,6065377;1,5;E;E4
+AT;Royal Air Maroc;CMN;Casablanca;j;0,5;0;1,25;0,625;-7,589967;Afr;38,58304052;0,5;E;E5
+KQ;Kenya Airways;NBO;Nairobi;j;0,5;0;1,25;0,625;36,9275;Afr;110,6790588;0,5;E;E5
+MS;Egyptair;CAI;Cairo;j;0,5;0;1,25;0,625;31,405556;Afr;54,18896581;1;E;E5
+MS;Egyptair;CAI;Cairo;z;0,5;0;1,25;0,625;31,405556;Afr;54,18896581;1;E;E5
+TU;Tunisair;TUN;Tunis;j;0,5;0;1,25;0,625;10,227217;Afr;28,96210295;0,5;E;E5
