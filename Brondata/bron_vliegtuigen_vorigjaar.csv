@@ -1,0 +1,88 @@
+vliegtuigtype_id;vliegtuig_merk;vliegtuig_type;beschrijving;capaciteit;max_vracht;uitstoot_CO2C;uitstoot_CO2V;decibel500S;decibel500L
+AT7;AEROSPATIALE/AERITAL;ATR 72;;72;5;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;88;83
+ATR;AEROSPATIALE/AERITAL;ATR 42;;42;5;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;87;82
+312;AIRBUS;A310-200;PASSENGER;250;5;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;107;102
+313;AIRBUS;A310-300;PASSENGER;250;5;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;104;99
+318;AIRBUS;A318;;105;8;6.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;97;92
+319;AIRBUS;A319-111;;125;8;6.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;91;86
+31F;AIRBUS;A310-200C/300C;FREIGHTER;0;35;3.5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;98;93
+320;AIRBUS;A320-200;;150;8;6.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;91;86
+321;AIRBUS;A320-100;;150;8;6.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;100;95
+32S;AIRBUS;A321-100/200;;180;8;6.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;109;104
+332;AIRBUS;A330-200;;300;8;6.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;107;102
+342;AIRBUS;A340-211;;310;8;6.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;113;108
+343;AIRBUS;A340-311;;340;8;6.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;115;110
+346;AIRBUS;A340-642;;340;8;6.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;111;106
+A380;AIRBUS;A380;PASSENGER;880;15;19;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;115;110
+AB3;AIRBUS;A300B2;;275;5;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;100;95
+AB4;AIRBUS;A300B4/C4;PASSENGER;275;5;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;108;103
+AB6;AIRBUS;A300-600P;passenger;275;5;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;103;98
+ABM;AIRBUS;A300C4;MIXED;175;5;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;106;101
+ABX;AIRBUS;A300B4/C4/F4;FREIGHTER;0;40;4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;98;93
+ABY;AIRBUS;A300-600F;FREIGHTER;0;38;3.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;96;91
+717;BOEING;B717-200;;135;5;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;91;86
+733;BOEING;737-300;;150;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;91;86
+734;BOEING;737-400;;175;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;104;99
+735;BOEING;737-500;;110;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;96;91
+736;BOEING;737-600;;110;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;96;91
+738;BOEING;737-800;;180;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;108;103
+739;BOEING;737-900;PASSENGER;240;5;4.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;106;101
+73G;BOEING;737-700;;150;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;94;89
+73H;BOEING;737-800W;WINGLETS;180;5;0.5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;104;99
+744;BOEING;747-400P;PASSENGER;416;5;4.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;112;107
+74E;BOEING;747-400M;MIXED;225;14;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;109;104
+74L;BOEING;747SP;;300;.;2.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;107;102
+74X;BOEING;747-100;FREIGHTER;0;36;3.6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;112;107
+752;BOEING;757-200P;PASSENGER;200;.;3.6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;107;102
+753;BOEING;B757-300;;220;5;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;103;98
+75C;BOEING;757-200M;MIXED;120;15;2.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;92;87
+75F;BOEING;757-200PF;FREIGHTER;0;45;4.5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;94;89
+762;BOEING;767-200/200ER;;200;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;110;105
+763;BOEING;767-300/300ER;;250;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;100;95
+764;BOEING;767-400ER;;275;8;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;106;101
+76F;BOEING;767;FREIGHTER;0;38.2;3.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;95;90
+772;BOEING;777-200;;320;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;112;107
+773;BOEING;777-300;;350;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;112;107
+141;BRITISH AEROSPACE;146-100;;105;5;4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;95;90
+142;BRITISH AEROSPACE;146-200;;115;5;4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;98;93
+143;BRITISH AEROSPACE;146-300;;130;5;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;98;93
+CR7;Bombardier;CRJ900;;86;5;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;90;85
+CR9;Bombardier;CRJ100;;50;2;5.2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;85;80
+CR1;CANADAIR;REGIONALJET;;50;3;2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;87;82
+CRJ;CANADAIR;100/200ER;;50;7;6.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;89;84
+D28;DASA/DORNIER;228-200;;30;8;4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;86;81
+DO8;DASA/DORNIER;228-100;;30;2;2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;85;80
+DH1;DASH;8 DHC SERIES 100/200;;40;1;0.16;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;89;84
+DH3;DASH;8 DHC SERIES 300;;50;1;0.2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;88;83
+DH4;DASH;8-400;;70;1;0.16;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;85;80
+DH7;DASH;7 DHC;;45;1;0.14;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;87;82
+D11;DC;10-10/10CF/15;PASSENGER;280;8;4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;106;101
+D14;DC;14885;;300;2;0.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;102;97
+D1C;DC;10-30/30CF/30ER;PASSENGER;300;8;4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;103;98
+D1F;DC;10F;FREIGHTER;0;30;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;107;102
+D1M;DC;10M;MIXED;100;13;2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;100;95
+M1M;Douglas;MD-11C;combi;150;13;3;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;96;91
+E70;Embraer;170;;70;6;3.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;88;83
+EMB;Embraer;EMB-110;BANDEIRANTE;25;6;2.2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;88;83
+ER3;Embraer;135;;40;4;2.7;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;88;83
+ER4;Embraer;145;;50;5;2.9;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;88;83
+EM2;Embrear;EMB-120;BRASILIA;33;6;2.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;88;83
+100;Fokker;100;;100;2;2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;94;89
+F50;Fokker;50;;50;2;1;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;89;84
+F70;Fokker;70;;70;2;1.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;87;82
+I9M;ILYUSHIN;96-M;;275;5;1.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;104;99
+IL6;ILYUSHIN;IL-62/62M;;180;3;1.2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;123;118
+IL7;ILYUSHIN;IL-76;FREIGHTER;0;34;3.4;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;114;109
+IL8;ILYUSHIN;IL-86;;250;5;1.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;103;98
+M11;MCDONNEL;DOUGLAS MD-11;;325;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;113;108
+M81;MCDONNEL;DOUGLAS MD-81;;140;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;99;94
+M82;MCDONNEL;DOUGLAS MD-82;;150;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;93;88
+M83;MCDONNEL;DOUGLAS MD-83;;150;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;96;91
+M87;MCDONNEL;DOUGLAS MD-87;;125;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;98;93
+M88;MCDONNEL;DOUGLAS MD-88;;150;8;5;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;92;87
+S20;SAAB;2000;;50;2;0.2;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;87;82
+SF3;SAAB;SF340;;34;5;6.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;90;85
+TU34;TUPOLEV;TU-134/134A/B;;100;9;6;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;140;135
+TU54;TUPOLEV;TU-154/154A/B/B2/C/M;;180;8;4.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;115;110
+YK2;YAK;42;;100;2;0.84;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;92;87
+YK40;YAK;40;;80;2;0.8;aantal passagiers delen door 50 + de vracht in ton gedeeld door 5;89;84
