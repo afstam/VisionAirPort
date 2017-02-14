@@ -1,4 +1,4 @@
-Airlinecode;Airlinenaam;Destcode;Destnaam;Periode;Vluchten;Delay;Turnaround;Turnaroundtotaal;Continent;Afstand;Duur;Totaal;Terminal;Gate;Vliegtuigtype
+Airlinecode;Airlinenaam;Destcode;Destnaam;Periode;Vluchten;Delay;Turnaround;Turnaroundtotaal;Continent;Afstand;Duur;Totaal;Terminal;Gate;Vliegtuig
 EZY;easyJet;ACE;Lanzarote;j;2;0;0,75;1,5;Eur;2998,23535;4,930804001;6;C;C4;B738
 FR;Ryanair;ACE;Lanzarote;z;2;0;0,75;1,5;Eur;2998,23535;4,930804001;6;A;A1;F70
 HV;Transavia Holland;ACE;Lanzarote;z;2;0;0,75;1,5;Eur;2998,23535;4,930804001;6;A;A3;B752
@@ -12,12 +12,12 @@ HV;Transavia Holland;ATH;Athens;j;2;0;0,75;1,5;Eur;2145,631648;3,708738695;6;A;A
 BW;Caribbean Airlines;AUA;Aruba;z;1;0;1,25;1,25;NAm;7900,023373;11,95670017;2;D;D1;B738
 KL;KLM Royal Dutch Airlines;AUA;Aruba;j;1;0;1,25;1,25;NAm;7900,023373;11,95670017;2;E;E1;A333
 EY;Etihad Airways;AUH;Abu Dhabi;j;1;0;1,25;1,25;Az;5160,751613;8,030410646;2;D;D2;A320
-KL;KLM Royal Dutch Airlines;AUH;Abu Dhabi;j;1;0;1,25;1,25;Az;5160,751613;8,030410646;2;E;E3;B789
+KL;KLM Royal Dutch Airlines;AUH;Abu Dhabi;j;1;0;1,25;1,25;Az;5160,751613;8,030410646;2;E;E3;A332
 CAI;Corendon Airlines;AYT;Antalya;z;2;0;0,75;1,5;Eur;2620,306246;4,389105619;6;A;A6;A320
 FR;Ryanair;AYT;Antalya;j;2;0;0,75;1,5;Eur;2620,306246;4,389105619;6;A;A1;A320
 HV;Transavia Holland;AYT;Antalya;z;2;0;0,75;1,5;Eur;2620,306246;4,389105619;6;A;A2;A319
-HV;Transavia Holland;BCN;Barcelona;j;2;0;0,75;1,5;Eur;1218,250152;2,379491884;6;A;A3;E170
 HV;Transavia Holland;BCN;Barcelona;j;2;0;0,75;1,5;Eur;1218,250152;2,379491884;6;A;A3;B738
+HV;Transavia Holland;BCN;Barcelona;j;2;0;0,75;1,5;Eur;1218,250152;2,379491884;6;A;A3;E170
 KL;KLM Royal Dutch Airlines;BCN;Barcelona;j;2;0;0,75;1,5;Eur;1218,250152;2,379491884;6;C;C1;B738
 BR;EVA Air;BKK;Bangkok;j;0,5;0;1,25;0,625;Az;9190,801364;13,80681529;0,5;D;D4;A333
 DL;Delta Air Lines;BOS;Boston;j;1;0;1,25;1,25;NAm;5579,42171;8,630504451;1;D;D5;B738
@@ -31,7 +31,6 @@ AF;Air France;CDG;Paris;j;2;0;0,75;1,5;Eur;383,7308404;1,183347538;8;C;C6;B738
 KL;KLM Royal Dutch Airlines;CDG;Paris;j;2;0;0,75;1,5;Eur;383,7308404;1,183347538;8;C;C2;B737
 GA;Garuda Indonesia;CGK;Jakarta;j;0,5;1;1,25;0,625;Az;11332,74509;16,87693463;1;D;D2;B752
 KL;KLM Royal Dutch Airlines;CGK;Jakarta;j;0,5;0;1,25;0,625;Az;11332,74509;16,87693463;1;E;E2;B772
-UA;United Airlines;ORD;Chicago;j;1;0;1,25;1,25;NAm;6638,414881;10,14839466;1;E;E4;B763
 AT;Royal Air Maroc;CMN;Casablanca;j;2;0;1,25;2,5;Afr;2314,982431;3,951474818;2;E;E5;B738
 DY;Norwegian Air Shuttle;CPH;Copenhagen;j;2;0;0,75;1,5;Eur;633,3774688;1,541174372;6;C;C7;B737
 KL;KLM Royal Dutch Airlines;CPH;Copenhagen;j;2;0;0,75;1,5;Eur;633,3774688;1,541174372;6;C;C2;B738
@@ -45,8 +44,8 @@ QR;Qatar Airways;DOH;Doha;j;1;0;1,25;1,25;Az;4889,767747;7,642000437;2;D;D2;B772
 QR;Qatar Airways;DOH;Doha;j;1;0;1,25;1,25;Az;4889,767747;7,642000437;2;D;D2;B772
 DL;Delta Air Lines;DTW;Detroit;j;1;0;1,25;1,25;NAm;6357,685878;9,746016425;1;D;D5;A320
 EI;Aer Lingus;DUB;Dublin;j;2;0;0,75;1,5;Eur;780,2098915;1,751634178;5;C;C6;A319
-FR;Ryanair;DUB;Dublin;z;1;0;0,75;0,75;Eur;780,2098915;1,751634178;5;A;A1;A330
-FR;Ryanair;DUB;Dublin;j;2;0;0,75;1,5;Eur;780,2098915;1,751634178;5;A;A1;A330
+FR;Ryanair;DUB;Dublin;z;1;0;0,75;0,75;Eur;780,2098915;1,751634178;5;A;A1;A332
+FR;Ryanair;DUB;Dublin;j;2;0;0,75;1,5;Eur;780,2098915;1,751634178;5;A;A1;A332
 KL;KLM Royal Dutch Airlines;DUS;Dusseldorf;j;2;0;0,75;1,5;Eur;142,4921567;0,837572091;2;C;C1;E170
 EK;Emirates;DXB;Dubai;j;1;0;1,25;1,25;Az;5138,325886;7,998267103;1;D;D2;B772
 TK;Turkish Airlines;ESB;Ankara;j;2;0;0,75;1,5;Eur;2502,848327;4,220749269;2;B;B5;A321
@@ -65,7 +64,7 @@ EZY;easyJet;GVA;Geneva;j;2;0;0,75;1,5;Eur;650,9972947;1,566429456;4;C;C5;A319
 KL;KLM Royal Dutch Airlines;GVA;Geneva;j;2;0;0,75;1,5;Eur;650,9972947;1,566429456;4;C;C2;B738
 KL;KLM Royal Dutch Airlines;HAM;Hamburg;j;2;0;0,75;1,5;Eur;371,2752263;1,165494491;2;C;C1;B737
 KL;KLM Royal Dutch Airlines;HAV;Havana;j;1;0;1,25;1,25;NAm;7848,135753;11,88232791;1;E;E2;A333
-AY;Finnair;HEL;Helsinki;j;2;0;0,75;1,5;Eur;1523,923141;2,817623168;6;A;A5;A330
+AY;Finnair;HEL;Helsinki;j;2;0;0,75;1,5;Eur;1523,923141;2,817623168;6;A;A5;A332
 DY;Norwegian Air Shuttle;HEL;Helsinki;j;2;0;0,75;1,5;Eur;1523,923141;2,817623168;6;C;C7;B738
 KL;KLM Royal Dutch Airlines;HEL;Helsinki;j;2;0;0,75;1,5;Eur;1523,923141;2,817623168;6;C;C1;B738
 CX;Cathay Pacific;HKG;Hong Kong;z;0,5;1;1,25;0,625;Az;9266,837198;13,91579998;1;D;D4;B772
@@ -98,7 +97,7 @@ BA;British Airways;LHR;London;j;2;0;0,75;1,5;Eur;388,7288496;1,190511351;8;C;C3;
 KL;KLM Royal Dutch Airlines;LHR;London;j;2;0;0,75;1,5;Eur;388,7288496;1,190511351;8;C;C2;B738
 KL;KLM Royal Dutch Airlines;LHR;London;j;2;0;0,75;1,5;Eur;388,7288496;1,190511351;8;C;C2;B738
 EZY;easyJet;LIS;Lisbon;z;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;C;C4;B738
-FR;Ryanair;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;A;A1;A330
+FR;Ryanair;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;A;A1;A332
 HV;Transavia Holland;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;A;A2;B763
 KL;KLM Royal Dutch Airlines;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;C;C1;B738
 TP;TAP Portugal;LIS;Lisbon;j;2;0;0,75;1,5;Eur;1841,051312;3,272173547;10;A;A5;A332
@@ -122,9 +121,10 @@ KL;KLM Royal Dutch Airlines;MUC;Munich;j;2;0;0,75;1,5;Eur;628,1758629;1,53371873
 LH;Lufthansa;MUC;Munich;j;2;0;0,75;1,5;Eur;628,1758629;1,533718737;4;C;C3;A320
 AZ;Alitalia;MXP;Milan;j;2;0;0,75;1,5;Eur;761,7087436;1,725115866;4;B;B3;B737
 EZY;easyJet;MXP;Milan;z;2;0;0,75;1,5;Eur;761,7087436;1,725115866;4;C;C5;B737
-KQ;Kenya Airways;NBO;Nairobi;j;1;0;1,25;1,25;Afr;6640,74353;10,15173239;1;E;E5;B788
+KQ;Kenya Airways;NBO;Nairobi;j;1;0;1,25;1,25;Afr;6640,74353;10,15173239;1;E;E5;B772
 JL;Japan Airlines;NRT;Tokyo;j;0,5;1;1,25;0,625;Az;9328,243103;14,00381511;1;D;D4;B772
 KL;KLM Royal Dutch Airlines;NRT;Tokyo;j;0,5;1;1,25;0,625;Az;9328,243103;14,00381511;1;E;E2;B744
+UA;United Airlines;ORD;Chicago;j;1;0;1,25;1,25;NAm;6638,414881;10,14839466;1;E;E4;B763
 EI;Aer Lingus;ORK;Cork;j;2;0;0,75;1,5;Eur;931,1949784;1,968046136;2;B;B5;B772
 DY;Norwegian Air Shuttle;OSL;Oslo;j;2;0;0,75;1,5;Eur;934,5583908;1,972867027;4;C;C7;B738
 SK;Scandinavian Airlines System;OSL;Oslo;j;2;0;0,75;1,5;Eur;934,5583908;1,972867027;4;B;B4;B738

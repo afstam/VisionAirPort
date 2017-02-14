@@ -43,6 +43,7 @@ resample <- function(x) {
 routes <- read.csv2("data_routes.csv")
 banen <- read.csv2("data_banen.csv")
 weer <- read.csv2("data_weer.csv")
+vliegtuigen <- read.csv2("data_vliegtuigen.csv")
 
 # Aanpassingen data formaat
 weer$Datum <- as.Date(weer$Datum,"%d-%m-%Y")
@@ -130,9 +131,10 @@ routes[routes$Periode == "z", c("start","eind")] <- c(sample(c(4,5,6),aantalzome
 # Opstellen planning ######################################################################################
 
 # Tabelstructuren
-vars.plantabel <- c("Airlinecode", "Destcode", "Planterminal", "Plangate", "Vluchtnr", "Basisnr", "Vliegtuig", "start", "eind","Richting","Plantijd","Dag")
+vars.plantabel <- c("Airlinecode", "Destcode", "Vliegtuigtype", "Planterminal", "Plangate", "Vluchtnr", "Basisnr", "Vliegtuig", "start", "eind","Richting","Plantijd","Dag")
 str.plantabel <- structure(list(Airlinecode = factor(levels=levels(routes$Airlinecode)),
                                 Destcode = factor(levels=levels(routes$Destcode)),
+                                Vliegtuigtype = factor(levels=levels(vliegtuigen$ICAO)),
                                 Planterminal = factor(levels=terminallvls),
                                 Plangate = factor(levels=gatelvls),
                                 Vluchtnr = integer(),
@@ -448,8 +450,8 @@ simdagen <- 1:5
 # h telt het aantal gesimuleerde vluchten
 h <- 0
 # Zet willekeurig 36 vluchten op non-actief
-#inactief <- routes$Vluchtnr[sample(1:nrow(routes),36)]
-#planning$Actief <- !(planning$Basisnr %in% inactief)
+inactief <- routes$Vliegtuig[sample(1:nrow(routes),36)]
+planning$Actief <- !(planning$Vliegtuig %in% inactief)
 
 # Tabelstructuren
 vars.vlucht.sim <- c("Richting","Airlinecode","Destcode","Vluchtnr","Vliegtuig","Planterminal","Plangate","Plantijd")
@@ -473,9 +475,11 @@ str.simtabel <- structure(list(Datum = as.Date(character()),
 # Een tabel voor de gesimuleerde vluchten
 sim <- str.simtabel
 # Alle vliegtuigen
-vliegtuig <- summarize(arrange(group_by(planning,Dag,Basisnr),Plantijd),
+vliegtuig <- summarize(arrange(group_by(planning,Vliegtuig),Plantijd),
                        freq = n(),
-                       ri = first(Richting))
+                       ri = first(Richting),
+                       type = first(Vliegtuigtype))
+vliegtuig <- merge(vliegtuig, vliegtuigen, by.x = "type", by.y="ICAO", all.x=T)
 
 for(i in simdagen) {
   # Lees informatie in over deze dag
@@ -483,12 +487,15 @@ for(i in simdagen) {
   # Bepaal of dit een 0-dag of 1-dag is
   dag <- i %% 2
   
-  # Als dit de eerste dag van de maand is: zet een vlucht op actief
-  #if(sub.weer$Dag == 1 & length(inactief) > 0) {
-  #  actief <- sample(inactief,1)
-  #  planning$Actief[planning$Basisnr == actief] <- T
-  #  inactief <- inactief[inactief != actief]
-  #}
+  # Als dit de eerste dag van de maand is:
+  if(sub.weer$Dag == 1) {
+    # Zet een vlucht op actief
+    if (length(inactief) > 0) {
+      actief <- resample(inactief)
+      planning$Actief[planning$Vliegtuig == actief] <- T
+      inactief <- inactief[inactief != actief]
+    }
+  }
   
   # Bepaal de uren waarbij wind een factor is
   if(sub.weer$FXX > (100 - 40 * sub.weer$nat)) {
@@ -515,6 +522,8 @@ for(i in simdagen) {
   sub.planning <- arrange(filter(planning, Dag == dag), Plantijd, Basisnr)
   # Filter de vluchten die in deze maand niet worden gevlogen er uit
   sub.planning <- filter(sub.planning, sub.weer$Maand >= start & sub.weer$Maand <= eind)
+  # Filter de inactieve vluchten er uit
+  sub.planning <- filter(sub.planning, Actief == TRUE)
   # Voeg kolommen toe
   sub.planning <- data.frame(sub.planning,
                          Datum = sub.weer$Datum,
