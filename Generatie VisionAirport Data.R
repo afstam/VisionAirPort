@@ -4,12 +4,12 @@
 setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus Vision Airport")
 
 # Packages
-require(chron)
-require(sn)
-require(ggplot2)
-require(dplyr)
-require(reshape2)
-
+library(chron)
+library(sn)
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(reshape2)
 
 
 # Functies ######################################################################################
@@ -44,6 +44,7 @@ routes <- read.csv2("data_routes.csv")
 banen <- read.csv2("data_banen.csv")
 weer <- read.csv2("data_weer.csv")
 vliegtuigtype <- read.csv2("data_vliegtuigen.csv")
+vracht <- read.csv2("data_vracht.csv")
 
 # Aanpassingen data formaat
 weer$Datum <- as.Date(weer$Datum,"%d-%m-%Y")
@@ -52,12 +53,17 @@ weer$nat <- weer$RH > 100
 weer$vorst <- weer$TG < 0
 weer$sneeuw <- weer$TG < -10 & weer$RH > 15
 
-routes <- rename(routes, Plangate = Gate, Planterminal = Terminal)
+routes <- dplyr::rename(routes, Plangate = Gate, Planterminal = Terminal)
 
 # Enkele levels in een vector opslaan
 gatelvls <- c(levels(routes$Plangate),"C8")
 terminallvls <- c(levels(routes$Planterminal))
 richtinglvls <- c("A","D","S")
+luchthavens <- unique(c(levels(routes$Destcode), levels(vracht$Destcode)))
+airlines <- unique(c(levels(routes$Airlinecode), levels(vracht$Airlinecode)))
+
+# Airlines voor wie VisionAirPort een hub is
+home <- c("KL","HV","OR","CAI","MPH")
 
 # Genereren vluchtnummers ######################################################################################
 
@@ -106,8 +112,7 @@ routes <- mutate(routes,
 # Sla alle vliegtuigen op
 vliegtuigcodes <- unique(routes$Vliegtuigcode)
 
-# Aanpassing voor de 4 airlines voor wie VisionAirport een hub is
-home <- c("KL","HV","OR","CAI")
+# Aanpassing voor de airlines voor wie VisionAirport een hub is
 routes$Vluchtnr[!(routes$Airlinecode %in% home)] <- routes$Vluchtnr[!(routes$Airlinecode %in% home)] - 1
 
 
@@ -131,9 +136,10 @@ routes[routes$Periode == "z", c("start","eind")] <- c(sample(c(4,5,6),aantalzome
 # Opstellen planning ######################################################################################
 
 # Tabelstructuren
-vars.plantabel <- c("Airlinecode", "Destcode", "Zomerdrukte", "Vliegtuigtype", "Planterminal", "Plangate", "Vluchtnr", "Basisnr", "Vliegtuigcode", "start", "eind","Richting","Plantijd","Dag")
-str.plantabel <- structure(list(Airlinecode = factor(levels=levels(routes$Airlinecode)),
-                                Destcode = factor(levels=levels(routes$Destcode)),
+vars.plantabel <- c("Airlinecode", "Destcode", "Continent", "Zomerdrukte", "Vliegtuigtype", "Planterminal", "Plangate", "Vluchtnr", "Basisnr", "Vliegtuigcode", "start", "eind","Richting","Plantijd","Dag")
+str.plantabel <- structure(list(Airlinecode = factor(levels=airlines),
+                                Destcode = factor(levels=luchthavens),
+                                Continent = factor(levels=levels(routes$Continent)),
                                 Zomerdrukte = integer(),
                                 Vliegtuigtype = factor(levels=levels(vliegtuigtype$IATA)),
                                 Planterminal = factor(levels=terminallvls),
@@ -445,36 +451,53 @@ planning$Plantijd <- planning$Plantijd + 287 - max(planning$Plantijd)
 
 # Bereken de daadwerkelijke tijd (dus niet in termen van 5mins)
 planning$Plantijd <- planning$Plantijd * 5
-planning$Planuur <- planning$Plantijd %/% 60
-planning$Planminuut <- planning$Plantijd %% 60
+
 
 # Grafieken van de verdeling over de dag
-plot(density(planning$Plantijd))
-plot(table(planning$Planuur))
+planuur <- planning$Plantijd %/% 60
+plot(table(planuur))
+rm(planuur)
 
 
+
+# Vluchtnummers voor vrachtvluchten ############################################################################
+
+vracht <- mutate(vracht, 
+                 Vliegtuigcode = sample(2501:4990,nrow(vracht)) * 2 + as.integer(Airlinecode %in% home),
+                 VluchtnrA = Vliegtuigcode - 1,
+                 VluchtnrD = Vliegtuigcode)
+for (i in 4:6) {
+  vracht[,i] <- paste0(vracht$Airlinecode, vracht[,i])
+}
+
+vliegtuigcodes <- c(vliegtuigcodes, unique(vracht$Vliegtuigcode))
+levels(planning$Vliegtuigcode) <- vliegtuigcodes
 
 
 
 # Simulatie routevluchten ######################################################################################
 
 # De dagen waarvoor de simulatie draait
-simdagen <- sort(sample(1:365,50))
+simdagen <- sort(sample(1:365,10))
 
 # Zet willekeurig 36 vliegtuigen op non-actief
 inactief <- routes$Vliegtuigcode[sample(1:nrow(routes),36)]
 planning$Actief <- !(planning$Vliegtuigcode %in% inactief)
 
 # Alle vliegtuigen
-vliegtuig <- planning %>%
-  group_by(Vliegtuigcode) %>%
-  arrange(Plantijd) %>%
-  summarize(freq = n(),
+vliegtuig.pax <- planning %>%
+  dplyr::group_by(Vliegtuigcode) %>%
+  dplyr::arrange(Plantijd) %>%
+  dplyr::summarize(freq = n(),
             ri = first(Richting),
-            type = first(Richting),
             type = first(Vliegtuigtype)) %>%
   merge(vliegtuigtype, by.x = "type", by.y="IATA", all.x = TRUE)
 
+vliegtuig.vracht <- vracht %>%
+  merge(vliegtuigtype, by.x = "Vliegtuigtype", by.y = "IATA", all.x = TRUE)
+
+# Tabellen
+vars.simtabel <- c("Datum","Vluchtnr","Richting","Airlinecode","Destcode","Continent","Vliegtuigcode","Vliegtuigtype","Planterminal","Plangate","Terminal","Gate","Plantijd","Vertraging","Tijd","Baan","Bezetting","Capaciteit","Passagiers","MaxVracht","Vracht","Cancelled")
 sim <- data.frame()
 
 for(i in simdagen) {
@@ -495,7 +518,8 @@ for(i in simdagen) {
   
   # We slaan de planning voor vandaag op in sub.planning
   sub.planning <- planning %>%
-    merge(select(vliegtuig,Vliegtuigcode,Capaciteit), by = "Vliegtuigcode", all.x = T) %>%
+    merge(select(vliegtuig.pax,Vliegtuigcode,Capaciteit,Vracht), by = "Vliegtuigcode", all.x = T) %>%
+    dplyr::rename(MaxVracht = Vracht) %>%
     arrange(Plantijd, Basisnr) %>%
     filter(Dag == dag) %>%
     filter(sub.weer$Maand >= start & sub.weer$Maand <= eind) %>%
@@ -503,7 +527,6 @@ for(i in simdagen) {
   
   # Voeg kolommen toe
   sub.planning <- data.frame(sub.planning,
-                         Datum = sub.weer$Datum,
                          Vertraging = as.integer(NA),
                          Tijd = as.integer(NA),
                          Gate = factor(NA,levels=gatelvls),
@@ -549,8 +572,8 @@ for(i in simdagen) {
   }
   
   # Hiermee kunnen voor elke vlucht afzonderlijk worden berekend of ze last hebben van slecht zicht of wind
-  slechtzicht <- sub.planning$Planuur %in% zichturen
-  windstoot <- sub.planning$Planuur %in% winduren
+  slechtzicht <- (sub.planning$Plantijd %/% 60) %in% zichturen
+  windstoot <- (sub.planning$Plantijd %/% 60) %in% winduren
   
   # Vertraging door sneeuw is 30 min, door vorst 10 min, door slecht zicht 30 min, door wind 15 min, door regen 10 min
   v.weer <- sub.weer$sneeuw * 30 + sub.weer$vorst * 10 + slechtzicht * 30 + windstoot * 15 + sub.weer$nat * 10
@@ -580,11 +603,11 @@ for(i in simdagen) {
   # Filter arriverende vluchten
   arr <- sub.planning$Richting == "A"
   # Filter vluchten waarbij de arriverende vlucht invloed heeft op de vertraging van de vertrekkende vlucht
-  dub <- sub.planning$Basisnr %in% filter(vliegtuig, freq > 1 & ri == "A")$Basisnr
+  dub <- sub.planning$Basisnr %in% filter(vliegtuig.pax, freq > 1 & ri == "A")$Basisnr
   
   # Voeg de vertraging van een eventuele eerdere, arriverende vlucht toe aan het df
   sub.planning <- arrange(merge(sub.planning, sub.planning[arr,c("Basisnr","Vertraging")], by = "Basisnr", all.x = T),Plantijd,Basisnr)
-  sub.planning <- rename(sub.planning, Vertraging = Vertraging.x)
+  sub.planning <- dplyr::rename(sub.planning, Vertraging = Vertraging.x)
   sub.planning[dub&!arr,"Vertraging"] <- sub.planning[dub&!arr,"Vertraging.y"]
   sub.planning$Vertraging.y <- NULL
   
@@ -628,7 +651,7 @@ for(i in simdagen) {
       # Voor elke vlucht in dataframe `gate` wordt berekend of die conflicteert met deze vlucht
       gate$vrij <- a > gate$D | d < gate$A
       # We summarisen per gate met all(), want alle vluchten mogen geen conflict vormen
-      beschikbaar <- summarize(group_by(gate,Gate), a = all(vrij))
+      beschikbaar <- dplyr::summarize(group_by(gate,Gate), a = all(vrij))
       # Voeg C8 handmatig toe indien nodig
       if (nrow(filter(beschikbaar, Gate == "C8")) == 0) { beschikbaar <- rbind(beschikbaar, list("C8",T)) }
       
@@ -663,6 +686,54 @@ for(i in simdagen) {
   
   
   ###################
+  # Bezetting  ######
+  ###################
+  
+  # De bezettingsgraad is het hoogst in juli (maand = 7) en daarom ook het laagst in januari (maand = 1)
+  # Elke bestemming heeft een `Zomerdrukte`,  die bepaalt hoe gevoelig de bezetting is voor de tijd van het jaar
+  # Daarnaast is er een willekeurige factor tussen -5 en +5 procent
+  
+  sub.planning$Bezetting <- pmin(90 - 2 * (abs(sub.weer$Maand - 7)-1) * sub.planning$Zomerdrukte + sample(-5:5, nrow(sub.planning),replace=T), rep(100, nrow(sub.planning)))
+  sub.planning$Passagiers <- round(sub.planning$Bezetting * sub.planning$Capaciteit / 100)
+  sub.planning$Bezetting <- round(sub.planning$Passagiers / sub.planning$Capaciteit * 100)
+  
+  
+  
+  
+  
+  ###################
+  # Vrachtvluchten ##
+  ###################
+  
+  vracht$tijd <- sample(350:1100, nrow(vracht))
+  vr <- sample(1:nrow(vracht), onesample(8:17))
+  
+  sub.vracht <- data.frame(
+    Vliegtuigcode = vracht[vr,4],
+    Airlinecode = vracht[vr,1],
+    Destcode = vracht[vr,2],
+    Vliegtuigtype = vracht[vr,3],
+    Vluchtnr = vracht[vr,5],
+    Richting = rep("A",length(vr)),
+    Tijd = vracht[vr,7],
+    Dag = rep(dag, length(vr)),
+    Cancelled = rep(0, length(vr))
+  )
+  
+  sub.vracht <- sub.vracht %>%
+    dplyr::mutate(Richting = "D",
+                  Tijd = Tijd + sample(100:150,nrow(sub.vracht),replace=T)) %>%
+    rbind(sub.vracht) %>%
+    merge(vliegtuig.vracht[,c("Vliegtuigcode","Capaciteit","Vracht")], by = "Vliegtuigcode", all.x = T) %>%
+    dplyr::rename(MaxVracht = Vracht) %>%
+    dplyr::mutate(Vracht = as.integer(MaxVracht * runif(length(vr)*2,min=0.7,max=1)))
+    
+  sub.planning <- rbind.fill(sub.planning, sub.vracht)
+  
+  
+  
+  
+  ###################
   # Baankeuze  ######
   ###################
   
@@ -685,22 +756,7 @@ for(i in simdagen) {
     sub.planning[sub.planning$Richting == "A","Baan"] <- a.baan
     sub.planning[sub.planning$Richting == "D","Baan"] <- d.baan
   }
-  
-  
-  
-  
-  
-  ###################
-  # Bezetting  ######
-  ###################
-  
-  # De bezettingsgraad is het hoogst in juli (maand = 7) en daarom ook het laagst in januari (maand = 1)
-  # Elke bestemming heeft een `Zomerdrukte`,  die bepaalt hoe gevoelig de bezetting is voor de tijd van het jaar
-  # Daarnaast is er een willekeurige factor tussen -5 en +5 procent
-  
-  sub.planning$Bezetting <- pmin(90 - 2 * (abs(sub.weer$Maand - 7)-1) * sub.planning$Zomerdrukte + sample(-5:5, nrow(sub.planning),replace=T), rep(100, nrow(sub.planning)))
-  sub.planning$Passagiers <- round(sub.planning$Bezetting * sub.planning$Capaciteit / 100)
-  sub.planning$Bezetting <- round(sub.planning$Passagiers / sub.planning$Capaciteit * 100)
+
   
   
   
@@ -708,17 +764,16 @@ for(i in simdagen) {
   ###################
   # Opslaan  ########
   ###################
+  sub.planning$Datum <- sub.weer$Datum
   sub.planning$Datum[sub.planning$Cancelled == 0 & sub.planning$Tijd >= 1440] <- sub.planning$Datum[sub.planning$Cancelled == 0 & sub.planning$Tijd >= 1440] + 1
   sub.planning$Tijd <- sub.planning$Tijd %% 1440
-  sim <- rbind(sim, sub.planning[,])
+  sub.planning <- dplyr::arrange(sub.planning,Tijd)
+  sim <- rbind(sim, sub.planning[,vars.simtabel])
   print(paste0("Simulatie afgerond van ",sub.weer$Dag," ",funmaand(sub.weer$Maand)," ",sub.weer$Jaar,". Aantal gatewissels: ",wissels))
 }
-rm(sub.planning,sub.weer,dag,i,slechtzicht,windstoot,winduren,zichturen,a,a.baan,actief,arr,bezet,continentaal,d,d_row,dub,inactief,j,k,rows,sel,simdagen,v.continent,v.random,v.weer,wissels)
-
-#
+rm(sub.planning,sub.vracht,sub.weer,dag,i,slechtzicht,windstoot,winduren,zichturen,a,a.baan,actief,arr,bezet,continentaal,d,d_row,dub,inactief,j,k,rows,sel,simdagen,v.continent,v.random,v.weer,wissels)
 
 sim$Gatewissel <- sim$Plangate != sim$Gate & !is.na(sim$Gate)
-sim$Cancelled <- is.na(sim$Tijd)
 
 
 
@@ -726,26 +781,25 @@ sim$Cancelled <- is.na(sim$Tijd)
 
 
 
-
-plot(density(sim$Vertraging, adjust=.75))
+plot(density(sim$Vertraging, adjust=.75, na.rm = T))
 
 summ <- sim %>%
-  group_by(Datum) %>%
-  summarise(vertraging = mean(Vertraging,na.rm=T), 
-          gatewissels = sum(as.integer(Gatewissel)),
-          gatewisselperc = sum(as.integer(Gatewissel))/n(),
-          vluchten = n(),
-          cancels = sum(Cancelled)) %>%
+  dplyr::group_by(Datum) %>%
+  dplyr::summarise(vertraging = mean(Vertraging,na.rm=T), 
+                   gatewissels = sum(as.integer(Gatewissel)),
+                   gatewisselperc = sum(as.integer(Gatewissel))/n(),
+                   vluchten = n(),
+                   cancels = sum(Cancelled)) %>%
   merge(weer, by = "Datum") %>%
   filter(vluchten > 10)
 
 maand <- summ %>%
-  group_by(Maand) %>%
-  summarise(vorst = sum(vorst),
-            vertraging = mean(vertraging,na.rm=T),
-            gatewissels = sum(gatewissels),
-            vluchten = sum(vluchten),
-            cancels = sum(cancels))
+  dplyr::group_by(Maand) %>%
+  dplyr::summarise(vorst = sum(vorst),
+                   vertraging = mean(vertraging,na.rm=T),
+                   gatewissels = sum(gatewissels),
+                   vluchten = sum(vluchten),
+                   cancels = sum(cancels))
 
 model <- lm(vertraging ~ vluchten + gatewissels + FXX + FG + VVN + VVX + nat + vorst + sneeuw + RH, data = summ)
 summary(model)
