@@ -40,11 +40,13 @@ onesample <- function(x) {
 # Data inlezen ######################################################################################
 
 # Bronbestanden
-routes <- read.csv2("data_routes.csv")
 banen <- read.csv2("data_banen.csv")
-weer <- read.csv2("data_weer.csv")
+general <- read.csv2("data_general.csv")
+luchthaven <- read.csv2("data_luchthavens.csv")
+routes <- read.csv2("data_routes.csv")
 vliegtuigtype <- read.csv2("data_vliegtuigen.csv")
 vracht <- read.csv2("data_vracht.csv")
+weer <- read.csv2("data_weer.csv")
 
 # Aanpassingen data formaat
 weer$Datum <- as.Date(weer$Datum,"%d-%m-%Y")
@@ -57,9 +59,9 @@ routes <- dplyr::rename(routes, Plangate = Gate, Planterminal = Terminal)
 
 # Enkele levels in een vector opslaan
 gatelvls <- c(levels(routes$Plangate),"C8")
-terminallvls <- c(levels(routes$Planterminal))
+terminallvls <- c(levels(routes$Planterminal), "GA", "F")
 richtinglvls <- c("A","D","S")
-luchthavens <- unique(c(levels(routes$Destcode), levels(vracht$Destcode)))
+luchthavens <- c(levels(luchthaven$Luchthavencode),"VAP")
 airlines <- unique(c(levels(routes$Airlinecode), levels(vracht$Airlinecode)))
 
 # Airlines voor wie VisionAirPort een hub is
@@ -475,6 +477,20 @@ levels(planning$Vliegtuigcode) <- vliegtuigcodes
 
 
 
+# Vliegtuigcodes voor General Aviation ############################################################################
+
+general <- rbind(general,general,general,general,general)
+
+luchthavens.eur <- as.character(luchthaven$Luchthavencode[luchthaven$Continent == "Eur" & luchthaven$Afstand.in.km < 1600])
+general$Locatie <- as.character("VAP")
+sel <- runif(nrow(general)) < 0.5
+general$Locatie[sel] <- sample(luchthavens.eur,sum(sel),replace=T)
+
+general <- data.frame(general[order(runif(nrow(general))),])
+rownames(general) <- NULL
+general$Vliegtuigcode <- paste0("GA",rownames(general))
+
+
 # Simulatie routevluchten ######################################################################################
 
 # De dagen waarvoor de simulatie draait
@@ -715,9 +731,11 @@ for(i in simdagen) {
     Vliegtuigtype = vracht[vr,3],
     Vluchtnr = vracht[vr,5],
     Richting = rep("A",length(vr)),
+    Terminal = "F",
     Tijd = vracht[vr,7],
     Dag = rep(dag, length(vr)),
-    Cancelled = rep(0, length(vr))
+    Cancelled = rep(0, length(vr)),
+    stringsAsFactors = FALSE
   )
   
   sub.vracht <- sub.vracht %>%
@@ -756,7 +774,37 @@ for(i in simdagen) {
     sub.planning[sub.planning$Richting == "A","Baan"] <- a.baan
     sub.planning[sub.planning$Richting == "D","Baan"] <- d.baan
   }
-
+  
+  
+  
+  
+  
+  ###################
+  # General #########
+  ###################
+  
+  general$tijd <- sample(350:1100, nrow(general), replace=T)
+  vr <- sample(1:nrow(general), onesample(3:16))
+  
+  sub.general <- data.frame(
+    Vliegtuigcode = general[vr,3],
+    Destcode = general[vr,2],
+    Vliegtuigtype = general[vr,1],
+    Richting = rep("A",length(vr)),
+    Tijd = general[vr,4],
+    Terminal = "GA",
+    Baan = 6,
+    stringsAsFactors = FALSE
+  )
+  
+  sub.general$Richting[sub.general$Destcode == "VAP"] <- "D"
+  sub.general$Destcode[sub.general$Destcode == "VAP"] <- sample(luchthavens.eur, sum(sub.general$Destcode == "VAP"), replace=T)
+  
+  sub.general <-  merge(sub.general, vliegtuigtype[,c("IATA","Capaciteit","Vracht")], by.x = "Vliegtuigtype", by.y = "IATA", all.x = T) %>%
+    dplyr::rename(MaxVracht = Vracht)
+  
+  sub.planning <- rbind.fill(sub.planning, sub.general)
+  
   
   
   
@@ -774,7 +822,9 @@ for(i in simdagen) {
 rm(sub.planning,sub.vracht,sub.weer,dag,i,slechtzicht,windstoot,winduren,zichturen,a,a.baan,actief,arr,bezet,continentaal,d,d_row,dub,inactief,j,k,rows,sel,simdagen,v.continent,v.random,v.weer,wissels)
 
 sim$Gatewissel <- sim$Plangate != sim$Gate & !is.na(sim$Gate)
-
+sim$Type <- "R"
+sim$Type[!is.na(sim$Vracht)] <- "F"
+sim$Type[sim$Terminal == "GA"] <- "GA"
 
 
 
