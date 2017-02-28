@@ -1,7 +1,7 @@
 # Initialiseren ######################################################################################
 
 # Selecteer bronmap
-setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus Vision Airport")
+# setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus Vision Airport")
 setwd("D:\\data\\ITH21266\\Documents\\VisionAirPort")
 
 # Packages
@@ -495,7 +495,7 @@ general$Vliegtuigcode <- paste0("GA",rownames(general))
 # Simulatie routevluchten ######################################################################################
 
 # De dagen waarvoor de simulatie draait
-simdagen <- sort(sample(1:365,10))
+simdagen <- sort(sample(c(32:60,397:425,762:790,1127:1155),20))
 
 # Zet willekeurig 36 vliegtuigen op non-actief
 inactief <- routes$Vliegtuigcode[sample(1:nrow(routes),36)]
@@ -514,7 +514,7 @@ vliegtuig.vracht <- vracht %>%
   merge(vliegtuigtype, by.x = "Vliegtuigtype", by.y = "IATA", all.x = TRUE)
 
 # Tabellen
-vars.simtabel <- c("Datum","Vluchtnr","Richting","Airlinecode","Destcode","Continent","Vliegtuigcode","Vliegtuigtype","Planterminal","Plangate","Terminal","Gate","Plantijd","Vertraging","Tijd","Baan","Bezetting","Capaciteit","Passagiers","MaxVracht","Vracht","Cancelled")
+vars.simtabel <- c("Datum","Vluchtnr","Richting","Airlinecode","Destcode","Continent","Zomerdrukte","Vliegtuigcode","Vliegtuigtype","Planterminal","Plangate","Terminal","Gate","Plantijd","Vertraging","Tijd","Baan","Bezetting","Capaciteit","Passagiers","MaxVracht","Vracht","Cancelled")
 sim <- data.frame()
 
 for(i in simdagen) {
@@ -867,3 +867,46 @@ plot(summ$vorst, summ$vertraging)
 plot(summ$sneeuw, summ$vertraging)
 plot(summ$RH, summ$vertraging)
 plot(summ$TG, summ$vertraging)
+
+
+# Klanttevredenheid  ############################################################################
+
+#selecteer benodigde kolommen om klanttevredenheid te berekenen en schrijf naar nieuwe tabel
+library(lubridate)
+
+klanttevredenheid <- subset(sim, month(Datum) == 02, select = c("Vluchtnr", "Datum", "Zomerdrukte", "Bezetting", "Vertraging", "Gatewissel", "Terminal", "Destcode", "Plantijd", "Type"))
+
+#filter passagiersvluchten 
+klanttevredenheid <- filter(klanttevredenheid, Type == 'R')
+klanttevredenheid <- mutate(klanttevredenheid, Jaar = year(Datum) - 2010)
+
+#creeer kolommen
+klanttevredenheid <- mutate(klanttevredenheid, Operatie = 0)
+klanttevredenheid <- mutate(klanttevredenheid, Faciliteiten = 0)
+klanttevredenheid <- mutate(klanttevredenheid, Shops = 0)
+
+#bereken klanttevredenheid Operatie
+#er is een negatieve correlatie met:
+# - de bezetting, 
+# - de vertraging (dus indirect met het weer), 
+# - de gatewissels
+klanttevredenheid <- mutate(klanttevredenheid, Operatie = 8 - 0.5 * Bezetting / 100 - 0.005 * Vertraging - 1 * Gatewissel + rnorm(length(Operatie), 0, 0.5))
+klanttevredenheid <- mutate(klanttevredenheid, Operatie = round(Operatie, digits = 1))
+
+#bereken klanttevredenheid Faciliteiten
+#er is een negatieve correlatie met:
+# - de vertrekterminal, A slechtst beoordeeld, B ook matig
+# - het wordt steeds drukker op het vliegveld, per jaar slechtere beoordeling
+# - zomerdrukte
+klanttevredenheid <- mutate(klanttevredenheid, Faciliteiten = 8 - 3 * as.integer(Terminal == "A") - 1.5 * as.integer(Terminal == "B") - Jaar / 5 - 0.6 ^(Zomerdrukte == 4)+ rnorm(length(Faciliteiten), 0, 0.5))
+klanttevredenheid <- mutate(klanttevredenheid, Faciliteiten = round(Faciliteiten, digits = 1))
+
+#bereken klanttevredenheid Shops
+#er is een negatieve correlatie met:
+# - zomerdrukte
+klanttevredenheid <- mutate(klanttevredenheid, Shops = rnorm(length(Shops), 6, 1) - 0.9 ^ (Zomerdrukte == 4) )
+
+#winkels zijn dicht tussen 23:00 en 6:00, geen Shops beoordelingen als passagiers in deze periode vliegen
+klanttevredenheid$Shops[klanttevredenheid$Plantijd > 1380 | klanttevredenheid$Plantijd < 360] <- NA
+klanttevredenheid <- mutate(klanttevredenheid, Shops = round(Shops, digits = 1))
+
