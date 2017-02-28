@@ -2,6 +2,7 @@
 
 # Selecteer bronmap
 setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus Vision Airport")
+setwd("D:\\data\\ITH21266\\Documents\\VisionAirPort")
 
 # Packages
 library(chron)
