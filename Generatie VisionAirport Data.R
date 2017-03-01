@@ -872,15 +872,19 @@ plot(summ$TG, summ$vertraging)
 # Klanttevredenheid  ############################################################################
 
 #selecteer benodigde kolommen om klanttevredenheid te berekenen en schrijf naar nieuwe tabel
+#eenvoudig gebruik kunnen maken van datums
 library(lubridate)
 
+#haal de benodigde kolommen uit de gesimuleerde data
 klanttevredenheid <- subset(sim, month(Datum) == 02, select = c("Vluchtnr", "Datum", "Zomerdrukte", "Bezetting", "Vertraging", "Gatewissel", "Terminal", "Destcode", "Plantijd", "Type"))
 
 #filter passagiersvluchten 
 klanttevredenheid <- filter(klanttevredenheid, Type == 'R')
+
+#haal jaar uit de Datum kolom, en schrijf deze weg naar nieuwe kolom, alleen laatste getal bewaren
 klanttevredenheid <- mutate(klanttevredenheid, Jaar = year(Datum) - 2010)
 
-#creeer kolommen
+#creeer nieuwe kolommen voor de beoordelingen
 klanttevredenheid <- mutate(klanttevredenheid, Operatie = 0)
 klanttevredenheid <- mutate(klanttevredenheid, Faciliteiten = 0)
 klanttevredenheid <- mutate(klanttevredenheid, Shops = 0)
