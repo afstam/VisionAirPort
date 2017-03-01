@@ -52,7 +52,7 @@ weer <- read.csv2("data_weer.csv")
 # Aanpassingen data formaat
 weer$Datum <- as.Date(weer$Datum,"%d-%m-%Y")
 weer$RH[weer$RH < 0] <- 0
-weer$nat <- weer$RH > 100
+weer$nat <- weer$RH > 50
 weer$vorst <- weer$TG < 0
 weer$sneeuw <- weer$TG < -10 & weer$RH > 15
 
@@ -60,7 +60,7 @@ routes <- dplyr::rename(routes, Plangate = Gate, Planterminal = Terminal)
 
 # Enkele levels in een vector opslaan
 gatelvls <- c(levels(routes$Plangate),"C8")
-terminallvls <- c(levels(routes$Planterminal), "GA", "F")
+terminallvls <- c(levels(routes$Planterminal), "F", "G")
 richtinglvls <- c("A","D","S")
 luchthavens <- c(levels(luchthaven$Luchthavencode),"VAP")
 airlines <- unique(c(levels(routes$Airlinecode), levels(vracht$Airlinecode)))
@@ -91,7 +91,7 @@ for(i in levels(routes[,1])) {
   # als deze airline maar 1 vlucht heeft: geef random vluchtnummer
   if(nrow(sub) == 1) {
     sub[sub$Continent=="Eur","Vluchtnr"] <- floor(runif(1,min=10,max=495)) * 2 + 1
-    sub[sub$Continent!="Eur","Vluchtnr"] <- floor(runif(1,min=495,max=2995)) * 2 + 1
+    sub[sub$Continent!="Eur","Vluchtnr"] <- floor(runif(1,min=495,max=2495)) * 2 + 1
   # meer vluchten? voeg dan controle toe dat gegenereerde vluchtnummers niet te dicht opeen zitten
   # sorteer van klein naar groot en check dat opeenvolgende vluchtnummers minstens 8 verschillen
   # door de while-functie wordt geprobeerd tot een willekeurige set is gegenereerd die voldoet
@@ -564,12 +564,12 @@ for(i in simdagen) {
   # Bepaal de uren waarbij wind voor vertraging zorgt
   # Als de gemiddelde windsnelheid (FG) hoger is dan 6.5 m/s (2.5 m/s bij regen, is er de hele dag vertraging door wind
   # Zo niet, als er een windstoot (FXX) is gemeten van meer dan 10.0 m/s (6.0 m/s bij regen), is er 9 uur rondom die windstoot vertraging door wind
-  if(sub.weer$FXX > (100 - 40 * sub.weer$nat)) {
+  if(sub.weer$FXX > (100 - 28 * sub.weer$nat)) {
     winduren <- max(0,sub.weer$FXXH-5):min(23,sub.weer$FXXH+4)
   } else {
     winduren <- NA
   }
-  if(sub.weer$FG > (65 - 40 * sub.weer$nat)) {
+  if(sub.weer$FG > (67 - 28 * sub.weer$nat)) {
     winduren <- 0:23
   }
   
@@ -760,7 +760,7 @@ for(i in simdagen) {
   # Als er meer wind staat, moet de baankeuze worden bepaald o.b.v. de windrichting (DDVEC)
   # Vliegtuigen willen zo goed mogelijk tegen de wind in opstijgen en landen
   
-  if(sub.weer$FXX < 100 & sub.weer$FG < 65) {
+  if(sub.weer$FXX < 100 & sub.weer$FG < 67) {
     # Wind geen invloed op baankeuze
     sub.planning[sub.planning$Richting == "A","Baan"] <- 4
     sub.planning[sub.planning$Richting == "D","Baan"] <- 3
@@ -769,9 +769,9 @@ for(i in simdagen) {
     # Wind heeft wel invloed op baankeuze
     banen$A_score <- 180 - abs((sub.weer$DDVEC - banen$Landen + 180) %% 360 - 180)    #Verschil tussen windrichting en landrichting
     banen$D_score <- 180 - abs((sub.weer$DDVEC - banen$Opstijgen + 180) %% 360 - 180) #Verschil tussen windrichting en opstijgrichting
-    a.baan <- head(arrange(filter(banen, Baannummer != 6),A_score),1)$Baannummer
+    a.baan <- onesample(arrange(filter(banen, Baannummer != 6),A_score)$Baannummer)
     d.baan <- (1:5)[-a.baan]
-    d.baan <- head(arrange(filter(banen, Baannummer %in% d.baan),D_score),1)$Baannummer
+    d.baan <- onesample(arrange(filter(banen, Baannummer %in% d.baan),D_score)$Baannummer)
     sub.planning[sub.planning$Richting == "A","Baan"] <- a.baan
     sub.planning[sub.planning$Richting == "D","Baan"] <- d.baan
   }
@@ -793,7 +793,7 @@ for(i in simdagen) {
     Vliegtuigtype = general[vr,1],
     Richting = rep("A",length(vr)),
     Tijd = general[vr,4],
-    Terminal = "GA",
+    Terminal = "G",
     Baan = 6,
     stringsAsFactors = FALSE
   )
@@ -825,7 +825,7 @@ rm(sub.planning,sub.vracht,sub.weer,dag,i,slechtzicht,windstoot,winduren,zichtur
 sim$Gatewissel <- sim$Plangate != sim$Gate & !is.na(sim$Gate)
 sim$Type <- "R"
 sim$Type[!is.na(sim$Vracht)] <- "F"
-sim$Type[sim$Terminal == "GA"] <- "GA"
+sim$Type[sim$Terminal == "G"] <- "GA"
 
 
 
