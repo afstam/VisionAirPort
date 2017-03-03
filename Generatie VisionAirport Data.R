@@ -1,8 +1,8 @@
 # Initialiseren ######################################################################################
 
 # Selecteer bronmap
-# setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus Vision Airport")
-setwd("D:\\data\\ITH21266\\Documents\\VisionAirPort")
+ setwd("D:\\data\\ast21252\\Documents\\201701 VisionWorks Academy XI\\Eindcasus Vision Airport")
+#setwd("D:\\data\\ITH21266\\Documents\\VisionAirPort")
 
 # Packages
 library(chron)
@@ -11,6 +11,8 @@ library(ggplot2)
 library(plyr)
 library(dplyr)
 library(reshape2)
+library(lubridate)
+library(caret)
 
 
 # Functies ######################################################################################
@@ -55,6 +57,7 @@ weer$RH[weer$RH < 0] <- 0
 weer$nat <- weer$RH > 50
 weer$vorst <- weer$TG < 0
 weer$sneeuw <- weer$TG < -10 & weer$RH > 15
+weer$extreemwind <- weer$FXX > 200
 
 routes <- dplyr::rename(routes, Plangate = Gate, Planterminal = Terminal)
 
@@ -465,6 +468,7 @@ rm(planuur)
 
 # Vluchtnummers voor vrachtvluchten ############################################################################
 
+vracht <- rbind(vracht,vracht,vracht)
 vracht <- mutate(vracht, 
                  Vliegtuigcode = sample(2501:4990,nrow(vracht)) * 2 + as.integer(Airlinecode %in% home),
                  VluchtnrA = Vliegtuigcode - 1,
@@ -492,10 +496,15 @@ rownames(general) <- NULL
 general$Vliegtuigcode <- paste0("GA",rownames(general))
 
 
-# Simulatie routevluchten ######################################################################################
+
+
+
+
+
+# Simulatie ######################################################################################
 
 # De dagen waarvoor de simulatie draait
-simdagen <- sort(sample(c(32:60,397:425,762:790,1127:1155),20))
+simdagen <- sort(sample(731:1095,30))
 
 # Zet willekeurig 36 vliegtuigen op non-actief
 inactief <- routes$Vliegtuigcode[sample(1:nrow(routes),36)]
@@ -593,7 +602,7 @@ for(i in simdagen) {
   windstoot <- (sub.planning$Plantijd %/% 60) %in% winduren
   
   # Vertraging door sneeuw is 30 min, door vorst 10 min, door slecht zicht 30 min, door wind 15 min, door regen 10 min
-  v.weer <- sub.weer$sneeuw * 30 + sub.weer$vorst * 10 + slechtzicht * 30 + windstoot * 15 + sub.weer$nat * 10
+  v.weer <- sub.weer$sneeuw * 30 + sub.weer$vorst * 10 + slechtzicht * 30 + windstoot * 15 + sub.weer$nat * 10 + sub.weer$extreemwind * 60
   # Met een skew-normal verdeling worden deze vertragingen "uitgesmeerd" richting 0
   v.weer <- rsn(n=nrow(sub.planning),omega=0.35*v.weer,alpha=-10) + v.weer
   # Negatieve vertraging door weer kan niet
@@ -604,7 +613,7 @@ for(i in simdagen) {
   # Dit is gemiddeld 15 minuten
   # Intercontinentale vluchten staan ingepland op terminal D of E
   continentaal <- sub.planning$Planterminal %in% c("D","E")
-  v.continent <- rnorm(n=nrow(sub.planning),mean = 15, sd = 5) * continentaal
+  v.continent <- rnorm(n=nrow(sub.planning),mean = 10, sd = 7.5) * continentaal
   
   ### Vertraging door andere factoren
   
@@ -630,6 +639,22 @@ for(i in simdagen) {
   
   # Tel vertraging op bij plantijd om de gerealiseerde tijd te berekenen
   sub.planning$Tijd <- sub.planning$Plantijd + sub.planning$Vertraging
+  
+  
+  
+  
+  
+  ###################
+  # Bezetting  ######
+  ###################
+  
+  # De bezettingsgraad is het hoogst in juli (maand = 7) en daarom ook het laagst in januari (maand = 1)
+  # Elke bestemming heeft een `Zomerdrukte`,  die bepaalt hoe gevoelig de bezetting is voor de tijd van het jaar
+  # Daarnaast is er een willekeurige factor tussen -5 en +5 procent
+  
+  sub.planning$Bezetting <- pmin(90 - 2 * (abs(sub.weer$Maand - 7)-1) * sub.planning$Zomerdrukte + sample(-5:5, nrow(sub.planning),replace=T), rep(100, nrow(sub.planning)))
+  sub.planning$Passagiers <- round(sub.planning$Bezetting * sub.planning$Capaciteit / 100)
+  sub.planning$Bezetting <- round(sub.planning$Passagiers / sub.planning$Capaciteit * 100)
   
   
   
@@ -701,19 +726,16 @@ for(i in simdagen) {
   
   
   
-  
   ###################
-  # Bezetting  ######
+  # Annuleringen ####
   ###################
   
-  # De bezettingsgraad is het hoogst in juli (maand = 7) en daarom ook het laagst in januari (maand = 1)
-  # Elke bestemming heeft een `Zomerdrukte`,  die bepaalt hoe gevoelig de bezetting is voor de tijd van het jaar
-  # Daarnaast is er een willekeurige factor tussen -5 en +5 procent
-  
-  sub.planning$Bezetting <- pmin(90 - 2 * (abs(sub.weer$Maand - 7)-1) * sub.planning$Zomerdrukte + sample(-5:5, nrow(sub.planning),replace=T), rep(100, nrow(sub.planning)))
-  sub.planning$Passagiers <- round(sub.planning$Bezetting * sub.planning$Capaciteit / 100)
-  sub.planning$Bezetting <- round(sub.planning$Passagiers / sub.planning$Capaciteit * 100)
-  
+  cancelled <- sample(sub.planning$Basisnr,onesample(0:3))
+  if(sub.weer$extreemwind) { cancelled <- sample(unique(sub.planning$Basisnr),onesample(40:80)) }
+  rows <- (sub.planning$Basisnr %in% cancelled)
+  sub.planning$Cancelled[rows] <- 1
+  sub.planning$Tijd[rows] <- NA
+  sub.planning$Gate[rows] <- NA
   
   
   
@@ -723,7 +745,7 @@ for(i in simdagen) {
   ###################
   
   vracht$tijd <- sample(350:1100, nrow(vracht))
-  vr <- sample(1:nrow(vracht), onesample(8:17))
+  vr <- sample(nrow(vracht),as.integer(rnorm(1,35,7)))
   
   sub.vracht <- data.frame(
     Vliegtuigcode = vracht[vr,4],
@@ -795,6 +817,7 @@ for(i in simdagen) {
     Tijd = general[vr,4],
     Terminal = "G",
     Baan = 6,
+    Cancelled = rep(0,length(vr)),
     stringsAsFactors = FALSE
   )
   
@@ -816,16 +839,24 @@ for(i in simdagen) {
   sub.planning$Datum <- sub.weer$Datum
   sub.planning$Datum[sub.planning$Cancelled == 0 & sub.planning$Tijd >= 1440] <- sub.planning$Datum[sub.planning$Cancelled == 0 & sub.planning$Tijd >= 1440] + 1
   sub.planning$Tijd <- sub.planning$Tijd %% 1440
-  sub.planning <- dplyr::arrange(sub.planning,Tijd)
+  sub.planning <- dplyr::arrange(sub.planning,Datum,Tijd)
   sim <- rbind(sim, sub.planning[,vars.simtabel])
   print(paste0("Simulatie afgerond van ",sub.weer$Dag," ",funmaand(sub.weer$Maand)," ",sub.weer$Jaar,". Aantal gatewissels: ",wissels))
 }
 rm(sub.planning,sub.vracht,sub.weer,dag,i,slechtzicht,windstoot,winduren,zichturen,a,a.baan,actief,arr,bezet,continentaal,d,d_row,dub,inactief,j,k,rows,sel,simdagen,v.continent,v.random,v.weer,wissels)
 
+sim$Vluchtid <- as.integer(rownames(sim)) + 1959632
 sim$Gatewissel <- sim$Plangate != sim$Gate & !is.na(sim$Gate)
 sim$Type <- "R"
 sim$Type[!is.na(sim$Vracht)] <- "F"
 sim$Type[sim$Terminal == "G"] <- "GA"
+sim <- mutate(sim,
+              Vluchtnr = factor(Vluchtnr),
+              Richting = factor(Richting),
+              Destcode = factor(Destcode),
+              Vliegtuigcode = factor(Vliegtuigcode),
+              Terminal = factor(Terminal),
+              Type = factor(Type))
 
 
 
@@ -869,48 +900,62 @@ plot(summ$RH, summ$vertraging)
 plot(summ$TG, summ$vertraging)
 
 
+
+
 # Klanttevredenheid  ############################################################################
 
-#selecteer benodigde kolommen om klanttevredenheid te berekenen en schrijf naar nieuwe tabel
-#eenvoudig gebruik kunnen maken van datums
-library(lubridate)
+# Maak tabel aan voor klanttevredenheid
+# Hierin komen routevluchten uit feb 2016, juli 2016, en feb 2017
+klant.vars <- c("Vluchtid","Datum", "Zomerdrukte", "Bezetting", "Vertraging", "Gatewissel", "Terminal", "Destcode", "Plantijd", "Type")
+klant <- subset(sim,
+                month(Datum) %in% c(2,7) & year(Datum) >= 2016 & Type == "R" & Richting == "D" & !is.na(Tijd),
+                select = klant.vars)
 
-#haal de benodigde kolommen uit de gesimuleerde data
-klanttevredenheid <- subset(sim, month(Datum) == 02, select = c("Vluchtnr", "Datum", "Zomerdrukte", "Bezetting", "Vertraging", "Gatewissel", "Terminal", "Destcode", "Plantijd", "Type"))
+# 'Tijd' is het aantal dagen sinds 2016, hiermee kunnen dingen over de tijd beter of slechter worden
+klant <- mutate(klant,
+                Tijd = (Datum - ymd(20160101)) / ddays(1))
 
-#filter passagiersvluchten 
-klanttevredenheid <- filter(klanttevredenheid, Type == 'R')
+# Selecteer 3000 vluchten uit deze dataset
+sample <- createDataPartition(y = (klant$Tijd %/% 160), p = 3000/nrow(klant), list=F)
+klant <- klant[sample,]
 
-#haal jaar uit de Datum kolom, en schrijf deze weg naar nieuwe kolom, alleen laatste getal bewaren
-klanttevredenheid <- mutate(klanttevredenheid, Jaar = year(Datum) - 2010)
+# Operatie
+# Hoe hoger de bezetting, hoe lager de score (tot een max van -0.5)
+# Hoe meer vertraging, hoe lager de score (per uur vertraging -1.8)
+# Een gatewissel leidt tot 1 punt aftrek
+klant <- mutate(klant,
+                Operatie = rnorm(nrow(klant), 8, 0.5) - 0.5 * Bezetting / 100 - 0.03 * Vertraging - 1 * Gatewissel)
 
-#creeer nieuwe kolommen voor de beoordelingen
-klanttevredenheid <- mutate(klanttevredenheid, Operatie = 0)
-klanttevredenheid <- mutate(klanttevredenheid, Faciliteiten = 0)
-klanttevredenheid <- mutate(klanttevredenheid, Shops = 0)
+ggplot(klant, aes(x=Operatie, y=..count..)) +
+  geom_density(position="stack",size=1.5, adjust=1.5)
 
-#bereken klanttevredenheid Operatie
-#er is een negatieve correlatie met:
-# - de bezetting, 
-# - de vertraging (dus indirect met het weer), 
-# - de gatewissels
-klanttevredenheid <- mutate(klanttevredenheid, Operatie = 8 - 0.5 * Bezetting / 100 - 0.005 * Vertraging - 1 * Gatewissel + rnorm(length(Operatie), 0, 0.5))
-klanttevredenheid <- mutate(klanttevredenheid, Operatie = round(Operatie, digits = 1))
+# Faciliteiten
+# Gem. score per terminal: A = 5, B = 6.5, C,D,E = 8
+# Per jaar gaat de score met 0.3 omlaag
+# Vluchten naar een niet-vakantiebestemming scoren 20% lager
+klant <- mutate(klant,
+                Faciliteiten = (rnorm(nrow(klant), 8, .65) - 3*(Terminal == "A") - 1.5*(Terminal == "B") - Tijd/1100) * 0.8 ^ (Zomerdrukte == 1))
 
-#bereken klanttevredenheid Faciliteiten
-#er is een negatieve correlatie met:
-# - de vertrekterminal, A slechtst beoordeeld, B ook matig
-# - het wordt steeds drukker op het vliegveld, per jaar slechtere beoordeling
-# - zomerdrukte
-klanttevredenheid <- mutate(klanttevredenheid, Faciliteiten = 8 - 3 * as.integer(Terminal == "A") - 1.5 * as.integer(Terminal == "B") - Jaar / 5 - 0.6 ^(Zomerdrukte == 4)+ rnorm(length(Faciliteiten), 0, 0.5))
-klanttevredenheid <- mutate(klanttevredenheid, Faciliteiten = round(Faciliteiten, digits = 1))
+ggplot(klant, aes(x=Faciliteiten, y=..count.., fill=Terminal)) +
+  geom_density(position="stack",size=1.5, adjust=1.5) +
+  facet_wrap(~(Tijd %/% 160), nrow=3)
 
-#bereken klanttevredenheid Shops
-#er is een negatieve correlatie met:
-# - zomerdrukte
-klanttevredenheid <- mutate(klanttevredenheid, Shops = rnorm(length(Shops), 6, 1) - 0.9 ^ (Zomerdrukte == 4) )
+# Shops
+# Vluchten naar een vakantiebestemming scoren 10% lager
+# Er is geen score voor vluchten tussen 23:00 en 6:00
+klant <- mutate(klant,
+                Shops = rnorm(nrow(klant), 6, .75) * 0.9 ^ (Zomerdrukte == 4) )
+klant$Shops[klant$Plantijd > 1380 | klant$Plantijd < 360] <- NA
 
-#winkels zijn dicht tussen 23:00 en 6:00, geen Shops beoordelingen als passagiers in deze periode vliegen
-klanttevredenheid$Shops[klanttevredenheid$Plantijd > 1380 | klanttevredenheid$Plantijd < 360] <- NA
-klanttevredenheid <- mutate(klanttevredenheid, Shops = round(Shops, digits = 1))
+ggplot(klant, aes(x=Shops, y=..count..)) +
+  geom_density(size=1.5, adjust=1.5) +
+  facet_wrap(~Zomerdrukte, nrow=2)
 
+# Afronden op 1 decimaal en waarden boven de 10 op 10 zetten
+klant <- mutate(klant,
+                Faciliteiten = pmin(round(Faciliteiten, digits = 1),10),
+                Shops = pmin(round(Shops, digits = 1),10),
+                Operatie = pmin(round(Operatie, digits = 1),10))
+
+# Selecteer variabelen voor export
+klant.export <- select(klant, Vluchtid, Operatie, Faciliteiten, Shops)
