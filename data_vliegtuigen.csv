@@ -199,7 +199,6 @@ D94;DC94;Douglas;Douglas DC-9-40 pax;M;;;
 D95;DC95;Douglas;Douglas DC-9-50 pax;M;;;
 D9C;DC93;Douglas;Douglas DC-9-30 Freighter;M;;;
 D9F;DC94;Douglas;Douglas DC-9-40 Freighter;M;;;
-D9F;n/a;Douglas;Douglas DC-9 all Freighters;M;;;
 D9X;DC91;Douglas;Douglas DC-9-10 Freighter;M;;;
 DC3;DC3;Douglas;Douglas DC-3 pax;M;;;
 DC6;DC6;Douglas;Douglas DC6A/B pax;M;;;
@@ -229,7 +228,6 @@ E90;E190;Embraer;Embraer 190;M;;94;6
 EM2;E120;Embraer;Embraer EMB.120 Brasilia;L;;33;6
 EMB;E110;Embraer;Embraer EMB.110 Bandeirnate;M;;25;6
 EMJ;;Embraer;Embraer 170/190;M;;;
-ER3;E135;Embraer;Embraer RJ135;M;;40;4
 ER3;E135;Embraer;Embraer Legacy 600/650;L;;13;0
 ER4;E145;Embraer;Embraer RJ145 Amazon;M;;50;5
 ERD;;Embraer;Embraer RJ140;M;;;

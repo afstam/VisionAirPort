@@ -66,7 +66,7 @@ Vrachtvluchten
 
  - Vrachtvluchten werken in zekere zin ook met 'routes': één specifiek vliegtuig
    wordt toegewezen aan één specifieke bestemming en vliegt nooit naar of van een
-   ander vliegveld. Hier wordt ook een vaste tijd aan gekoppeld.
+   ander vliegveld. De tijd waarop het vliegt is wel elke dag anders.
  - Welke vrachtvluchten wanneer plaatsvinden (en hoe vaak) is volledig willekeurig.
  - Per dag worden er tussen de 8 en 17 vrachtvluchten gevlogen.
  - Vrachtvluchten hebben een vluchtnummer dat bestaat uit de 3-letterige airlinecode

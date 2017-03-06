@@ -38,6 +38,23 @@ onesample <- function(x) {
   if (length(x) == 1) { return(x) } else { return(sample(x,1)) }
 }
 
+# toampm: integer vector -> string vector
+# vertaalt de tijd in dag-minuten (0 tot 1439) in een AM/PM formaat
+toampm <- function(v) {
+  r <- rep(NA, length(v))
+  uur <- v %/% 60
+  pm <- uur %in% 12:23
+  am <- uur %in% 0:11
+  uur <- uur %% 12
+  uur[uur == 0] <- 12
+  min <- paste0("0",v %% 60)
+  min <- substr(min, nchar(min)-1, nchar(min))
+  r[am] <- paste0(uur[am],":",min[am]," AM")
+  r[pm] <- paste0(uur[pm],":", min[pm]," PM")
+  r <- factor(r)
+  return(r)
+}
+
 
 
 # Data inlezen ######################################################################################
@@ -46,6 +63,7 @@ onesample <- function(x) {
 banen <- read.csv2("data_banen.csv")
 general <- read.csv2("data_general.csv")
 luchthaven <- read.csv2("data_luchthavens.csv")
+maatschappijen <- read.csv2("data_maatschappijen.csv")
 routes <- read.csv2("data_routes.csv")
 vliegtuigtype <- read.csv2("data_vliegtuigen.csv")
 vracht <- read.csv2("data_vracht.csv")
@@ -66,7 +84,7 @@ gatelvls <- c(levels(routes$Plangate),"C8")
 terminallvls <- c(levels(routes$Planterminal), "F", "G")
 richtinglvls <- c("A","D","S")
 luchthavens <- c(levels(luchthaven$Luchthavencode),"VAP")
-airlines <- unique(c(levels(routes$Airlinecode), levels(vracht$Airlinecode)))
+airlines <- unique(c(levels(maatschappijen$IATA), levels(maatschappijen$ICAO)))
 
 # Airlines voor wie VisionAirPort een hub is
 home <- c("KL","HV","OR","CAI","MPH")
@@ -113,7 +131,7 @@ rm(sub)
 # Vliegtuig combineert de airlinecode daarmee als identificatie voor later
 routes <- mutate(routes,
                  Basisnr = Vluchtnr,
-                 Vliegtuigcode = paste0(Airlinecode, Basisnr))
+                 Vliegtuigcode = paste0("V", Airlinecode, Basisnr))
 
 # Sla alle vliegtuigen op
 vliegtuigcodes <- unique(routes$Vliegtuigcode)
@@ -136,6 +154,8 @@ routes$Vluchtnr[!(routes$Airlinecode %in% home)] <- routes$Vluchtnr[!(routes$Air
 aantalzomer <- nrow(filter(routes, Periode == "z"))
 routes <- mutate(routes, start = 1, eind = 12)
 routes[routes$Periode == "z", c("start","eind")] <- c(sample(c(4,5,6),aantalzomer,replace=T),sample(c(8,9,10),aantalzomer,replace=T))
+
+rm(aantalzomer)
 
 
 
@@ -466,14 +486,16 @@ rm(planuur)
 
 
 
-# Vluchtnummers voor vrachtvluchten ############################################################################
+# Vliegtuigcodes & vluchtnummers voor vrachtvluchten ############################################################################
 
 vracht <- rbind(vracht,vracht,vracht)
 vracht <- mutate(vracht, 
                  Vliegtuigcode = sample(2501:4990,nrow(vracht)) * 2 + as.integer(Airlinecode %in% home),
                  VluchtnrA = Vliegtuigcode - 1,
                  VluchtnrD = Vliegtuigcode)
-for (i in 4:6) {
+
+vracht[,4] <- paste0("V", vracht$Airlinecode, vracht[,4])
+for (i in 5:6) {
   vracht[,i] <- paste0(vracht$Airlinecode, vracht[,i])
 }
 
@@ -493,34 +515,33 @@ general$Locatie[sel] <- sample(luchthavens.eur,sum(sel),replace=T)
 
 general <- data.frame(general[order(runif(nrow(general))),])
 rownames(general) <- NULL
-general$Vliegtuigcode <- paste0("GA",rownames(general))
+general$Vliegtuigcode <- paste0("VG",rownames(general))
 
 
 
-
-
-
-
-# Simulatie ######################################################################################
-
-# De dagen waarvoor de simulatie draait
-simdagen <- sort(sample(731:1095,30))
-
-# Zet willekeurig 36 vliegtuigen op non-actief
-inactief <- routes$Vliegtuigcode[sample(1:nrow(routes),36)]
-planning$Actief <- !(planning$Vliegtuigcode %in% inactief)
 
 # Alle vliegtuigen
 vliegtuig.pax <- planning %>%
   dplyr::group_by(Vliegtuigcode) %>%
   dplyr::arrange(Plantijd) %>%
   dplyr::summarize(freq = n(),
-            ri = first(Richting),
-            type = first(Vliegtuigtype)) %>%
+                   ri = first(Richting),
+                   type = first(Vliegtuigtype)) %>%
   merge(vliegtuigtype, by.x = "type", by.y="IATA", all.x = TRUE)
 
 vliegtuig.vracht <- vracht %>%
   merge(vliegtuigtype, by.x = "Vliegtuigtype", by.y = "IATA", all.x = TRUE)
+
+
+
+# Simulatie ######################################################################################
+
+# De dagen waarvoor de simulatie draait
+simdagen <- 1:nrow(weer)
+
+# Zet willekeurig 39 vliegtuigen op non-actief
+inactief <- routes$Vliegtuigcode[sample(1:nrow(routes),39)]
+planning$Actief <- !(planning$Vliegtuigcode %in% inactief)
 
 # Tabellen
 vars.simtabel <- c("Datum","Vluchtnr","Richting","Airlinecode","Destcode","Continent","Zomerdrukte","Vliegtuigcode","Vliegtuigtype","Planterminal","Plangate","Terminal","Gate","Plantijd","Vertraging","Tijd","Baan","Bezetting","Capaciteit","Passagiers","MaxVracht","Vracht","Cancelled")
@@ -754,6 +775,7 @@ for(i in simdagen) {
     Vliegtuigtype = vracht[vr,3],
     Vluchtnr = vracht[vr,5],
     Richting = rep("A",length(vr)),
+    Planterminal = "F",
     Terminal = "F",
     Tijd = vracht[vr,7],
     Dag = rep(dag, length(vr)),
@@ -810,6 +832,7 @@ for(i in simdagen) {
   vr <- sample(1:nrow(general), onesample(3:16))
   
   sub.general <- data.frame(
+    Airlinecode = rep("-",length(vr)),
     Vliegtuigcode = general[vr,3],
     Destcode = general[vr,2],
     Vliegtuigtype = general[vr,1],
@@ -843,13 +866,54 @@ for(i in simdagen) {
   sim <- rbind(sim, sub.planning[,vars.simtabel])
   print(paste0("Simulatie afgerond van ",sub.weer$Dag," ",funmaand(sub.weer$Maand)," ",sub.weer$Jaar,". Aantal gatewissels: ",wissels))
 }
-rm(sub.planning,sub.vracht,sub.weer,dag,i,slechtzicht,windstoot,winduren,zichturen,a,a.baan,actief,arr,bezet,continentaal,d,d_row,dub,inactief,j,k,rows,sel,simdagen,v.continent,v.random,v.weer,wissels)
+rm(sub.planning,sub.general,sub.vracht,sub.weer,beschikbaar,dag,i,slechtzicht,windstoot,winduren,zichturen,a,a.baan,actief,arr,bezet,cancelled,continentaal,d,d.baan,d_row,dub,gate,gates,inactief,j,k,rows,sel,simdagen,v.continent,v.random,v.weer,vr,wissels)
 
-sim$Vluchtid <- as.integer(rownames(sim)) + 1959632
+
 sim$Gatewissel <- sim$Plangate != sim$Gate & !is.na(sim$Gate)
 sim$Type <- "R"
 sim$Type[!is.na(sim$Vracht)] <- "F"
-sim$Type[sim$Terminal == "G"] <- "GA"
+sim$Type[sim$Terminal == "G"] <- "G"
+
+# Easter Eggs  ############################################################################
+
+ns <- data.frame(
+  Datum = weer$Datum[weer$Dag == 1 & weer$Maand == 4],
+  Vluchtnr = "NS001",
+  Airlinecode = "NS",
+  Destcode = "AMS",
+  Vliegtuigcode = "TNS001",
+  Vliegtuigtype = "TRN",
+  Type = "E",
+  Gatewissel = F,
+  Tijd = 781,
+  Cancelled = 0
+)
+eek <- data.frame(
+  Datum = weer$Datum[weer$Dag == 31 & weer$Maand == 10],
+  Vluchtnr = "WF4141",
+  Airlinecode = "WF",
+  Destcode = "BOO",
+  Vliegtuigcode = "VWF707",
+  Vliegtuigtype = "DH4",
+  Capaciteit = 70,
+  Bezetting = 100,
+  Passagiers = 70,
+  MaxVracht = 1,
+  Type = "E",
+  Gatewissel = F,
+  Richting = c("A","D"),
+  Tijd = 427,
+  Cancelled = 0
+)
+
+sim <- rbind.fill(sim, ns, eek)
+rm(ns,eek)
+
+# Cleanup  ############################################################################
+sim <- arrange(sim, Datum, Tijd)
+rownames(sim) <- NULL
+sim$Vluchtid <- as.integer(rownames(sim)) + 935991
+
 sim <- mutate(sim,
               Vluchtnr = factor(Vluchtnr),
               Richting = factor(Richting),
@@ -857,47 +921,6 @@ sim <- mutate(sim,
               Vliegtuigcode = factor(Vliegtuigcode),
               Terminal = factor(Terminal),
               Type = factor(Type))
-
-
-
-
-
-
-plot(density(sim$Vertraging, adjust=.75, na.rm = T))
-
-summ <- sim %>%
-  dplyr::group_by(Datum) %>%
-  dplyr::summarise(vertraging = mean(Vertraging,na.rm=T), 
-                   gatewissels = sum(as.integer(Gatewissel)),
-                   gatewisselperc = sum(as.integer(Gatewissel))/n(),
-                   vluchten = n(),
-                   cancels = sum(Cancelled)) %>%
-  merge(weer, by = "Datum") %>%
-  filter(vluchten > 10)
-
-maand <- summ %>%
-  dplyr::group_by(Maand) %>%
-  dplyr::summarise(vorst = sum(vorst),
-                   vertraging = mean(vertraging,na.rm=T),
-                   gatewissels = sum(gatewissels),
-                   vluchten = sum(vluchten),
-                   cancels = sum(cancels))
-
-model <- lm(vertraging ~ vluchten + gatewissels + FXX + FG + VVN + VVX + nat + vorst + sneeuw + RH, data = summ)
-summary(model)
-
-plottabel <- sim
-plottabel$Datum <- as.factor(plottabel$Datum)
-plottabel$continentaal <- plottabel$Planterminal %in% c("D","E")
-
-ggplot(plottabel, aes(x=Vertraging, fill = Gatewissel)) + geom_density(alpha = .5, size=0) + facet_wrap(~continentaal,nrow=5)
-
-plot(summ$FG, summ$vertraging)
-plot(summ$FXX, summ$vertraging)
-plot(summ$vorst, summ$vertraging)
-plot(summ$sneeuw, summ$vertraging)
-plot(summ$RH, summ$vertraging)
-plot(summ$TG, summ$vertraging)
 
 
 
@@ -916,8 +939,8 @@ klant <- mutate(klant,
                 Tijd = (Datum - ymd(20160101)) / ddays(1))
 
 # Selecteer 3000 vluchten uit deze dataset
-sample <- createDataPartition(y = (klant$Tijd %/% 160), p = 3000/nrow(klant), list=F)
-klant <- klant[sample,]
+onderzoek <- createDataPartition(y = (klant$Tijd %/% 160), p = 3000/nrow(klant), list=F)
+klant <- klant[onderzoek,]
 
 # Operatie
 # Hoe hoger de bezetting, hoe lager de score (tot een max van -0.5)
@@ -957,5 +980,87 @@ klant <- mutate(klant,
                 Shops = pmin(round(Shops, digits = 1),10),
                 Operatie = pmin(round(Operatie, digits = 1),10))
 
+rm(onderzoek)
+
+
+
+# Export  ############################################################################
+
 # Selecteer variabelen voor export
-klant.export <- select(klant, Vluchtid, Operatie, Faciliteiten, Shops)
+planning.export <- sim %>%
+  select(Vluchtnr, Airlinecode, Destcode, Planterminal, Plangate, Plantijd) %>%
+  unique() %>%
+  filter(!is.na(Vluchtnr)) %>%
+  arrange(Vluchtnr) %>%
+  mutate(Plantijd = toampm(Plantijd))
+
+vliegtuig.export <- sim %>%
+  select(Airlinecode, Vliegtuigcode, Vliegtuigtype) %>%
+  unique()
+vliegtuig.export$Bouwjaar = sample(1970:2013, nrow(vliegtuig.export), replace=T)
+
+vertrek.export <- sim %>%
+  filter(Richting == "D") %>%
+  select(Vluchtid, Vliegtuigcode, Terminal, Gate, Baan, Bezetting, Vracht, Tijd, Datum)
+vertrek.export$Vertrektijd <- vertrek.export$Datum + minutes(vertrek.export$Tijd) + seconds(sample(0:59, nrow(vertrek.export), replace=T))
+vertrek.export <- vertrek.export %>%
+  select(-Datum, -Tijd)
+
+aankomst.export <- sim %>%
+  filter(Richting == "A") %>%
+  select(Vluchtid, Vliegtuigcode, Terminal, Gate, Baan, Bezetting, Vracht, Tijd, Datum)
+aankomst.export$Aankomsttijd <- aankomst.export$Datum + minutes(aankomst.export$Tijd) + seconds(sample(0:59, nrow(aankomst.export), replace=T))
+aankomst.export <- aankomst.export %>%
+  select(-Datum, -Tijd)
+
+vlucht.export <- sim %>%
+  select(Vluchtid, Vluchtnr, Airlinecode, Destcode, Vliegtuigcode)
+
+klant.export <- klant %>%
+  select(Vluchtid, Operatie, Faciliteiten, Shops)
+
+write.csv2(planning.export, file="export_planning.csv", row.names=F, na="")
+write.csv2(vliegtuig.export, file="export_vliegtuig.csv", row.names=F, na="/N")
+write.csv2(vertrek.export, file="export_vertrek.csv", row.names=F, na="")
+write.csv2(aankomst.export, file="export_aankomst.csv", row.names=F, na="")
+write.csv2(vlucht.export, file="export_vlucht.csv", row.names=F, na="")
+write.csv2(klant.export, file="export_klant.csv", row.names=F, na="")
+
+
+
+# Summary & Plots  ############################################################################
+plot(density(sim$Vertraging, adjust=.75, na.rm = T))
+
+summ <- sim %>%
+  dplyr::group_by(Datum) %>%
+  dplyr::summarise(vertraging = mean(Vertraging,na.rm=T), 
+                   gatewissels = sum(as.integer(Gatewissel)),
+                   gatewisselperc = sum(as.integer(Gatewissel))/n(),
+                   vluchten = n(),
+                   cancels = sum(Cancelled)) %>%
+  merge(weer, by = "Datum") %>%
+  filter(vluchten > 10)
+
+maand <- summ %>%
+  dplyr::group_by(Maand) %>%
+  dplyr::summarise(vorst = sum(vorst),
+                   vertraging = mean(vertraging,na.rm=T),
+                   gatewissels = sum(gatewissels),
+                   vluchten = sum(vluchten),
+                   cancels = sum(cancels))
+
+model <- lm(vertraging ~ vluchten + gatewissels + FXX + FG + VVN + VVX + nat + vorst + sneeuw + RH, data = summ)
+summary(model)
+
+plottabel <- sim
+plottabel$Datum <- as.factor(plottabel$Datum)
+plottabel$continentaal <- plottabel$Planterminal %in% c("D","E")
+
+ggplot(plottabel, aes(x=Vertraging, fill = Gatewissel)) + geom_density(alpha = .5, size=0) + facet_wrap(~continentaal,nrow=5)
+
+plot(summ$FG, summ$vertraging)
+plot(summ$FXX, summ$vertraging)
+plot(summ$vorst, summ$vertraging)
+plot(summ$sneeuw, summ$vertraging)
+plot(summ$RH, summ$vertraging)
+plot(summ$TG, summ$vertraging)
