@@ -1,0 +1,328 @@
+IATA;ICAO;Merk;Type;Wake;Cat;Capaciteit;Vracht
+100;F100;Fokker;Fokker 100;M;Pax;100;2
+141;B461;British Aerospace;BAe 146-100 Pax;M;Pax;105;5
+142;B462;British Aerospace;BAe 146-200 Pax;M;Pax;115;5
+143;B463;British Aerospace;BAe 146-300 Pax;M;Pax;130;5
+146;;British Aerospace;BAe 146 all pax models;M;Pax;;
+310;A310;Airbus;Airbus A310 all pax models;H;Pax;250;5
+312;A310;Airbus;Airbus A310-200 pax;H;Pax;250;5
+313;A310;Airbus;Airbus A310-300 pax;H;Pax;250;5
+318;A318;Airbus;Airbus A318;M;Pax;105;8
+319;A319;Airbus;Airbus A319;M;Pax;125;8
+320;A320;Airbus;Airbus A320-100/200;M;Pax;150;8
+321;A321;Airbus;Airbus A321-100/200;M;Pax;185;8
+330;A330;Airbus;Airbus A330 all models;H;Pax;250;8
+332;A332;Airbus;Airbus A330-200;H;Pax;246;8
+333;A333;Airbus;Airbus A330-300;H;Pax;300;8
+340;A340;Airbus;Airbus A340 all models;H;Pax;310;8
+342;A342;Airbus;Airbus A340-200;H;Pax;310;8
+343;A343;Airbus;Airbus A340-300;H;Pax;340;8
+345;A345;Airbus;Airbus A340-500;H;Pax;340;8
+346;A346;Airbus;Airbus A340-600;H;Pax;340;8
+380;A388;Airbus;Airbus A380 pax;H;Pax;880;15
+703;B703;Boeing;Boeing 707-300 pax;H;Pax;;
+707;n/a;Boeing;Boeing 707/720 all pax models;H;Pax;;
+717;B712;Boeing;Boeing 717;M;Pax;135;5
+721;B721;Boeing;Boeing 727-100 pax;M;Pax;;
+722;B722;Boeing;Boeing 727-200 pax;M;Pax;;
+727;n/a;Boeing;Boeing 727 all pax models;M;Pax;;
+731;B731;Boeing;Boeing 737-100 pax;M;Pax;;
+732;B732;Boeing;Boeing 737-200 pax;M;Pax;;
+733;B733;Boeing;Boeing 737-300 pax;M;Pax;150;8
+734;B734;Boeing;Boeing 737-400 pax;M;Pax;175;8
+735;B735;Boeing;Boeing 737-500 pax;M;Pax;110;8
+736;B736;Boeing;Boeing 737-600 pax;M;Pax;110;8
+737;n/a;Boeing;Boeing 737 all pax models;M;Pax;;
+738;B738;Boeing;Boeing 737-800 pax;M;Pax;180;8
+739;B739;Boeing;Boeing 737-900 pax;M;Pax;240;5
+741;B741;Boeing;Boeing 747-100 pax;H;Pax;;
+742;B742;Boeing;Boeing 747-200 pax;H;Pax;;
+743;B743;Boeing;Boeing 747-300 pax;H;Pax;;
+744;B744;Boeing;Boeing 747-400 pax;H;Pax;416;5
+747;n/a;Boeing;Boeing 747 all pax models;H;Pax;;
+752;B752;Boeing;Boeing 757-200 pax;H;Pax;200;
+753;B753;Boeing;Boeing 757-300 pax;H;Pax;220;5
+757;n/a;Boeing;Boeing 757 all pax models;H;Pax;;
+762;B762;Boeing;Boeing 767-200 pax;H;Pax;200;8
+763;B763;Boeing;Boeing 767-300 pax;H;Pax;250;8
+764;B764;Boeing;Boeing 767-400 pax;H;Pax;275;8
+767;n/a;Boeing;Boeing 767 all pax models;H;Pax;;
+772;B772;Boeing;Boeing 777-200 pax;H;Pax;320;8
+773;B773;Boeing;Boeing 777-300 pax;H;Pax;350;8
+777;n/a;Boeing;Boeing 777 all pax models;H;Pax;;
+14F;;British Aerospace;BAe 146 Freighter (-100/200/300QT & QC);M;Pax;;
+14X;B461;British Aerospace;BAe 146 Freighter (-100QT & QC);M;Pax;;
+14Y;B462;British Aerospace;BAe 146 Freighter (-200QT & QC);M;Pax;;
+14Z;B463;British Aerospace;BAe 146 Freighter (-200QT & QC);M;Pax;;
+31F;A31F;Airbus;Airbus A310 Freighter;M;Freighter;0;35
+31X;A31F;Airbus;Airbus A310-200 Freighter;M;Freighter;0;35
+31Y;A31F;Airbus;Airbus A310-300 Freighter;M;Freighter;0;35
+32S;n/a;Airbus;Airbus A318/319/320/321;M;Pax;180;8
+33F;A33F;Airbus;Airbus A330-200 Freighter;H;Freighter;0;70
+351;A351;Airbus;Airbus A350-1000;H;Pax;366;8
+359;A359;Airbus;Airbus A350-900;H;Pax;325;8
+38F;;Airbus;Airbus A380 Freighter;H;Freighter;;
+70F;B703;Boeing;Boeing 707 Freighter;H;Freighter;;
+70M;B703;Boeing;Boeing 707 Combi;H;Combi;;
+72B;B721;Boeing;Boeing 727-100 Mixed Configuration;M;Mixed;;
+72C;B722;Boeing;Boeing 727-200 Mixed Configuration;M;Mixed;;
+72F;n/a;Boeing;Boeing 727 Freighter (-100/200);M;Freighter;;
+72M;n/a;Boeing;Boeing 727 Combi;M;Combi;;
+72S;B722;Boeing;Boeing 727-200 Advanced pax;M;Pax;;
+72X;B721;Boeing;Boeing 727-100 Freighter;M;Freighter;;
+72Y;B722;Boeing;Boeing 727-200 Freighter;M;Freighter;;
+73F;n/a;Boeing;Boeing 737 all Freighter models;M;Freighter;;
+73G;B737;Boeing;Boeing 737-700 pax;M;Pax;150;8
+73H;B738;Boeing;Boeing 737-800 (winglets) pax;M;Pax;180;5
+73M;B732;Boeing;Boeing 737-200 Combi;M;Combi;;
+73W;B737;Boeing;Boeing 737-700 (winglets) pax;M;Pax;;
+73X;B732;Boeing;Boeing 737-200 Freighter;M;Freighter;;
+73Y;B733;Boeing;Boeing 737-300 Freighter;M;Freighter;;
+74C;B742;Boeing;Boeing 747-200 Combi;H;Combi;;
+74D;B743;Boeing;Boeing 747-300 Combi;H;Combi;;
+74E;B744;Boeing;Boeing 747-400 Combi;H;Pax;225;14
+74F;n/a;Boeing;Boeing 747 all Freighter models;H;Freighter;;
+74J;B744;Boeing;Boeing 747-400 (Domestic) pax;H;Pax;;
+74L;N74S;Boeing;Boeing 747SP;H;Pax;300;
+74M;n/a;Boeing;Boeing 747 all Combi models;H;Combi;;
+74R;B74R;Boeing;Boeing 747SR pax;H;Pax;;
+74T;B741;Boeing;Boeing 747-100 Freighter;H;Freighter;;
+74U;B743;Boeing;Boeing 747-300 / 747-200 SUD Freighter;H;Freighter;;
+74V;B74R;Boeing;Boeing 747SR Freighter;H;Freighter;;
+74X;B742;Boeing;Boeing 747-200 Freighter;H;Freighter;0;36
+74Y;B744;Boeing;Boeing 747-400 Freighter;H;Freighter;0;60
+75F;B752;Boeing;Boeing 757-200 Freighter;H;Freighter;0;45
+75M;B752;Boeing;Boeing 757 Mixed Configuration;H;Mixed;;
+76F;n/a;Boeing;Boeing 767 all Freighter models;H;Freighter;0;38
+76X;B762;Boeing;Boeing 767-200 Freighter;H;Freighter;;
+76Y;B763;Boeing;Boeing 767-300 Freighter;H;Freighter;;
+77F;B772;Boeing;Boeing 777-200 Freighter;H;Freighter;0;40
+A26;AN26;Antonov;Antonov AN-26;L;Light;;
+A28;AN28;Antonov;Antonov AN-28 / PZL Miele M-28 Skytruck;L;Light;;
+A30;AN30;Antonov;Antonov AN-30;L;Light;;
+A32;AN32;Antonov;Antonov AN-32;L;Light;;
+A40;A140;Antonov;Antonov AN-140;M;;;
+A4F;A124;Antonov;Antonov AN-124 Ruslan;H;;;
+AB3;A30B;Airbus;Airbus Industrie A300 pax;H;Pax;275;5
+AB4;A30B;Airbus;Airbus Industrie A300B2/B4/C4 pax;H;Pax;275;5
+AB6;A306;Airbus;Airbus Industrie A300-600 pax;H;Pax;275;5
+ABB;A3ST;Airbus;Airbus Industrie A300-600ST Beluga Freighter;H;Freighter;;
+ABF;A30B;Airbus;Airbus Industrie A300 Freighter;H;Freighter;0;40
+ABX;A30B;Airbus;Airbus Industrie A300C4/F4 Freighter;H;Freighter;0;40
+ABY;A306;Airbus;Airbus Industrie A600-600 Freighter;H;Freighter;0;38
+ACD;n/a;Gulfstream;Gulfstream/Rockwell (Aero) Commander/Turbo Commander;L;Light;;
+ACP;AC68;Gulfstream;Gulfstream/Rockwell (Aero) Commander;L;Light;3;0
+ACT;AC90;Gulfstream;Gulfstream/Rockwell (Aero) Turbo Commander;L;Light;;
+ALM;LOAD;Ayres;Ayres LM-200 Loadmaster;M;;;
+AN4;AN24;Antonov;Antonov AN-24;M;;;
+AN6;n/a;Antonov;Antonov AN-26 / AN-30 /AN-32;M;;;
+AN7;AN72;Antonov;Antonov AN-72 / AN-74;M;;;
+ANF;AN12;Antonov;Antonov AN-12;M;;;
+APH;n/a;Aerospatiale;Eurocopter (Aerospatiale) SA330 Puma / AS332 Super Puma;n/a;Helicopter;;
+AR1;RJ1H;Avro;Avro RJ100 Avroliner;M;;;
+AR7;RJ70;Avro;Avro RJ70 Avroliner;M;;;
+AR8;RJ85;Avro;Avro RJ85 Avroliner;M;;;
+ARJ;n/a;Avro;Avro RJ70 / RJ85 / RJ100 Avroliner;M;;;
+ARX;n/a;Avro;Avro RJX85 / RJX100;M;;;
+AT4;AT43;Aerospatiale;Aerospatiale/Alenia ATR 42-300 / 320;M;;;
+AT5;AT45;Aerospatiale;Aerospatiale/Alenia ATR 42-500;M;;;
+AT7;AT72;Aerospatiale;Aerospatiale/Alenia ATR 72;M;Pax;72;5
+ATP;ATP;British Aerospace;British Aerospace ATP;M;Pax;;
+ATR;n/a;Aerospatiale;Aerospatiale/Alenia ATR 42/ ATR 72;M;Pax;42;5
+AX1;RX1H;Avro;Avro RJX100;M;;;
+AX8;RX85;Avro;Avro RJX85;M;;;
+B11;BA11;British Aerospace;British Aerospace (BAC) One Eleven / RomBAC One Eleven;M;Pax;;
+B12;BA11;British Aerospace;British Aerospace (BAC) One Eleven 200;M;Pax;;
+B13;BA11;British Aerospace;British Aerospace (BAC) One Eleven 300;M;Pax;;
+B14;BA11;British Aerospace;British Aerospace (BAC) One Eleven 400/475;M;Pax;;
+B15;BA11;British Aerospace;British Aerospace (BAC) One Eleven 500 / RomBAC One Eleven;M;Pax;;
+B72;B720;Boeing;Boeing 720B pax;M;Pax;;
+BE1;B190;Beechcraft ;Beechcraft 1900/1900C/1900D;M;Light;;
+BE2;n/a;Beechcraft ;Beechcraft twin piston engines;L;Light;;
+BEC;n/a;Beechcraft ;Beechcraft light aircraft;L;Light;;
+BEH;B190;Beechcraft ;Beechcraft 1900D;M;Light;18;0
+BEP;n/a;Beechcraft ;Beechcraft light aircraft - single engine;L;Light;;
+BES;B190;Beechcraft ;Beechcfrat 1900/1900C;M;Light;;
+BET;n/a;Beechcraft ;Beechcraft King Air;L;Light;8;0
+BH2;n/a;Bell;Bell Helicopters;n/a;Helicopter;;
+BNI;BN2P;Pilatus;Pilatus Britten-Norman BN-2A/B Islander;L;Light;;
+BNT;TRIS;Pilatus;Pilatus Britten-Norman BN-2A Mk III Trislander;L;Light;;
+BUS;n/a;;Bus;n/a;;;
+CCJ;CL60;Bombardier;Canadair Challenger;M;Pax;12;0
+CCX;GLEX;Bombardier;Canadair Global Express;M;Pax;14;0
+CD2;NOMA;Bombardier;Government Aircraft Factories N22B / N24A Nomad;L;Light;;
+CL4;CL44;Bombardier;Canadair CL-44;M;Pax;;
+CN1;n/a;Cessna;Cessna light aircraft - single piston engine;L;Light;9;0
+CN2;n/a;Cessna;Cessna light aircraft - twin piston engines;L;Light;9;0
+CNA;n/a;Cessna;Cessna light aircraft;L;Light;9;0
+CNC;n/a;Cessna;Cessna light aircraft - single turboprop engine;L;Light;9;0
+CNJ;n/a;Cessna;Cessna Citation;L;Light;9;0
+CNT;n/a;Cessna;Cessna light aircraft - twin turboprop engines;L;Light;9;0
+CR1;CRJ1;Bombardier;Canadair Regional Jet 100;M;Pax;50;3
+CR2;CRJ2;Bombardier;Canadair Regional Jet 200;M;Pax;;
+CR7;CRJ7;Bombardier;Canadair Regional Jet 700;M;Pax;86;5
+CR9;CRJ9;Bombardier;Canadair Regional Jet 900;M;Pax;50;2
+CRJ;n/a;Bombardier;Canadair Regional Jet;M;Pax;50;7
+CRV;S210;Aerospatiale;Aerospatiale (Sud Aviation) Se.210 Caravelle;M;;;
+CS2;C212;CASA;CASA / IPTN 212 Aviocar;M;;;
+CS5;CN35;CASA;CASA / IPTN CN-235;M;;;
+CV4;CVLP;Convair;Convair CV-440 Metropolitan pax;M;Pax;;
+CV5;CVLT;Convair;Convair CV-580 pax;M;Pax;;
+CVF;n/a;Convair;Convair CV-240 / 440 / 580 / 600 / 640 Freighter;M;Freighter;;
+CVR;n/a;Convair;Convair CV-240 / 440 / 580 / 600 / 640 pax;M;Pax;;
+CVV;CVLP;Convair;Convair CV-240 Freighter;M;Freighter;;
+CVX;CVLP;Convair;Convair CV-440 Freighter;M;Freighter;;
+CVY;CVLT;Convair;Convair CV-580 / 600 / 640 Freighter;M;Freighter;;
+CWC;C46;Curtiss;Curtiss C-46 Commando;M;;;
+D10;DC10;Douglas;Douglas DC-10 pax;H;Pax;;
+D11;DC10;Douglas;Douglas DC-10-10/15 pax;H;Pax;280;8
+D1C;DC10;Douglas;Douglas DC-10-30/40 pax;H;Pax;300;8
+D1F;DC10;Douglas;Douglas DC-10 all Freighters;H;Freighter;0;30
+D1M;DC10;Douglas;Douglas DC-10 all Combi models;H;Pax;100;13
+D1X;DC10;Douglas;Douglas DC-10-10 Freighter;H;Freighter;;
+D1Y;DC10;Douglas;Douglas DC-10-30 / 40 Freighters;H;Freighter;;
+D28;D228;Fairchild;Fairchild Dornier Do.228;L;Light;30;8
+D38;D328;Fairchild;Fairchild Dornier Do.328;M;Pax;;
+D3F;DC3;Douglas;Douglas DC-3 Freighter;M;Freighter;;
+D6F;DC6;Douglas;Douglas DC-6A/B/C Freighter;M;Freighter;;
+D8F;n/a;Douglas;Douglas DC-8 all Freighters;H;Freighter;;
+D8L;DC86;Douglas;Douglas DC-8-62 pax;H;Pax;;
+D8M;n/a;Douglas;Douglas DC-8 all Combi models;H;Combi;;
+D8Q;DC87;Douglas;Douglas DC-8-72 pax;H;Pax;;
+D8T;DC85;Douglas;Douglas DC-8-50 Freighter;H;Freighter;;
+D8X;n/a;Douglas;Douglas DC-8-61 / 62 / 63 Freighters;H;Freighter;;
+D8Y;DC87;Douglas;Douglas DC-8-71 / 72 / 73 Freighters;H;Freighter;;
+D91;DC91;Douglas;Douglas DC-9-10 pax;M;Pax;;
+D92;DC92;Douglas;Douglas DC-9-20 pax;M;Pax;;
+D93;DC93;Douglas;Douglas DC-9-30 pax;M;Pax;;
+D94;DC94;Douglas;Douglas DC-9-40 pax;M;Pax;;
+D95;DC95;Douglas;Douglas DC-9-50 pax;M;Pax;;
+D9C;DC93;Douglas;Douglas DC-9-30 Freighter;M;Freighter;;
+D9F;DC94;Douglas;Douglas DC-9-40 Freighter;M;Freighter;;
+D9X;DC91;Douglas;Douglas DC-9-10 Freighter;M;Freighter;;
+DC3;DC3;Douglas;Douglas DC-3 pax;M;Pax;;
+DC6;DC6;Douglas;Douglas DC6A/B pax;M;Pax;;
+DC8;n/a;Douglas;Douglas DC-8 all pax models;H;Pax;;
+DC9;DC9;Douglas;Douglas DC-9 all pax models;M;Pax;;
+DF2;n/a;Dassault;Dassault (Breguet Mystere) Falcon 10 / 100 / 20 / 200 / 2000;M;Pax;10;0
+DF3;n/a;Dassault;Dassault (Breguet Mystere) Falcon 50 / 900;M;Pax;14;0
+DFL;n/a;Dassault;Dassault (Breguet Mystere) Falcon;M;Pax;;
+DH1;DH8A;De Haviland Canada;De Havilland Canada DHC-8-100 Dash 8 / 8Q;M;Pax;40;1
+DH2;DH8B;De Haviland Canada;De Havilland Canada DHC-8-200 Dash 8 / 8Q;M;Pax;;
+DH3;DH8C;De Haviland Canada;De Havilland Canada DHC-8-300 Dash 8 / 8Q;M;Pax;50;1
+DH4;DH8D;De Haviland Canada;De Havilland Canada DHC-8-400 Dash 8Q;M;Pax;70;1
+DH7;DHC7;De Haviland Canada;De Havilland Canada DHC-7 Dash 7;M;Pax;45;1
+DH8;n/a;De Haviland Canada;De Havilland Canada DHC-8 Dash 8 all models;M;Pax;;
+DHB;n/a;De Haviland Canada;De Havilland Canada DHC-2 Beaver / Turbo Beaver;L;Light;;
+DHC;DHC4;De Haviland Canada;De Havilland Canada DHC-4 Caribou;M;Light;;
+DHD;DOVE;De Haviland Canada;De Havilland DH.104 Dove;L;Light;;
+DHH;HERN;De Haviland Canada;De Havilland DH.114 Heron;L;Light;;
+DHL;DHC3;De Haviland Canada;De Havilland Canada DHC-3 Turbo Otter;L;Light;;
+DHO;DHC3;De Haviland Canada;De Havilland Canada DHC-3 Otter / Turbo Otter;L;Light;;
+DHP;DHC2;De Haviland Canada;De Havilland Canada DHC-2 Beaver;L;Light;;
+DHR;DH2T;De Haviland Canada;De Havilland Canada DHC-2 Turbo-Beaver;L;Light;;
+DHS;DHC3;De Haviland Canada;De Havilland Canada DHC-3 Otter;L;Light;;
+DHT;DHC6;De Haviland Canada;De Havilland Canada DHC-6 Twin Otter;L;Light;;
+E70;E170;Embraer;Embraer 170;M;Pax;70;6
+E90;E190;Embraer;Embraer 190;M;Pax;94;6
+EM2;E120;Embraer;Embraer EMB.120 Brasilia;L;Pax;33;6
+EMB;E110;Embraer;Embraer EMB.110 Bandeirnate;M;Pax;25;6
+EMJ;;Embraer;Embraer 170/190;M;Pax;;
+ER3;E135;Embraer;Embraer Legacy 600/650;L;Light;13;0
+ER4;E145;Embraer;Embraer RJ145 Amazon;M;Pax;50;5
+ERD;;Embraer;Embraer RJ140;M;Pax;;
+ERJ;n/a;Embraer;Embraer RJ135 / RJ140 / RJ145;M;Pax;;
+F21;F28;Fokker;Fokker F.28 Fellowship 1000;M;Pax;;
+F22;F28;Fokker;Fokker F.28 Fellowship 2000;M;Pax;;
+F23;F28;Fokker;Fokker F.28 Fellowship 3000;M;Pax;;
+F24;F28;Fokker;Fokker F.28 Fellowship 4000;M;Pax;;
+F27;F27;Fokker;Fokker F.27 Friendship / Fairchild F.27;M;Pax;;
+F28;F28;Fokker;Fokker F.28 Fellowship;M;Pax;;
+F50;F50;Fokker;Fokker 50;M;Pax;50;2
+F70;F70;Fokker;Fokker 70;M;Pax;70;2
+FA7;n/a;Fairchild;Fairchild Dornier 728JET;M;;;
+FK7;F27;Fairchild;Fairchild FH.227;M;;;
+FRJ;J328;Fairchild;Fairchild Dornier 328JET;M;;;
+GRG;G21;Grumman;Grumman G.21 Goose;L;Light;;
+GRJ;n/a;Gulfstream;Gulfstream Aerospace G-1159 Gulfstream II / III / IV / V;M;Light;16;0
+GRM;G73T;Grumman;Grumman G.73 Turbo Mallard;L;Light;;
+GRS;G159;Gulfstream;Gulfstream Aerospace G-159 Gulfstream I;M;;;
+HEC;COUC;Helio;Helio H-250 Courier / H-295 / 385 Super Courier;L;Light;;
+HOV;n/a;;Hovercraft;n/a;;;
+HS7;A748;Hawker;Hawker Siddeley HS.748;M;Pax;;
+H25;H25B;Hawker;Hawker/Raytheon 700/800/800XP/850/900;L;Light;8;0
+I14;I114;Ilyushin;Ilyushin IL114;M;;;
+I93;IL96;Ilyushin;Ilyushin IL96-300 pax;H;Pax;;
+I9F;IL96;Ilyushin;Ilyushin IL96 Freighters;H;Freighter;;
+I9M;IL96;Ilyushin;Ilyushin IL96M pax;H;Pax;275;5
+I9X;IL96;Ilyushin;Ilyushin IL96-300 Freighter;H;Freighter;;
+I9Y;IL96;Ilyushin;Ilyushin IL96T Freighter;H;Freighter;;
+IL6;IL62;Ilyushin;Ilyushin IL62;H;Pax;180;3
+IL7;IL76;Ilyushin;Ilyushin IL76;H;;0;34
+IL8;IL18;Ilyushin;Ilyushin IL18;M;Pax;250;5
+IL9;IL96;Ilyushin;Ilyushin IL96 pax;H;Pax;;
+ILW;IL86;Ilyushin;Ilyushin IL86;H;;;
+J31;JS31;British Aerospace;British Aerospace Jetstream 31;L;Light;19;0
+J32;JS32;British Aerospace;British Aerospace Jetstream 32;L;Light;;
+J41;JS41;British Aerospace;British Aerospace Jetstream 41;M;Pax;29;0
+JST;n/a;British Aerospace;British Aerospace Jetstream 31 / 32 / 41;L/M;Pax;;
+JU5;JU52;Junkers;Junkers Ju52/3M;M;;;
+L10;L101;Lockheed;Lockheed L-1011 Tristar pax;H;Pax;;
+L11;L101;Lockheed;Lockheed L-1011 1 / 50 / 100 / 150 / 200 / 250 Tristar pax;H;Pax;;
+L15;L101;Lockheed;Lockheed L-1011 500 Tristar pax;H;Pax;;
+L1F;L101;Lockheed;Lockheed L-1011 Tristar Freighter;H;Freighter;;
+L49;CONI;Lockheed;Lockheed L-1049 Super Constellation;M;;;
+L4T;L410;LET;LET 410;L;Light;;
+LCH;n/a;;Launch - Boat;n/a;;;
+LMO;n/a;;Limousine;n/a;;;
+LOE;L188;Lockheed;Lockheed L-188 Electra pax;M;Pax;;
+LOF;L188;Lockheed;Lockheed L-188 Electra Freighter;M;Freighter;;
+LOH;C130;Lockheed;Lockheed L-182 / 282 / 382 (L-100) Hercules;M;;;
+LOM;L188;Lockheed;Lockheed L-188 Electra Mixed Configuration;M;Mixed;;
+LRJ;n/a;Gates;Gates Learjet;M;Pax;7;0
+M11;MD11;McDonnell Douglas;McDonnell Douglas MD11 pax;H;Pax;325;8
+M1F;MD11;McDonnell Douglas;McDonnell Douglas MD11 Freighter;H;Freighter;0;30
+M1M;MD11;McDonnell Douglas;McDonnell Douglas MD11 Mixed Configuration;H;Pax;150;13
+M80;MD80;McDonnell Douglas;McDonnell Douglas MD80;M;Pax;;
+M81;MD81;McDonnell Douglas;McDonnell Douglas MD81;M;Pax;140;8
+M82;MD82;McDonnell Douglas;McDonnell Douglas MD82;M;Pax;150;8
+M83;MD83;McDonnell Douglas;McDonnell Douglas MD83;M;Pax;150;8
+M87;MD87;McDonnell Douglas;McDonnell Douglas MD87;M;Pax;125;8
+M88;MD88;McDonnell Douglas;McDonnell Douglas MD88;M;Pax;150;8
+M90;MD90;McDonnell Douglas;McDonnell Douglas MD90;M;Pax;;
+MBH;B105;Eurocopter;Eurocopter (MBB) Bo.105;n/a;Helicopter;;
+MD9;EXPL;MD;MD Helicopters MD900 Explorer;n/a;Helicopter;;
+MIH;MI8;MIL;MIL Mi-8 / Mi-17 / Mi-171 / Mil-172;n/a;;;
+MU2;MU2;Mitsubishi;Mitsubishi Mu-2;L;Light;;
+ND2;N262;Aerospatiale;Aerospatiale (Nord) 262;M;Pax;;
+NDC;S601;Aerospatiale;Aerospatiale SN.601 Corvette;L;Light;;
+NDE;n/a;Aerospatiale;Eurocopter (Aerospatiale) AS350 Ecureuil / AS355 Ecureuil 2;n/a;Helicopter;;
+NDH;S65C;Aerospatiale;Eurocopter (Aerospatiale) SA365C / SA365N Dauphin 2;n/a;Helicopter;;
+PA1;n/a;;Piper light aircraft - single piston engine;L;Light;;
+PA2;n/a;;Piper light aircraft - twin piston engines;L;Light;;
+PAG;n/a;;Piper light aircraft;L;Light;;
+PAT;n/a;;Piper light aircraft - twin turboprop engines;L;Light;;
+PL2;PC12;Pilatus;Pilatus PC-12;L;Light;9;0
+PL6;PC6T;Pilatus;Pilatus PC-6 Turbo Porter;L;Light;;
+PN6;P68;Partenavia;Partenavia P.68;L;Light;;
+S20;SB20;Saab;Saab 2000;M;Pax;50;2
+S58;S58T;Sikorsky;Sikorsky S-58T;n/a;Helicopter;;
+S61;S61;Sikorsky;Sikorsky S-61;n/a;Helicopter;;
+S76;S76;Sikorsky;Sikorsky S-76;n/a;Helicopter;;
+SF3;SF34;Saab;Saab SF340A/B;M;Pax;34;5
+SH3;SH33;Shorts;Shorts SD.330;M;Pax;;
+SH6;SH36;Shorts;Shorts SD.360;M;Pax;;
+SHB;BELF;Shorts;Shorts SC-5 Belfast;M;Pax;;
+SHS;SC7;Shorts;Shorts SC-7 Skyvan;L;Light;;
+SSC;CONC;British Aerospace;Aerospatiale/BAC Concorde;H;Pax;;
+T20;T204;Tupolev;Tupolev Tu-204 / Tu-214;M;;;
+TRN;n/a;Train;Train;;;;
+TU3;T134;Tupolev;Tupolev Tu134;M;Pax;100;9
+TU5;T154;Tupolev;Tupolev Tu154;M;Pax;180;8
+VCV;VISC;Vickers;Vickers Viscount;M;;;
+WWP;WW24;Israel Aircraft Industries;Israel Aircraft Industries 1124 Westwind;M;;;
+YK2;YK42;Yakovlev;Yakovlev Yak 42;M;Pax;100;2
+YK4;YK40;Yakovlev;Yakovlev Yak 40;M;Pax;80;2
+YN2;Y12;Harbin;Harbin Yunshuji Y12;M;;;
+YN7;AN24;Xi'an;Xian Yunshuji Y7;M;;;
+YS1;YS11;Nihon Aircraft;NAMC YS-11;M;;;
