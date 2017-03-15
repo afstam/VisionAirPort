@@ -24,7 +24,8 @@ CREATE TABLE docenten.Vlucht (
   Vluchtnr      [varchar](max) NULL,
   Airlinecode   [varchar](max) NULL,
   Destcode      [varchar](max) NULL,
-  Vliegtuigcode [varchar](max) NULL
+  Vliegtuigcode [varchar](max) NULL,
+  Datum         [date]         NULL
 )
 GO
 
